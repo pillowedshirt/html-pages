@@ -350,12 +350,56 @@
     margin-bottom: 8px;
     font-size: 1.16rem;
   }
+  .mrm-student-feature{
+    display:grid;
+    grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+    gap:24px;
+    align-items:stretch;
+  }
+  .mrm-student-quote{
+    background:linear-gradient(180deg, #fff, #f8f4eb);
+    border:1px solid var(--mrm-line);
+    border-radius:22px;
+    padding:34px 34px 30px;
+    box-shadow:var(--mrm-shadow);
+    position:relative;
+  }
+  .mrm-student-quote:before{
+    content:"";
+    position:absolute;
+    inset:16px;
+    border:1px solid rgba(142,129,85,.22);
+    border-radius:16px;
+    pointer-events:none;
+  }
+  .mrm-student-quote p{
+    margin:0;
+    font-size:1.18rem;
+    line-height:1.55;
+    color:var(--mrm-text);
+    max-width:30ch;
+    position:relative;
+  }
+  .mrm-student-list{
+    display:grid;
+    gap:12px;
+  }
+  .mrm-student-item{
+    background:#fff;
+    border:1px solid var(--mrm-line);
+    border-radius:16px;
+    padding:18px 18px 16px;
+    box-shadow:var(--mrm-shadow);
+  }
+  .mrm-student-item .mrm-tag{ margin-bottom:8px; }
+  .mrm-student-item p{ margin:0; }
 
   @media (max-width: 1024px) {
     .mrm-pillars,
     .mrm-three-col,
     .mrm-two-col,
-    .mrm-split {
+    .mrm-split,
+    .mrm-student-feature {
       grid-template-columns: 1fr;
       border-radius: 24px;
     }
@@ -440,30 +484,35 @@
         
       </div>
 
-      <div class="mrm-two-col">
-        <div class="mrm-card">
+      <div class="mrm-student-feature">
+        <div class="mrm-student-quote">
+          <p>The curriculum should serve the student’s real musical life, not ignore it.</p>
+        </div>
+        <div class="mrm-student-list">
+          <div class="mrm-student-item">
           <span class="mrm-tag mrm-tag-clay">Audition preparation</span>
           <p>
             Lessons can focus directly on scales, excerpts, sight-reading, accuracy, consistency, and the confidence needed to prepare students for auditions in a thoughtful, realistic way.
           </p>
-        </div>
-        <div class="mrm-card">
+          </div>
+          <div class="mrm-student-item">
           <span class="mrm-tag mrm-tag-clay">School ensemble music</span>
           <p>
             Students often need help turning band music into something more polished and secure. Lessons can support classroom repertoire while building stronger habits at the same time.
           </p>
-        </div>
-        <div class="mrm-card">
+          </div>
+          <div class="mrm-student-item">
           <span class="mrm-tag mrm-tag-clay">Solo and recital materials</span>
           <p>
             When students are preparing solo literature, lessons can address interpretation, technical execution, confidence, and musical maturity with more personal attention.
           </p>
-        </div>
-        <div class="mrm-card">
+          </div>
+          <div class="mrm-student-item">
           <span class="mrm-tag mrm-tag-clay">Individual goals</span>
           <p>
             Some students need help with range, endurance, consistency, or general confidence. The curriculum should stay flexible enough to support those needs directly.
           </p>
+          </div>
         </div>
       </div>
     </div>
