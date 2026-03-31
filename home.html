@@ -1,416 +1,192 @@
-<!-- Low Brass Lessons - Homepage HTML Block (final corrected version) -->
+<!-- Low Brass Lessons - Home Page HTML Block (Redesigned) -->
 <style>
-  .mrm-home-block,
-  .mrm-home-block * {
-    box-sizing: border-box;
+  .mrm-home-redesign, .mrm-home-redesign * { box-sizing:border-box; }
+  .mrm-home-redesign{
+    --bg:#fbf8f2; --bg2:#f6f1e7; --surface:#fff; --text:#171512; --muted:#5f5851;
+    --line:#d9cfbe; --gold:#8e8155; --gold-dark:#6e643f; --gold-soft:#ede5d1;
+    --shadow:0 18px 40px rgba(25,22,18,.07);
+    width:100%; color:var(--text); background:var(--bg); font-family:Georgia,"Times New Roman",serif; line-height:1.65;
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  }
+  .mrm-home-redesign a, .mrm-home-redesign a:hover, .mrm-home-redesign a:focus, .mrm-home-redesign a:visited { text-decoration:none !important; }
+  .mrm-home-shell{ width:min(1160px, calc(100% - 32px)); margin:0 auto; }
+  .mrm-home-section{ padding:82px 0; }
+  .mrm-home-redesign h1,.mrm-home-redesign h2,.mrm-home-redesign h3{ margin:0 0 16px; color:var(--text); line-height:1.06; font-weight:700; }
+  .mrm-home-redesign h1{ font-size:clamp(2.3rem, 5vw, 4.4rem); letter-spacing:-.03em; }
+  .mrm-home-redesign h2{ font-size:clamp(1.9rem, 4vw, 3rem); letter-spacing:-.025em; }
+  .mrm-home-redesign h3{ font-size:clamp(1.08rem, 2vw, 1.45rem); }
+  .mrm-home-redesign p{ margin:0 0 16px; font-size:1.04rem; color:var(--muted); }
+  .mrm-home-kicker{
+    display:inline-flex; align-items:center; gap:10px; padding:8px 14px; border-radius:999px;
+    background:rgba(255,255,255,.78); border:1px solid var(--line); box-shadow:var(--shadow);
+    font:700 .78rem/1 Inter,Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:var(--gold);
+  }
+  .mrm-home-kicker:before{ content:""; width:8px; height:8px; border-radius:50%; background:var(--gold); opacity:.7; }
+  .mrm-home-btn-row{ display:flex; flex-wrap:wrap; gap:14px; margin-top:30px; }
+  .mrm-home-btn{
+    min-height:52px; display:inline-flex; align-items:center; justify-content:center; padding:0 22px; border-radius:999px;
+    border:1px solid transparent; font:700 .95rem Inter,Arial,sans-serif; letter-spacing:.01em; transition:.2s ease;
+  }
+  .mrm-home-btn-primary{ background:var(--gold); color:#fff !important; }
+  .mrm-home-btn-primary:hover{ background:var(--gold-dark); transform:translateY(-1px); }
+  .mrm-home-btn-secondary{ border-color:var(--line); color:var(--text) !important; background:transparent; }
+  .mrm-home-btn-secondary:hover{ border-color:var(--gold); color:var(--gold-dark) !important; }
+
+  .mrm-home-hero{
+    position:relative; overflow:hidden;
+    background:linear-gradient(135deg, rgba(237,229,209,.82), rgba(255,255,255,.65) 46%, rgba(246,241,231,.96));
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .mrm-home-hero:before{
+    content:""; position:absolute; inset:auto -5% -120px auto; width:420px; height:420px; border-radius:50%;
+    background:radial-gradient(circle at center, rgba(142,129,85,.16), rgba(142,129,85,0) 70%);
+    pointer-events:none;
+  }
+  .mrm-home-hero-grid{
+    display:grid; grid-template-columns:1.18fr .82fr; gap:38px; align-items:center; padding:58px 0 72px;
+  }
+  .mrm-home-hero-copy{ position:relative; z-index:1; max-width:720px; }
+  .mrm-home-lead{ font-size:1.16rem !important; max-width:62ch; }
+  .mrm-home-jump{
+    margin-top:26px; display:flex; flex-wrap:wrap; gap:10px;
+  }
+  .mrm-home-jump a{
+    padding:10px 14px; border-radius:999px; border:1px solid var(--line); background:#fff; color:var(--text) !important;
+    font:600 .88rem Inter,Arial,sans-serif; box-shadow:var(--shadow);
+  }
+  .mrm-home-jump a:hover{ border-color:var(--gold); color:var(--gold-dark) !important; }
+
+  .mrm-home-stage{
+    position:relative; min-height:520px; border-radius:28px; overflow:hidden; border:1px solid var(--line);
+    box-shadow:var(--shadow); background:#d9d1c6;
+  }
+  .mrm-home-stage img{ width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
+  .mrm-home-stage-card{
+    position:absolute; right:22px; bottom:22px; width:min(88%, 370px);
+    padding:24px 22px; border-radius:22px; background:rgba(255,255,255,.92);
+    backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.75);
+  }
+  .mrm-home-stage-card p:last-child{ margin-bottom:0; }
+
+  .mrm-home-signal{
+    margin-top:-34px; position:relative; z-index:2;
+  }
+  .mrm-home-signal-grid{
+    display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px;
+  }
+  .mrm-home-signal-card{
+    background:#fff; border:1px solid var(--line); border-radius:22px; padding:24px; box-shadow:var(--shadow);
   }
 
-  .mrm-home-block {
-    --mrm-bg: #f6f1e7;
-    --mrm-bg-soft: #fbf8f2;
-    --mrm-surface: #ffffff;
-    --mrm-text: #171512;
-    --mrm-muted: #5f5851;
-    --mrm-line: #d9cfbe;
-    --mrm-gold: #8e8155;
-    --mrm-gold-dark: #6e643f;
-    --mrm-gold-soft: #ede5d1;
-    --mrm-dark: #171512;
-    --mrm-shadow: 0 14px 30px rgba(0,0,0,.06);
-    background: var(--mrm-bg-soft);
-    color: var(--mrm-text);
-    width: 100%;
-    font-family: Georgia, "Times New Roman", serif;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  .mrm-home-band{
+    padding:18px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--bg2);
+  }
+  .mrm-home-band-row{
+    display:grid; grid-template-columns:1.15fr .85fr; gap:24px; align-items:center;
+  }
+  .mrm-home-band p{ margin-bottom:0; }
+  .mrm-home-band-note{
+    background:#fff; border:1px solid var(--line); border-radius:18px; padding:16px 18px; box-shadow:var(--shadow);
+    font:600 .92rem/1.4 Inter,Arial,sans-serif; color:var(--text);
   }
 
-  .mrm-home-block a,
-  .mrm-home-block a:hover,
-  .mrm-home-block a:focus,
-  .mrm-home-block a:active,
-  .mrm-home-block a:visited,
-  .mrm-home-block a * {
-    text-decoration: none !important;
+  .mrm-home-path-grid{
+    display:grid; grid-template-columns:1.08fr .92fr; gap:24px; align-items:stretch;
+  }
+  .mrm-home-feature{
+    background:#fff; border:1px solid var(--line); border-radius:28px; padding:30px; box-shadow:var(--shadow);
+  }
+  .mrm-home-feature-main{
+    background:linear-gradient(180deg, rgba(246,241,231,.72), #fff 42%);
+  }
+  .mrm-home-tag{
+    display:inline-block; margin-bottom:14px; padding:8px 12px; border-radius:999px; background:var(--gold-soft);
+    color:var(--gold-dark); font:700 .76rem Inter,Arial,sans-serif; letter-spacing:.08em; text-transform:uppercase;
+  }
+  .mrm-home-checks{ display:grid; gap:14px; margin-top:18px; }
+  .mrm-home-check{
+    display:grid; grid-template-columns:34px 1fr; gap:12px; align-items:start;
+  }
+  .mrm-home-check span{
+    width:34px; height:34px; border-radius:50%; background:var(--gold-soft); color:var(--gold-dark);
+    display:grid; place-items:center; font:700 1rem Inter,Arial,sans-serif;
   }
 
-  .mrm-home-block img {
-    display: block;
-    max-width: 100%;
-    height: auto;
+  .mrm-home-faq-wrap{
+    background:#fff; border:1px solid var(--line); border-radius:28px; box-shadow:var(--shadow); overflow:hidden;
+  }
+  .mrm-home-faq-head{
+    padding:30px 30px 16px; background:linear-gradient(180deg, rgba(246,241,231,.7), rgba(246,241,231,0));
+  }
+  .mrm-home-faq-item{ padding:22px 30px; border-top:1px solid var(--line); }
+  .mrm-home-faq-item h3{
+    margin-bottom:10px; display:flex; align-items:center; gap:12px;
+  }
+  .mrm-home-faq-item h3:before{
+    content:"Q"; width:28px; height:28px; border-radius:50%; background:var(--gold-soft); color:var(--gold-dark);
+    display:grid; place-items:center; font:700 .84rem Inter,Arial,sans-serif;
   }
 
-  .mrm-shell {
-    width: min(1140px, calc(100% - 32px));
-    margin: 0 auto;
-  }
-
-  .mrm-section {
-    padding: 82px 0;
-  }
-
-  .mrm-home-block h1,
-  .mrm-home-block h2,
-  .mrm-home-block h3 {
-    margin: 0 0 16px;
-    line-height: 1.08;
-    font-weight: 700;
-    color: var(--mrm-text);
-    font-family: Georgia, "Times New Roman", serif;
-  }
-
-  .mrm-home-block h1 {
-    font-size: clamp(1.35rem, 3vw, 2.45rem);
-    letter-spacing: -0.02em;
-  }
-
-  .mrm-home-block h2 {
-    font-size: clamp(2rem, 4vw, 3.1rem);
-    letter-spacing: -0.02em;
-  }
-
-  .mrm-home-block h3 {
-    font-size: clamp(1.18rem, 2vw, 1.55rem);
-  }
-
-  .mrm-home-block p {
-    margin: 0 0 16px;
-    color: var(--mrm-muted);
-    font-size: 1.04rem;
-    font-family: Georgia, "Times New Roman", serif;
-  }
-
-  .mrm-lead {
-    font-size: 1.15rem !important;
-    max-width: 62ch;
-  }
-
-  .mrm-kicker {
-    display: inline-block;
-    margin-bottom: 12px;
-    font-size: .82rem;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    color: var(--mrm-gold);
-    font-weight: 700;
-    font-family: Inter, Arial, sans-serif;
-  }
-
-  .mrm-btn-row {
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-    margin-top: 26px;
-  }
-
-  .mrm-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 52px;
-    padding: 0 22px;
-    border-radius: 999px;
-    font-family: Inter, Arial, sans-serif;
-    font-size: .95rem;
-    font-weight: 700;
-    letter-spacing: .01em;
-    transition: .2s ease;
-    border: 1px solid transparent;
-    text-decoration: none !important;
-  }
-
-  .mrm-home-block a.mrm-btn-primary,
-  .mrm-home-block a.mrm-btn-primary:hover,
-  .mrm-home-block a.mrm-btn-primary:visited,
-  .mrm-home-block a.mrm-btn-primary:focus {
-    background: var(--mrm-gold);
-    color: #fff !important;
-  }
-
-  .mrm-home-block a.mrm-btn-primary:hover {
-    background: var(--mrm-gold-dark);
-    transform: translateY(-1px);
-  }
-
-  .mrm-home-block a.mrm-btn-secondary,
-  .mrm-home-block a.mrm-btn-secondary:visited,
-  .mrm-home-block a.mrm-btn-secondary:focus {
-    background: transparent;
-    color: var(--mrm-text) !important;
-    border-color: var(--mrm-line);
-  }
-
-  .mrm-home-block a.mrm-btn-secondary:hover {
-    border-color: var(--mrm-gold);
-    color: var(--mrm-gold-dark) !important;
-  }
-
-  .mrm-hero {
-    background:
-      linear-gradient(to bottom, rgba(255,255,255,.25), rgba(255,255,255,0)),
-      var(--mrm-bg);
-    border-top: 1px solid var(--mrm-line);
-    border-bottom: 1px solid var(--mrm-line);
-  }
-
-  .mrm-hero-grid {
-    display: grid;
-    grid-template-columns: 1.1fr .9fr;
-    gap: 44px;
-    align-items: center;
-    padding: 50px 0 70px;
-  }
-
-  .mrm-hero-copy {
-    max-width: 640px;
-  }
-
-  .mrm-hero-options {
-    margin-top: 18px;
-    padding: 14px 18px;
-    display: inline-block;
-    background: #fff;
-    border: 1px solid var(--mrm-line);
-    border-radius: 14px;
-    box-shadow: var(--mrm-shadow);
-    font-family: Inter, Arial, sans-serif;
-    font-size: .92rem;
-    line-height: 1.35;
-    font-weight: 600;
-    color: var(--mrm-text);
-  }
-
-  .mrm-hero-visual-wrap {
-    position: relative;
-  }
-
-  .mrm-hero-top-image {
-    width: calc(100% - 40px);
-    max-width: 430px;
-    aspect-ratio: 16 / 10;
-    object-fit: cover;
-    border-radius: 18px;
-    margin: 0 auto;
-    box-shadow: var(--mrm-shadow);
-    display: block;
-  }
-
-  .mrm-frame {
-    background: #fff;
-    border: 1px solid var(--mrm-line);
-    border-radius: 22px;
-    box-shadow: var(--mrm-shadow);
-    overflow: hidden;
-  }
-
-  .mrm-hero-image {
-    position: relative;
-    min-height: auto;
-    background:
-      linear-gradient(rgba(15,15,15,.18), rgba(15,15,15,.18)),
-      url("https://source.unsplash.com/random/1600x900/?low-brass,instrument") center/cover no-repeat;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 18px;
-    padding: 20px 0;
-  }
-
-  .mrm-overlay-card {
-    width: calc(100% - 40px);
-    max-width: 430px;
-    margin: 0 auto;
-    padding: 24px 18px 18px;
-    background: rgba(255,255,255,.92);
-    border: 1px solid rgba(255,255,255,.7);
-    border-radius: 16px;
-    backdrop-filter: blur(10px);
-  }
-
-  .mrm-overlay-card h3 {
-    margin-bottom: 8px;
-    font-size: 1.25rem;
-  }
-
-  .mrm-overlay-card p {
-    font-size: .96rem;
-    margin-bottom: 0;
-  }
-
-  .mrm-divider {
-    border-top: 1px solid var(--mrm-line);
-  }
-
-  .mrm-center-intro {
-    max-width: 820px;
-    margin: 0 auto 36px;
-    text-align: center;
-  }
-
-  .mrm-three-col {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0,1fr));
-    gap: 22px;
-  }
-
-  .mrm-soft-panel {
-    background: rgba(255,255,255,.72);
-    border: 1px solid var(--mrm-line);
-    border-radius: 18px;
-    padding: 26px;
-    box-shadow: var(--mrm-shadow);
-  }
-
-  .mrm-soft-panel p:last-child {
-    margin-bottom: 0;
-  }
-
-  .mrm-service-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0,1fr));
-    gap: 22px;
-  }
-
-  .mrm-service {
-    background: #fff;
-    border: 1px solid var(--mrm-line);
-    border-radius: 18px;
-    padding: 26px;
-    box-shadow: var(--mrm-shadow);
-  }
-
-  .mrm-service-tag {
-    display: inline-block;
-    margin-bottom: 14px;
-    padding: 7px 11px;
-    border-radius: 999px;
-    background: var(--mrm-gold-soft);
-    color: var(--mrm-gold-dark);
-    font-family: Inter, Arial, sans-serif;
-    font-size: .78rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .08em;
-  }
-
-  .mrm-service ul {
-    margin: 14px 0 0;
-    padding-left: 18px;
-    color: var(--mrm-muted);
-  }
-
-  .mrm-service li {
-    margin-bottom: 8px;
-  }
-
-  .mrm-faq-wrap {
-    max-width: 860px;
-    margin: 0 auto;
-  }
-
-  .mrm-faq-item {
-    border-top: 1px solid var(--mrm-line);
-    padding: 24px 0;
-  }
-
-  .mrm-faq-item:last-child {
-    border-bottom: 1px solid var(--mrm-line);
-  }
-
-  .mrm-faq-item h3 {
-    margin-bottom: 8px;
-    font-size: 1.18rem;
-  }
-
-  @media (max-width: 1024px) {
-    .mrm-hero-grid,
-    .mrm-service-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .mrm-three-col {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (max-width: 820px) {
-    .mrm-section {
-      padding: 68px 0;
-    }
-
-    .mrm-hero-top-image {
-      width: calc(100% - 20px);
-      max-width: none;
-    }
-
-    .mrm-overlay-card {
-      width: calc(100% - 20px);
-      max-width: none;
-      margin: 0 auto;
-    }
+  @media (max-width:1024px){
+    .mrm-home-hero-grid, .mrm-home-band-row, .mrm-home-path-grid, .mrm-home-signal-grid{ grid-template-columns:1fr; }
+    .mrm-home-stage{ min-height:420px; }
+    .mrm-home-signal{ margin-top:28px; }
   }
 </style>
 
-<div class="mrm-home-block">
-  <section class="mrm-hero">
-    <div class="mrm-shell mrm-hero-grid">
-      <div class="mrm-hero-copy">
+<div class="mrm-home-redesign">
+  <section class="mrm-home-hero">
+    <div class="mrm-home-shell mrm-home-hero-grid">
+      <div class="mrm-home-hero-copy">
+        <span class="mrm-home-kicker">Low Brass Lessons</span>
         <h1>Lessons for Real Musical Growth.</h1>
-        <p class="mrm-lead">
+        <p class="mrm-home-lead">
           Low Brass Lessons offers personalized low brass instruction for students and families who want more than occasional feedback. Through one-on-one lessons, thoughtful curriculum, and flexible scheduling, students build stronger fundamentals, greater confidence, and a more meaningful connection to music.
         </p>
         <p>
           Whether your student is preparing for school ensemble music, building technique, developing confidence, or looking for a more structured approach to improvement, private lessons provide the personal guidance that group settings often cannot.
         </p>
 
-        <div class="mrm-btn-row">
-          <a class="mrm-btn mrm-btn-primary" href="/calendar/">Book Private Lessons</a>
-          <a class="mrm-btn mrm-btn-secondary" href="/about/">Learn More</a>
+        <div class="mrm-home-btn-row">
+          <a class="mrm-home-btn mrm-home-btn-primary" href="/calendar/">Book Private Lessons</a>
+          <a class="mrm-home-btn mrm-home-btn-secondary" href="/about/">Learn More</a>
         </div>
 
-        <div class="mrm-hero-options">Online &amp; in-person options - Built for developing musicians</div>
+        <div class="mrm-home-jump">
+          <a href="#mrm-home-identity">Studio identity</a>
+          <a href="#mrm-home-pathways">Lesson pathways</a>
+          <a href="#mrm-home-faq">Helpful answers</a>
+        </div>
       </div>
 
-      <div class="mrm-hero-visual-wrap">
-        <div class="mrm-frame">
-          <div class="mrm-hero-image">
-            <img class="mrm-hero-top-image" src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg" alt="Low brass lessons">
-            <div class="mrm-overlay-card">
-              <h3>Instruction that meets students where they are.</h3>
-              <p>
-                Personalized lessons, flexible scheduling, and a studio experience designed to help young low brass musicians improve with confidence.
-              </p>
-            </div>
-          </div>
+      <div class="mrm-home-stage">
+        <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg" alt="Low brass lessons">
+        <div class="mrm-home-stage-card">
+          <h3>Instruction that meets students where they are.</h3>
+          <p>
+            Personalized lessons, flexible scheduling, and a studio experience designed to help young low brass musicians improve with confidence.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="mrm-section">
-    <div class="mrm-shell">
-      <div class="mrm-center-intro">
-        <span class="mrm-kicker">Studio identity</span>
-        <h2>A lesson studio built around clarity, consistency, and encouragement.</h2>
-        
-      </div>
-
-      <div class="mrm-three-col">
-        <div class="mrm-soft-panel">
+  <div class="mrm-home-signal">
+    <div class="mrm-home-shell">
+      <div class="mrm-home-signal-grid" id="mrm-home-identity">
+        <div class="mrm-home-signal-card">
           <h3>Mission</h3>
           <p>
             To help young low brass musicians build strong fundamentals, musical confidence, and long-term enthusiasm for learning through thoughtful private instruction.
           </p>
         </div>
-        <div class="mrm-soft-panel">
+        <div class="mrm-home-signal-card">
           <h3>What makes the studio different</h3>
           <p>
             Lessons are tailored to each student’s actual needs while still being supported by a clear educational philosophy and consistent musical standards.
           </p>
         </div>
-        <div class="mrm-soft-panel">
+        <div class="mrm-home-signal-card">
           <h3>Who this is for</h3>
           <p>
             Families looking for serious but encouraging instruction for a middle school or high school student who would benefit from more individual attention.
@@ -418,87 +194,95 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <section class="mrm-home-band">
+    <div class="mrm-home-shell mrm-home-band-row">
+      <p>
+        A lesson studio built around clarity, consistency, and encouragement.
+      </p>
+      <div class="mrm-home-band-note">
+        Online &amp; in-person options — Built for developing musicians
+      </div>
+    </div>
   </section>
 
-  <section class="mrm-divider"></section>
-
-  <section class="mrm-section" style="background: var(--mrm-bg);">
-    <div class="mrm-shell">
-      <div class="mrm-center-intro">
-        <span class="mrm-kicker">Lesson pathways</span>
-        <h2>Private lessons are the heart of the studio.</h2>
-        
-      </div>
-
-      <div class="mrm-service-grid">
-        <div class="mrm-service">
-          <span class="mrm-service-tag">Primary Offer</span>
-          <h3>Private Lessons</h3>
+  <section class="mrm-home-section" id="mrm-home-pathways">
+    <div class="mrm-home-shell">
+      <div class="mrm-home-path-grid">
+        <div class="mrm-home-feature mrm-home-feature-main">
+          <span class="mrm-home-tag">Primary Offer</span>
+          <h2>Private Lessons</h2>
           <p>
             One-on-one low brass instruction designed to help students improve with a level of personal attention they cannot usually get elsewhere.
           </p>
-          <ul>
-            <li>Trombone, euphonium, and tuba support</li>
-            <li>Online and in-person formats</li>
-            <li>Flexible scheduling options</li>
-            <li>Support for school music, auditions, and long-term growth</li>
-          </ul>
-          <div class="mrm-btn-row">
-            <a class="mrm-btn mrm-btn-primary" href="/calendar/">Book a Lesson</a>
-            <a class="mrm-btn mrm-btn-secondary" href="/about/">More Information</a>
+          <div class="mrm-home-checks">
+            <div class="mrm-home-check">
+              <span>1</span>
+              <p>Students receive guidance tailored to their playing, goals, and stage of development.</p>
+            </div>
+            <div class="mrm-home-check">
+              <span>2</span>
+              <p>Lessons can support stronger fundamentals, school music, confidence-building, and broader musicianship at the same time.</p>
+            </div>
+            <div class="mrm-home-check">
+              <span>3</span>
+              <p>The overall lesson experience is meant to feel clear, thoughtful, and organized for families from the beginning.</p>
+            </div>
+          </div>
+          <div class="mrm-home-btn-row">
+            <a class="mrm-home-btn mrm-home-btn-primary" href="/calendar/">Book a Lesson</a>
+            <a class="mrm-home-btn mrm-home-btn-secondary" href="/about/">More Information</a>
           </div>
         </div>
 
-        <div class="mrm-service">
-          <span class="mrm-service-tag">Supporting Offer</span>
-          <h3>Sheet Music &amp; Curriculum Resources</h3>
+        <div class="mrm-home-feature">
+          <span class="mrm-home-tag">Supporting Offer</span>
+          <h2>Sheet Music &amp; Curriculum Resources</h2>
           <p>
             Original materials and curated resources support the broader identity of the studio and help students continue engaging with music beyond the lesson itself.
           </p>
-          <ul>
-            <li>Creative repertoire and practice support</li>
-            <li>Useful for both enrolled students and independent learners</li>
-            <li>Extends the studio’s educational value between lessons</li>
-            <li>Connects directly to the unique voice of your brand</li>
-          </ul>
-          <div class="mrm-btn-row">
-            <a class="mrm-btn mrm-btn-secondary" href="/sheet-music/">Browse Sheet Music</a>
+          <p>
+            These resources reflect the same larger goal as the lessons themselves: making musical growth feel more intentional, more engaging, and more artistically meaningful over time.
+          </p>
+          <div class="mrm-home-btn-row">
+            <a class="mrm-home-btn mrm-home-btn-secondary" href="/sheet-music/">Browse Sheet Music</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="mrm-section">
-    <div class="mrm-shell">
-      <div class="mrm-faq-wrap">
-        <div class="mrm-center-intro" style="margin-bottom:24px;">
-          <span class="mrm-kicker">Questions families ask</span>
+  <section class="mrm-home-section" id="mrm-home-faq">
+    <div class="mrm-home-shell">
+      <div class="mrm-home-faq-wrap">
+        <div class="mrm-home-faq-head">
+          <span class="mrm-home-kicker">Questions families ask</span>
           <h2>Helpful answers before booking.</h2>
         </div>
 
-        <div class="mrm-faq-item">
+        <div class="mrm-home-faq-item">
           <h3>Who are these lessons best for?</h3>
           <p>
             These lessons are especially well suited for middle school and high school low brass students who want more individual guidance, better practice direction, and stronger confidence in performance.
           </p>
         </div>
 
-        <div class="mrm-faq-item">
+        <div class="mrm-home-faq-item">
           <h3>What does a student typically work on in lessons?</h3>
           <p>
             Lessons may include tone, articulation, flexibility, rhythm, school repertoire, solo music, audition preparation, and broader musicianship depending on the student’s needs.
           </p>
         </div>
 
-        <div class="mrm-faq-item">
+        <div class="mrm-home-faq-item">
           <h3>Are online lessons still effective?</h3>
           <p>
             Yes. For many students, online lessons provide an excellent balance of accessibility, flexibility, and focused instruction, especially when the lesson plan is clear and the communication is strong.
           </p>
         </div>
 
-        <div class="mrm-faq-item">
+        <div class="mrm-home-faq-item">
           <h3>What happens after we book?</h3>
           <p>
             Families receive confirmation and next-step information so the process feels straightforward, organized, and welcoming from the very beginning.
