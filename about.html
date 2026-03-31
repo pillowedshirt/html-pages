@@ -120,13 +120,34 @@
     background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.12);
   }
 
-  .mrm-about-faq-item{ padding:22px 0; border-top:1px solid var(--line); }
-  .mrm-about-faq-item:first-child{ border-top:none; padding-top:0; }
-
   @media (max-width:1024px){
-    .mrm-about-hero-grid,.mrm-about-hero-intro,.mrm-about-rail-layout,.mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:1fr; }
-    .mrm-about-rail{ position:static; }
-    .mrm-about-hero-image{ aspect-ratio:21 / 10; }
+    .mrm-about-section{ padding:68px 0; }
+    .mrm-about-hero-grid{ padding:44px 0 52px; }
+    .mrm-about-hero-intro{ grid-template-columns:1.05fr .95fr; gap:22px; }
+    .mrm-about-rail-layout{ grid-template-columns:220px minmax(0,1fr); gap:20px; }
+    .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .mrm-about-hero-image{ aspect-ratio:21 / 10; border-radius:22px; }
+    .mrm-about-editorial,.mrm-about-panel{ border-radius:22px; }
+  }
+
+  @media (max-width:760px){
+    .mrm-about-shell{ width:min(1160px, calc(100% - 22px)); }
+    .mrm-about-section{ padding:52px 0; }
+    .mrm-about-hero-grid{ gap:16px; padding:30px 0 38px; }
+    .mrm-about-hero-intro{ grid-template-columns:minmax(0,1fr); gap:16px; }
+    .mrm-about-rail-layout{ grid-template-columns:minmax(0,1fr); }
+    .mrm-about-rail{ position:static; top:auto; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px 14px; padding:16px; border-radius:18px; }
+    .mrm-about-rail a{ padding:8px 0; font-size:.84rem; }
+    .mrm-about-stack{ gap:16px; }
+    .mrm-about-panel-head{ padding:20px 20px 0; }
+    .mrm-about-panel-body{ padding:8px 20px 20px; }
+    .mrm-about-card{ border-radius:16px; padding:16px; }
+    .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+  }
+
+  @media (max-width:560px){
+    .mrm-about-redesign p{ font-size:.97rem; margin-bottom:12px; }
+    .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:1fr; }
   }
 </style>
 
@@ -180,7 +201,6 @@
         <a href="#mrm-about-standards">Instructor standards</a>
         <a href="#mrm-about-formats">Lesson formats</a>
         <a href="#mrm-about-expect">What families can expect</a>
-        <a href="#mrm-about-faq">Questions families may still have</a>
       </aside>
 
       <div class="mrm-about-stack">
@@ -271,35 +291,6 @@
           </div>
         </div>
 
-        <div class="mrm-about-panel" id="mrm-about-faq">
-          <div class="mrm-about-panel-head">
-            <span class="mrm-about-kicker">About the studio</span>
-            <h2>Questions families may still have.</h2>
-          </div>
-          <div class="mrm-about-panel-body">
-            <div class="mrm-about-faq-item">
-              <h3>Is this studio only for advanced students?</h3>
-              <p>No. Low Brass Lessons is especially well suited for developing musicians who would benefit from more individual guidance, stronger practice habits, and a more personal learning environment.</p>
-            </div>
-            <div class="mrm-about-faq-item">
-              <h3>Why emphasize instructor standards so strongly?</h3>
-              <p>Because trust matters. Families should know that the studio is thoughtful about who teaches students and what expectations are in place for working with young musicians.</p>
-            </div>
-            <div class="mrm-about-faq-item">
-              <h3>What makes this different from simply finding any private teacher?</h3>
-              <p>This studio is built to provide not only private instruction, but a more intentional overall experience: clearer systems, more flexibility, stronger screening standards, and a broader teaching network that can better support families over time.</p>
-            </div>
-            <div class="mrm-about-faq-item">
-              <h3>What is the next step if we are interested?</h3>
-              <p>The simplest next step is to visit the calendar page, review available options, and choose a lesson format that fits your student and schedule.</p>
-            </div>
-
-            <div class="mrm-about-btn-row" style="justify-content:center; margin-top:30px;">
-              <a class="mrm-about-btn mrm-about-btn-primary" href="/calendar/">Book Private Lessons</a>
-              <a class="mrm-about-btn mrm-about-btn-secondary" href="/contact/">Ask a Question</a>
-            </div>
-          </div>
-        </div>
 
       </div>
     </div>
