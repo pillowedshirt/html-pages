@@ -1,0 +1,632 @@
+<!-- Low Brass Lessons - Curriculum Page HTML Block -->
+<style>
+  .mrm-curriculum-block,
+  .mrm-curriculum-block * {
+    box-sizing: border-box;
+  }
+
+  .mrm-curriculum-block {
+    --mrm-bg: #f6f1e7;
+    --mrm-bg-soft: #fbf8f2;
+    --mrm-surface: #ffffff;
+    --mrm-text: #171512;
+    --mrm-muted: #5f5851;
+    --mrm-line: #d9cfbe;
+    --mrm-gold: #8e8155;
+    --mrm-gold-dark: #6e643f;
+    --mrm-gold-soft: #ede5d1;
+    --mrm-clay: #b88972;
+    --mrm-clay-soft: #f1e2d8;
+    --mrm-forest: #70816a;
+    --mrm-forest-soft: #e5ebe3;
+    --mrm-dark: #171512;
+    --mrm-shadow: 0 14px 30px rgba(0,0,0,.06);
+    background: var(--mrm-bg-soft);
+    color: var(--mrm-text);
+    width: 100%;
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .mrm-curriculum-block a,
+  .mrm-curriculum-block a:hover,
+  .mrm-curriculum-block a:focus,
+  .mrm-curriculum-block a:active,
+  .mrm-curriculum-block a:visited,
+  .mrm-curriculum-block a * {
+    text-decoration: none !important;
+  }
+
+  .mrm-curriculum-block img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .mrm-shell {
+    width: min(1140px, calc(100% - 32px));
+    margin: 0 auto;
+  }
+
+  .mrm-section {
+    padding: 82px 0;
+  }
+
+  .mrm-curriculum-block h1,
+  .mrm-curriculum-block h2,
+  .mrm-curriculum-block h3 {
+    margin: 0 0 16px;
+    line-height: 1.08;
+    font-weight: 700;
+    color: var(--mrm-text);
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  .mrm-curriculum-block h1 {
+    font-size: clamp(1.85rem, 4vw, 3rem);
+    letter-spacing: -0.02em;
+  }
+
+  .mrm-curriculum-block h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -0.02em;
+  }
+
+  .mrm-curriculum-block h3 {
+    font-size: clamp(1.16rem, 2vw, 1.48rem);
+  }
+
+  .mrm-curriculum-block p {
+    margin: 0 0 16px;
+    color: var(--mrm-muted);
+    font-size: 1.04rem;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  .mrm-lead {
+    font-size: 1.15rem !important;
+    max-width: 68ch;
+  }
+
+  .mrm-kicker {
+    display: inline-block;
+    margin-bottom: 12px;
+    font-size: .82rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--mrm-gold);
+    font-weight: 700;
+    font-family: Inter, Arial, sans-serif;
+  }
+
+  .mrm-btn-row {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 26px;
+  }
+
+  .mrm-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 0 22px;
+    border-radius: 999px;
+    font-family: Inter, Arial, sans-serif;
+    font-size: .95rem;
+    font-weight: 700;
+    letter-spacing: .01em;
+    transition: .2s ease;
+    border: 1px solid transparent;
+    text-decoration: none !important;
+  }
+
+  .mrm-curriculum-block a.mrm-btn-primary,
+  .mrm-curriculum-block a.mrm-btn-primary:hover,
+  .mrm-curriculum-block a.mrm-btn-primary:visited,
+  .mrm-curriculum-block a.mrm-btn-primary:focus {
+    background: var(--mrm-gold);
+    color: #fff !important;
+  }
+
+  .mrm-curriculum-block a.mrm-btn-primary:hover {
+    background: var(--mrm-gold-dark);
+    transform: translateY(-1px);
+  }
+
+  .mrm-curriculum-block a.mrm-btn-secondary,
+  .mrm-curriculum-block a.mrm-btn-secondary:visited,
+  .mrm-curriculum-block a.mrm-btn-secondary:focus {
+    background: transparent;
+    color: var(--mrm-text) !important;
+    border-color: var(--mrm-line);
+  }
+
+  .mrm-curriculum-block a.mrm-btn-secondary:hover {
+    border-color: var(--mrm-gold);
+    color: var(--mrm-gold-dark) !important;
+  }
+
+  .mrm-center-intro {
+    max-width: 860px;
+    margin: 0 auto 36px;
+    text-align: center;
+  }
+
+  .mrm-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    border-radius: 999px;
+    overflow: hidden;
+    box-shadow: var(--mrm-shadow);
+    border: 1px solid var(--mrm-line);
+    background: #fff;
+  }
+
+  .mrm-pillar {
+    padding: 18px 20px;
+    text-align: center;
+    font-family: Inter, Arial, sans-serif;
+  }
+
+  .mrm-pillar strong {
+    display: block;
+    font-size: .98rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .mrm-pillar span {
+    display: block;
+    font-size: .86rem;
+    opacity: .9;
+  }
+
+  .mrm-pillar:nth-child(1) {
+    background: var(--mrm-gold-soft);
+    color: var(--mrm-gold-dark);
+  }
+
+  .mrm-pillar:nth-child(2) {
+    background: var(--mrm-clay-soft);
+    color: #7d5543;
+    border-left: 1px solid rgba(0,0,0,.06);
+    border-right: 1px solid rgba(0,0,0,.06);
+  }
+
+  .mrm-pillar:nth-child(3) {
+    background: var(--mrm-forest-soft);
+    color: #4f6449;
+  }
+
+  .mrm-three-col {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: 22px;
+  }
+
+  .mrm-two-col {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 24px;
+  }
+
+  .mrm-card {
+    background: #fff;
+    border: 1px solid var(--mrm-line);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: var(--mrm-shadow);
+  }
+
+  .mrm-soft-card {
+    background: rgba(255,255,255,.72);
+    border: 1px solid var(--mrm-line);
+    border-radius: 18px;
+    padding: 26px;
+    box-shadow: var(--mrm-shadow);
+  }
+
+  .mrm-tag {
+    display: inline-block;
+    margin-bottom: 14px;
+    padding: 7px 11px;
+    border-radius: 999px;
+    font-family: Inter, Arial, sans-serif;
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+
+  .mrm-tag-gold {
+    background: var(--mrm-gold-soft);
+    color: var(--mrm-gold-dark);
+  }
+
+  .mrm-tag-clay {
+    background: var(--mrm-clay-soft);
+    color: #7d5543;
+  }
+
+  .mrm-tag-forest {
+    background: var(--mrm-forest-soft);
+    color: #4f6449;
+  }
+
+  .mrm-split {
+    display: grid;
+    grid-template-columns: .95fr 1.05fr;
+    gap: 36px;
+    align-items: center;
+  }
+
+  .mrm-image-card {
+    background: #fff;
+    border: 1px solid var(--mrm-line);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--mrm-shadow);
+  }
+
+  .mrm-image-card img {
+    width: 100%;
+    height: 100%;
+    min-height: 430px;
+    object-fit: cover;
+  }
+
+  .mrm-checklist {
+    display: grid;
+    gap: 14px;
+    margin-top: 22px;
+  }
+
+  .mrm-check-item {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+
+  .mrm-check {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: var(--mrm-gold-soft);
+    color: var(--mrm-gold-dark);
+    display: grid;
+    place-items: center;
+    font-family: Inter, Arial, sans-serif;
+    font-size: .9rem;
+    font-weight: 800;
+    margin-top: 2px;
+  }
+
+  .mrm-dark-band {
+    background: var(--mrm-dark);
+    color: #fff;
+  }
+
+  .mrm-dark-band h2,
+  .mrm-dark-band h3 {
+    color: #fff;
+  }
+
+  .mrm-dark-band p {
+    color: rgba(255,255,255,.76);
+  }
+
+  .mrm-dark-card {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 18px;
+    padding: 24px;
+  }
+
+  .mrm-dark-card p {
+    color: rgba(255,255,255,.76);
+  }
+
+  .mrm-faq-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .mrm-faq-item {
+    border-top: 1px solid var(--mrm-line);
+    padding: 24px 0;
+  }
+
+  .mrm-faq-item:last-child {
+    border-bottom: 1px solid var(--mrm-line);
+  }
+
+  .mrm-faq-item h3 {
+    margin-bottom: 8px;
+    font-size: 1.16rem;
+  }
+
+  @media (max-width: 1024px) {
+    .mrm-pillars,
+    .mrm-three-col,
+    .mrm-two-col,
+    .mrm-split {
+      grid-template-columns: 1fr;
+      border-radius: 24px;
+    }
+
+    .mrm-pillar:nth-child(2) {
+      border-left: none;
+      border-right: none;
+      border-top: 1px solid rgba(0,0,0,.06);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+  }
+
+  @media (max-width: 820px) {
+    .mrm-section {
+      padding: 68px 0;
+    }
+  }
+</style>
+
+<div class="mrm-curriculum-block">
+
+  <section class="mrm-section" style="padding-bottom:56px;">
+    <div class="mrm-shell">
+      <div class="mrm-center-intro">
+        <span class="mrm-kicker">Curriculum</span>
+        <h1>The curriculum is built around three priorities that keep lessons musical, useful, and inspiring.</h1>
+        
+      </div>
+
+      <div class="mrm-pillars">
+        <div class="mrm-pillar">
+          <strong>Fundamentals</strong>
+          <span>Tone, flexibility, articulation, rhythm, control</span>
+        </div>
+        <div class="mrm-pillar">
+          <strong>Student Materials</strong>
+          <span>Auditions, school ensemble music, solos, personal goals</span>
+        </div>
+        <div class="mrm-pillar">
+          <strong>Pocket Orchestra</strong>
+          <span>Commissioned repertoire and musical opportunities beyond standard study</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mrm-section" style="padding-top:20px;">
+    <div class="mrm-shell">
+      <div class="mrm-three-col">
+        <div class="mrm-soft-card">
+          <span class="mrm-tag mrm-tag-gold">Emphasis 1</span>
+          <h3>Fundamental playing stays at the center.</h3>
+          <p>
+            Every student benefits from a stronger foundation. Lessons regularly return to the core skills that support confident, expressive playing: tone quality, articulation, rhythm, flexibility, accuracy, breathing, and control.
+          </p>
+        </div>
+        <div class="mrm-soft-card">
+          <span class="mrm-tag mrm-tag-clay">Emphasis 2</span>
+          <h3>Student-driven content keeps lessons relevant.</h3>
+          <p>
+            Curriculum should connect directly to what the student is actually working on. That can include school ensemble music, audition preparation, region or honor band materials, solos, chair tests, or other immediate goals.
+          </p>
+        </div>
+        <div class="mrm-soft-card">
+          <span class="mrm-tag mrm-tag-forest">Emphasis 3</span>
+          <h3>Pocket Orchestra adds something distinctive.</h3>
+          <p>
+            Alongside traditional lesson materials, the Pocket Orchestra series is being commissioned to give students access to musical opportunities that feel creative, polished, and genuinely special.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mrm-section" style="background: var(--mrm-bg);">
+    <div class="mrm-shell mrm-split">
+      <div class="mrm-image-card">
+        <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg" alt="Student working in a private lesson">
+      </div>
+
+      <div class="mrm-card">
+        <span class="mrm-kicker">Fundamental playing</span>
+        <h2>Lessons should always strengthen the skills that make everything else possible.</h2>
+        <p>
+          Student-selected music matters, but good curriculum does not skip the fundamentals. Whether a student is preparing for an audition, learning school music, or exploring new repertoire, strong results depend on the same underlying skills being reinforced consistently.
+        </p>
+
+        <div class="mrm-checklist">
+          <div class="mrm-check-item">
+            <div class="mrm-check">✓</div>
+            <div>
+              <strong>Tone and sound concept</strong>
+              <p>Students develop a stronger, more centered sound and a clearer sense of what good playing should feel and sound like.</p>
+            </div>
+          </div>
+          <div class="mrm-check-item">
+            <div class="mrm-check">✓</div>
+            <div>
+              <strong>Flexibility, articulation, and control</strong>
+              <p>Regular work on these skills helps students play with more ease, clarity, responsiveness, and accuracy.</p>
+            </div>
+          </div>
+          <div class="mrm-check-item">
+            <div class="mrm-check">✓</div>
+            <div>
+              <strong>Rhythm and musical consistency</strong>
+              <p>Fundamentals are not only technical. They also support steadier rhythm, cleaner execution, and more reliable performance under pressure.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mrm-section">
+    <div class="mrm-shell">
+      <div class="mrm-center-intro">
+        <span class="mrm-kicker">Student-driven materials</span>
+        <h2>The curriculum should serve the student’s real musical life, not ignore it.</h2>
+        
+      </div>
+
+      <div class="mrm-two-col">
+        <div class="mrm-card">
+          <span class="mrm-tag mrm-tag-clay">Audition preparation</span>
+          <p>
+            Lessons can focus directly on scales, excerpts, sight-reading, accuracy, consistency, and the confidence needed to prepare students for auditions in a thoughtful, realistic way.
+          </p>
+        </div>
+        <div class="mrm-card">
+          <span class="mrm-tag mrm-tag-clay">School ensemble music</span>
+          <p>
+            Students often need help turning band music into something more polished and secure. Lessons can support classroom repertoire while building stronger habits at the same time.
+          </p>
+        </div>
+        <div class="mrm-card">
+          <span class="mrm-tag mrm-tag-clay">Solo and recital materials</span>
+          <p>
+            When students are preparing solo literature, lessons can address interpretation, technical execution, confidence, and musical maturity with more personal attention.
+          </p>
+        </div>
+        <div class="mrm-card">
+          <span class="mrm-tag mrm-tag-clay">Individual goals</span>
+          <p>
+            Some students need help with range, endurance, consistency, or general confidence. The curriculum should stay flexible enough to support those needs directly.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mrm-section mrm-dark-band">
+    <div class="mrm-shell">
+      <div class="mrm-center-intro">
+        <span class="mrm-kicker" style="color:#d7c792;">Pocket Orchestra series</span>
+        <h2>A commissioned repertoire project designed to offer students something they cannot get everywhere else.</h2>
+        <p class="mrm-lead" style="margin-left:auto; margin-right:auto;">
+          The Pocket Orchestra series is intended to expand the curriculum beyond standard lesson materials by giving students access to commissioned works built with developing players in mind.
+        </p>
+      </div>
+
+      <div class="mrm-three-col">
+        <div class="mrm-dark-card">
+          <h3>Commissioned specifically for the studio</h3>
+          <p>
+            This series gives the curriculum a creative center of gravity. Rather than relying only on standard materials, students can also engage with repertoire being developed as part of the studio’s own artistic vision.
+          </p>
+        </div>
+        <div class="mrm-dark-card">
+          <h3>Accessible but meaningful</h3>
+          <p>
+            The aim is to create repertoire that developing students can actually grow into, rather than music that feels either too limited or unrealistically advanced.
+          </p>
+        </div>
+        <div class="mrm-dark-card">
+          <h3>More than ordinary lesson literature</h3>
+          <p>
+            Pocket Orchestra helps students encounter musical opportunities that feel distinctive, inspiring, and connected to a broader artistic process.
+          </p>
+        </div>
+      </div>
+
+      <div class="mrm-two-col" style="margin-top:24px;">
+        <div class="mrm-dark-card">
+          <h3>Why this matters educationally</h3>
+          <p>
+            Unique repertoire can increase student engagement, strengthen expressive playing, and help students feel that their lesson experience includes something memorable and artistically ambitious.
+          </p>
+        </div>
+        <div class="mrm-dark-card">
+          <h3>How it fits the curriculum</h3>
+          <p>
+            Pocket Orchestra is not a replacement for fundamentals or student materials. It is the third pillar: a distinctive layer that complements technique work and goal-driven lesson content.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mrm-section">
+    <div class="mrm-shell">
+      <div class="mrm-center-intro">
+        <span class="mrm-kicker">What belongs on this page</span>
+        <h2>The curriculum should feel clear, practical, and artistically distinctive.</h2>
+      </div>
+
+      <div class="mrm-three-col">
+        <div class="mrm-soft-card">
+          <h3>Core technical priorities</h3>
+          <p>
+            Families should quickly understand that strong fundamental playing remains a constant part of the lesson experience.
+          </p>
+        </div>
+        <div class="mrm-soft-card">
+          <h3>Real student application</h3>
+          <p>
+            The page should make it clear that lessons support actual student needs such as school music, auditions, solos, and confidence-building goals.
+          </p>
+        </div>
+        <div class="mrm-soft-card">
+          <h3>A unique artistic identity</h3>
+          <p>
+            Pocket Orchestra gives the curriculum a memorable signature and helps explain why this studio offers more than a generic lesson experience.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mrm-section" style="background: var(--mrm-bg);">
+    <div class="mrm-shell">
+      <div class="mrm-faq-wrap">
+        <div class="mrm-center-intro" style="margin-bottom:24px;">
+          <span class="mrm-kicker">Curriculum questions</span>
+          <h2>Helpful context for families.</h2>
+        </div>
+
+        <div class="mrm-faq-item">
+          <h3>Does every lesson follow the same exact plan?</h3>
+          <p>
+            No. The curriculum is structured around consistent priorities, but it should still adapt to the student’s age, level, repertoire, and goals.
+          </p>
+        </div>
+
+        <div class="mrm-faq-item">
+          <h3>Will lessons still focus on fundamentals if a student is preparing specific music?</h3>
+          <p>
+            Yes. Student-driven content should not replace fundamentals. It should sit on top of them, so students are improving both the immediate material and the underlying skills that support it.
+          </p>
+        </div>
+
+        <div class="mrm-faq-item">
+          <h3>What makes Pocket Orchestra different from regular repertoire?</h3>
+          <p>
+            It is part of a commissioned series intended to give students access to music and experiences that feel more distinctive than a standard lesson sequence alone.
+          </p>
+        </div>
+
+        <div class="mrm-faq-item">
+          <h3>How does this connect to private lessons overall?</h3>
+          <p>
+            The curriculum exists to support the larger lesson experience: stronger fundamentals, more relevant practice, and a more inspiring long-term relationship with music.
+          </p>
+        </div>
+      </div>
+
+      <div class="mrm-btn-row" style="justify-content:center;">
+        <a class="mrm-btn mrm-btn-primary" href="/calendar/">Book Private Lessons</a>
+        <a class="mrm-btn mrm-btn-secondary" href="/sheet-music/">Browse Sheet Music</a>
+      </div>
+    </div>
+  </section>
+
+</div>

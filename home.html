@@ -1,0 +1,510 @@
+<!-- Low Brass Lessons - Homepage HTML Block (final corrected version) -->
+<style>
+  .mrm-home-block,
+  .mrm-home-block * {
+    box-sizing: border-box;
+  }
+
+  .mrm-home-block {
+    --mrm-bg: #f6f1e7;
+    --mrm-bg-soft: #fbf8f2;
+    --mrm-surface: #ffffff;
+    --mrm-text: #171512;
+    --mrm-muted: #5f5851;
+    --mrm-line: #d9cfbe;
+    --mrm-gold: #8e8155;
+    --mrm-gold-dark: #6e643f;
+    --mrm-gold-soft: #ede5d1;
+    --mrm-dark: #171512;
+    --mrm-shadow: 0 14px 30px rgba(0,0,0,.06);
+    background: var(--mrm-bg-soft);
+    color: var(--mrm-text);
+    width: 100%;
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .mrm-home-block a,
+  .mrm-home-block a:hover,
+  .mrm-home-block a:focus,
+  .mrm-home-block a:active,
+  .mrm-home-block a:visited,
+  .mrm-home-block a * {
+    text-decoration: none !important;
+  }
+
+  .mrm-home-block img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .mrm-shell {
+    width: min(1140px, calc(100% - 32px));
+    margin: 0 auto;
+  }
+
+  .mrm-section {
+    padding: 82px 0;
+  }
+
+  .mrm-home-block h1,
+  .mrm-home-block h2,
+  .mrm-home-block h3 {
+    margin: 0 0 16px;
+    line-height: 1.08;
+    font-weight: 700;
+    color: var(--mrm-text);
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  .mrm-home-block h1 {
+    font-size: clamp(1.35rem, 3vw, 2.45rem);
+    letter-spacing: -0.02em;
+  }
+
+  .mrm-home-block h2 {
+    font-size: clamp(2rem, 4vw, 3.1rem);
+    letter-spacing: -0.02em;
+  }
+
+  .mrm-home-block h3 {
+    font-size: clamp(1.18rem, 2vw, 1.55rem);
+  }
+
+  .mrm-home-block p {
+    margin: 0 0 16px;
+    color: var(--mrm-muted);
+    font-size: 1.04rem;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  .mrm-lead {
+    font-size: 1.15rem !important;
+    max-width: 62ch;
+  }
+
+  .mrm-kicker {
+    display: inline-block;
+    margin-bottom: 12px;
+    font-size: .82rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--mrm-gold);
+    font-weight: 700;
+    font-family: Inter, Arial, sans-serif;
+  }
+
+  .mrm-btn-row {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 26px;
+  }
+
+  .mrm-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 0 22px;
+    border-radius: 999px;
+    font-family: Inter, Arial, sans-serif;
+    font-size: .95rem;
+    font-weight: 700;
+    letter-spacing: .01em;
+    transition: .2s ease;
+    border: 1px solid transparent;
+    text-decoration: none !important;
+  }
+
+  .mrm-home-block a.mrm-btn-primary,
+  .mrm-home-block a.mrm-btn-primary:hover,
+  .mrm-home-block a.mrm-btn-primary:visited,
+  .mrm-home-block a.mrm-btn-primary:focus {
+    background: var(--mrm-gold);
+    color: #fff !important;
+  }
+
+  .mrm-home-block a.mrm-btn-primary:hover {
+    background: var(--mrm-gold-dark);
+    transform: translateY(-1px);
+  }
+
+  .mrm-home-block a.mrm-btn-secondary,
+  .mrm-home-block a.mrm-btn-secondary:visited,
+  .mrm-home-block a.mrm-btn-secondary:focus {
+    background: transparent;
+    color: var(--mrm-text) !important;
+    border-color: var(--mrm-line);
+  }
+
+  .mrm-home-block a.mrm-btn-secondary:hover {
+    border-color: var(--mrm-gold);
+    color: var(--mrm-gold-dark) !important;
+  }
+
+  .mrm-hero {
+    background:
+      linear-gradient(to bottom, rgba(255,255,255,.25), rgba(255,255,255,0)),
+      var(--mrm-bg);
+    border-top: 1px solid var(--mrm-line);
+    border-bottom: 1px solid var(--mrm-line);
+  }
+
+  .mrm-hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 44px;
+    align-items: center;
+    padding: 50px 0 70px;
+  }
+
+  .mrm-hero-copy {
+    max-width: 640px;
+  }
+
+  .mrm-hero-options {
+    margin-top: 18px;
+    padding: 14px 18px;
+    display: inline-block;
+    background: #fff;
+    border: 1px solid var(--mrm-line);
+    border-radius: 14px;
+    box-shadow: var(--mrm-shadow);
+    font-family: Inter, Arial, sans-serif;
+    font-size: .92rem;
+    line-height: 1.35;
+    font-weight: 600;
+    color: var(--mrm-text);
+  }
+
+  .mrm-hero-visual-wrap {
+    position: relative;
+  }
+
+  .mrm-hero-top-image {
+    width: calc(100% - 40px);
+    max-width: 430px;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: 18px;
+    margin: 0 auto;
+    box-shadow: var(--mrm-shadow);
+    display: block;
+  }
+
+  .mrm-frame {
+    background: #fff;
+    border: 1px solid var(--mrm-line);
+    border-radius: 22px;
+    box-shadow: var(--mrm-shadow);
+    overflow: hidden;
+  }
+
+  .mrm-hero-image {
+    position: relative;
+    min-height: auto;
+    background:
+      linear-gradient(rgba(15,15,15,.18), rgba(15,15,15,.18)),
+      url("https://source.unsplash.com/random/1600x900/?low-brass,instrument") center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 20px 0;
+  }
+
+  .mrm-overlay-card {
+    width: calc(100% - 40px);
+    max-width: 430px;
+    margin: 0 auto;
+    padding: 24px 18px 18px;
+    background: rgba(255,255,255,.92);
+    border: 1px solid rgba(255,255,255,.7);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+  }
+
+  .mrm-overlay-card h3 {
+    margin-bottom: 8px;
+    font-size: 1.25rem;
+  }
+
+  .mrm-overlay-card p {
+    font-size: .96rem;
+    margin-bottom: 0;
+  }
+
+  .mrm-divider {
+    border-top: 1px solid var(--mrm-line);
+  }
+
+  .mrm-center-intro {
+    max-width: 820px;
+    margin: 0 auto 36px;
+    text-align: center;
+  }
+
+  .mrm-three-col {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: 22px;
+  }
+
+  .mrm-soft-panel {
+    background: rgba(255,255,255,.72);
+    border: 1px solid var(--mrm-line);
+    border-radius: 18px;
+    padding: 26px;
+    box-shadow: var(--mrm-shadow);
+  }
+
+  .mrm-soft-panel p:last-child {
+    margin-bottom: 0;
+  }
+
+  .mrm-service-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 22px;
+  }
+
+  .mrm-service {
+    background: #fff;
+    border: 1px solid var(--mrm-line);
+    border-radius: 18px;
+    padding: 26px;
+    box-shadow: var(--mrm-shadow);
+  }
+
+  .mrm-service-tag {
+    display: inline-block;
+    margin-bottom: 14px;
+    padding: 7px 11px;
+    border-radius: 999px;
+    background: var(--mrm-gold-soft);
+    color: var(--mrm-gold-dark);
+    font-family: Inter, Arial, sans-serif;
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+
+  .mrm-service ul {
+    margin: 14px 0 0;
+    padding-left: 18px;
+    color: var(--mrm-muted);
+  }
+
+  .mrm-service li {
+    margin-bottom: 8px;
+  }
+
+  .mrm-faq-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .mrm-faq-item {
+    border-top: 1px solid var(--mrm-line);
+    padding: 24px 0;
+  }
+
+  .mrm-faq-item:last-child {
+    border-bottom: 1px solid var(--mrm-line);
+  }
+
+  .mrm-faq-item h3 {
+    margin-bottom: 8px;
+    font-size: 1.18rem;
+  }
+
+  @media (max-width: 1024px) {
+    .mrm-hero-grid,
+    .mrm-service-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .mrm-three-col {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .mrm-section {
+      padding: 68px 0;
+    }
+
+    .mrm-hero-top-image {
+      width: calc(100% - 20px);
+      max-width: none;
+    }
+
+    .mrm-overlay-card {
+      width: calc(100% - 20px);
+      max-width: none;
+      margin: 0 auto;
+    }
+  }
+</style>
+
+<div class="mrm-home-block">
+  <section class="mrm-hero">
+    <div class="mrm-shell mrm-hero-grid">
+      <div class="mrm-hero-copy">
+        <h1>Lessons for Real Musical Growth.</h1>
+        <p class="mrm-lead">
+          Low Brass Lessons offers personalized low brass instruction for students and families who want more than occasional feedback. Through one-on-one lessons, thoughtful curriculum, and flexible scheduling, students build stronger fundamentals, greater confidence, and a more meaningful connection to music.
+        </p>
+        <p>
+          Whether your student is preparing for school ensemble music, building technique, developing confidence, or looking for a more structured approach to improvement, private lessons provide the personal guidance that group settings often cannot.
+        </p>
+
+        <div class="mrm-btn-row">
+          <a class="mrm-btn mrm-btn-primary" href="/calendar/">Book Private Lessons</a>
+          <a class="mrm-btn mrm-btn-secondary" href="/about/">Learn More</a>
+        </div>
+
+        <div class="mrm-hero-options">Online &amp; in-person options - Built for developing musicians</div>
+      </div>
+
+      <div class="mrm-hero-visual-wrap">
+        <div class="mrm-frame">
+          <div class="mrm-hero-image">
+            <img class="mrm-hero-top-image" src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg" alt="Low brass lessons">
+            <div class="mrm-overlay-card">
+              <h3>Instruction that meets students where they are.</h3>
+              <p>
+                Personalized lessons, flexible scheduling, and a studio experience designed to help young low brass musicians improve with confidence.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mrm-section">
+    <div class="mrm-shell">
+      <div class="mrm-center-intro">
+        <span class="mrm-kicker">Studio identity</span>
+        <h2>A lesson studio built around clarity, consistency, and encouragement.</h2>
+        
+      </div>
+
+      <div class="mrm-three-col">
+        <div class="mrm-soft-panel">
+          <h3>Mission</h3>
+          <p>
+            To help young low brass musicians build strong fundamentals, musical confidence, and long-term enthusiasm for learning through thoughtful private instruction.
+          </p>
+        </div>
+        <div class="mrm-soft-panel">
+          <h3>What makes the studio different</h3>
+          <p>
+            Lessons are tailored to each student’s actual needs while still being supported by a clear educational philosophy and consistent musical standards.
+          </p>
+        </div>
+        <div class="mrm-soft-panel">
+          <h3>Who this is for</h3>
+          <p>
+            Families looking for serious but encouraging instruction for a middle school or high school student who would benefit from more individual attention.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mrm-divider"></section>
+
+  <section class="mrm-section" style="background: var(--mrm-bg);">
+    <div class="mrm-shell">
+      <div class="mrm-center-intro">
+        <span class="mrm-kicker">Lesson pathways</span>
+        <h2>Private lessons are the heart of the studio.</h2>
+        
+      </div>
+
+      <div class="mrm-service-grid">
+        <div class="mrm-service">
+          <span class="mrm-service-tag">Primary Offer</span>
+          <h3>Private Lessons</h3>
+          <p>
+            One-on-one low brass instruction designed to help students improve with a level of personal attention they cannot usually get elsewhere.
+          </p>
+          <ul>
+            <li>Trombone, euphonium, and tuba support</li>
+            <li>Online and in-person formats</li>
+            <li>Flexible scheduling options</li>
+            <li>Support for school music, auditions, and long-term growth</li>
+          </ul>
+          <div class="mrm-btn-row">
+            <a class="mrm-btn mrm-btn-primary" href="/calendar/">Book a Lesson</a>
+            <a class="mrm-btn mrm-btn-secondary" href="/about/">More Information</a>
+          </div>
+        </div>
+
+        <div class="mrm-service">
+          <span class="mrm-service-tag">Supporting Offer</span>
+          <h3>Sheet Music &amp; Curriculum Resources</h3>
+          <p>
+            Original materials and curated resources support the broader identity of the studio and help students continue engaging with music beyond the lesson itself.
+          </p>
+          <ul>
+            <li>Creative repertoire and practice support</li>
+            <li>Useful for both enrolled students and independent learners</li>
+            <li>Extends the studio’s educational value between lessons</li>
+            <li>Connects directly to the unique voice of your brand</li>
+          </ul>
+          <div class="mrm-btn-row">
+            <a class="mrm-btn mrm-btn-secondary" href="/sheet-music/">Browse Sheet Music</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mrm-section">
+    <div class="mrm-shell">
+      <div class="mrm-faq-wrap">
+        <div class="mrm-center-intro" style="margin-bottom:24px;">
+          <span class="mrm-kicker">Questions families ask</span>
+          <h2>Helpful answers before booking.</h2>
+        </div>
+
+        <div class="mrm-faq-item">
+          <h3>Who are these lessons best for?</h3>
+          <p>
+            These lessons are especially well suited for middle school and high school low brass students who want more individual guidance, better practice direction, and stronger confidence in performance.
+          </p>
+        </div>
+
+        <div class="mrm-faq-item">
+          <h3>What does a student typically work on in lessons?</h3>
+          <p>
+            Lessons may include tone, articulation, flexibility, rhythm, school repertoire, solo music, audition preparation, and broader musicianship depending on the student’s needs.
+          </p>
+        </div>
+
+        <div class="mrm-faq-item">
+          <h3>Are online lessons still effective?</h3>
+          <p>
+            Yes. For many students, online lessons provide an excellent balance of accessibility, flexibility, and focused instruction, especially when the lesson plan is clear and the communication is strong.
+          </p>
+        </div>
+
+        <div class="mrm-faq-item">
+          <h3>What happens after we book?</h3>
+          <p>
+            Families receive confirmation and next-step information so the process feels straightforward, organized, and welcoming from the very beginning.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

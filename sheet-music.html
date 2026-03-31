@@ -1,0 +1,354 @@
+<style>
+  .mrm-sheet-intro,
+  .mrm-sheet-intro * {
+    box-sizing: border-box;
+  }
+
+  .mrm-sheet-intro {
+    --mrm-bg: #f6f1e7;
+    --mrm-bg-soft: #fbf8f2;
+    --mrm-surface: #ffffff;
+    --mrm-text: #171512;
+    --mrm-muted: #5f5851;
+    --mrm-line: #d9cfbe;
+    --mrm-gold: #8e8155;
+    --mrm-gold-dark: #6e643f;
+    --mrm-gold-soft: #ede5d1;
+    --mrm-dark: #171512;
+    --mrm-shadow: 0 14px 30px rgba(0,0,0,.06);
+    width: 100%;
+    background: var(--mrm-bg-soft);
+    color: var(--mrm-text);
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.6;
+  }
+
+  .mrm-sheet-intro a,
+  .mrm-sheet-intro a:hover,
+  .mrm-sheet-intro a:focus,
+  .mrm-sheet-intro a:visited {
+    text-decoration: none !important;
+  }
+
+  .mrm-sheet-shell {
+    width: min(1140px, calc(100% - 32px));
+    margin: 0 auto;
+  }
+
+  .mrm-sheet-section {
+    padding: 42px 0;
+  }
+
+  .mrm-sheet-grid {
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap: 34px;
+    align-items: center;
+  }
+
+  .mrm-sheet-kicker {
+    display: inline-block;
+    margin-bottom: 12px;
+    font-size: .82rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--mrm-gold);
+    font-weight: 700;
+    font-family: Inter, Arial, sans-serif;
+  }
+
+  .mrm-sheet-intro h1,
+  .mrm-sheet-intro h2,
+  .mrm-sheet-intro h3 {
+    margin: 0 0 16px;
+    line-height: 1.08;
+    font-weight: 700;
+    color: var(--mrm-text);
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  .mrm-sheet-intro h1 {
+    font-size: clamp(2rem, 4vw, 3.05rem);
+    letter-spacing: -0.02em;
+  }
+
+  .mrm-sheet-intro h2 {
+    font-size: clamp(1.5rem, 2.8vw, 2.15rem);
+    letter-spacing: -0.02em;
+  }
+
+  .mrm-sheet-intro h3 {
+    font-size: clamp(1.08rem, 2vw, 1.28rem);
+  }
+
+  .mrm-sheet-intro p {
+    margin: 0 0 16px;
+    color: var(--mrm-muted);
+    font-size: 1.04rem;
+  }
+
+  .mrm-sheet-lead {
+    font-size: 1.14rem !important;
+    max-width: 58ch;
+  }
+
+  .mrm-sheet-composer-link {
+    color: var(--mrm-gold-dark) !important;
+    border-bottom: 1px solid rgba(142,129,85,.35);
+    font-weight: 700;
+  }
+
+  .mrm-sheet-composer-link:hover {
+    color: var(--mrm-gold) !important;
+    border-bottom-color: var(--mrm-gold);
+  }
+
+  .mrm-sheet-btn-row {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+
+  .mrm-sheet-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    padding: 0 22px;
+    border-radius: 999px;
+    font-family: Inter, Arial, sans-serif;
+    font-size: .95rem;
+    font-weight: 700;
+    letter-spacing: .01em;
+    border: 1px solid transparent;
+    transition: .2s ease;
+  }
+
+  .mrm-sheet-btn-primary {
+    background: var(--mrm-gold);
+    color: #fff !important;
+  }
+
+  .mrm-sheet-btn-primary:hover {
+    background: var(--mrm-gold-dark);
+    transform: translateY(-1px);
+  }
+
+  .mrm-sheet-btn-secondary {
+    background: transparent;
+    color: var(--mrm-text) !important;
+    border-color: var(--mrm-line);
+  }
+
+  .mrm-sheet-btn-secondary:hover {
+    border-color: var(--mrm-gold);
+    color: var(--mrm-gold-dark) !important;
+  }
+
+  .mrm-sheet-visual {
+    background: #fff;
+    border: 1px solid var(--mrm-line);
+    border-radius: 22px;
+    box-shadow: var(--mrm-shadow);
+    overflow: hidden;
+  }
+
+  .mrm-sheet-visual img {
+    width: 100%;
+    height: 100%;
+    min-height: 430px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .mrm-sheet-card {
+    background: #fff;
+    border: 1px solid var(--mrm-line);
+    border-radius: 22px;
+    box-shadow: var(--mrm-shadow);
+    padding: 30px;
+  }
+
+  .mrm-sheet-feature-band {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .mrm-sheet-feature {
+    background: rgba(246,241,231,.6);
+    border: 1px solid var(--mrm-line);
+    border-radius: 18px;
+    padding: 20px;
+  }
+
+  .mrm-sheet-feature p:last-child,
+  .mrm-sheet-deliverable p:last-child,
+  .mrm-sheet-card p:last-child {
+    margin-bottom: 0;
+  }
+
+  .mrm-sheet-deliverables {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 18px;
+    margin-top: 24px;
+  }
+
+  .mrm-sheet-deliverable {
+    background: var(--mrm-surface);
+    border: 1px solid var(--mrm-line);
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.04);
+  }
+
+  .mrm-sheet-label {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 7px 11px;
+    border-radius: 999px;
+    background: var(--mrm-gold-soft);
+    color: var(--mrm-gold-dark);
+    font-family: Inter, Arial, sans-serif;
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+
+  .mrm-sheet-catalog-anchor {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid var(--mrm-line);
+    text-align: center;
+  }
+
+  .mrm-sheet-catalog-anchor p {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 1024px) {
+    .mrm-sheet-grid,
+    .mrm-sheet-feature-band,
+    .mrm-sheet-deliverables {
+      grid-template-columns: 1fr;
+    }
+
+    .mrm-sheet-visual img {
+      min-height: 300px;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .mrm-sheet-section {
+      padding: 34px 0;
+    }
+
+    .mrm-sheet-card {
+      padding: 24px;
+    }
+  }
+</style>
+
+<div class="mrm-sheet-intro">
+  <section class="mrm-sheet-section">
+    <div class="mrm-sheet-shell">
+      <div class="mrm-sheet-grid">
+        <div>
+          <span class="mrm-sheet-kicker">Pocket Orchestra Series</span>
+          <h1>Original low brass music built around a modern approach to student development.</h1>
+          <p class="mrm-sheet-lead">
+            Created by <a class="mrm-sheet-composer-link" href="/composer/">[Composer Name]</a>, the Pocket Orchestra Series is designed to help develop low brass players through music that feels current, playable, and musically rewarding.
+          </p>
+          <p>
+            Rather than treating educational repertoire as something dry or purely functional, <a class="mrm-sheet-composer-link" href="/composer/">[Composer Name]</a> is pioneering a more modern approach to low brass learning — one that blends thoughtful pedagogy with fresh musical writing, practical usefulness, and a stronger sense of artistic identity.
+          </p>
+          <p>
+            These products are intended for players, teachers, and studios looking for music that supports growth while still feeling polished enough to be exciting to rehearse, study, and perform.
+          </p>
+
+          <div class="mrm-sheet-btn-row">
+            <a class="mrm-sheet-btn mrm-sheet-btn-primary" href="#mrm-sheet-music-catalog">Browse the Catalog</a>
+            <a class="mrm-sheet-btn mrm-sheet-btn-secondary" href="/composer/">Meet the Composer</a>
+          </div>
+        </div>
+
+        <div class="mrm-sheet-visual">
+          <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg" alt="Pocket Orchestra sheet music">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mrm-sheet-section" style="padding-top:0;">
+    <div class="mrm-sheet-shell">
+      <div class="mrm-sheet-card">
+        <span class="mrm-sheet-kicker">What makes this series different</span>
+        <h2>Product-focused materials created by <a class="mrm-sheet-composer-link" href="/composer/">[Composer Name]</a> for modern low brass study.</h2>
+        <p>
+          The Pocket Orchestra Series is not just a library of PDFs. It is a growing catalog of educational products created to make independent practice, lesson work, and musical development feel more engaging and more complete.
+        </p>
+        <p>
+          Each release is built to give players useful materials they can immediately work with, while also reflecting the larger creative vision developed by <a class="mrm-sheet-composer-link" href="/composer/">[Composer Name]</a>. The goal is simple: music that helps students improve, but still feels artistically intentional.
+        </p>
+
+        <div class="mrm-sheet-feature-band">
+          <div class="mrm-sheet-feature">
+            <h3>Composer-led</h3>
+            <p>Each product comes from a clearly defined creative voice rather than feeling generic or mass-produced.</p>
+          </div>
+          <div class="mrm-sheet-feature">
+            <h3>Development-minded</h3>
+            <p>The music is meant to support skill-building, stronger practice habits, and meaningful musical growth.</p>
+          </div>
+          <div class="mrm-sheet-feature">
+            <h3>Built for real use</h3>
+            <p>These products are designed to work well in lessons, personal practice, and independent study settings.</p>
+          </div>
+        </div>
+
+        <div class="mrm-sheet-deliverables">
+          <div class="mrm-sheet-deliverable">
+            <span class="mrm-sheet-label">Included Product Material</span>
+            <h3>Downloadable sheet music PDFs</h3>
+            <p>
+              Each product includes downloadable PDF materials so players can access, print, and use the music easily in lessons, rehearsals, or personal practice.
+            </p>
+          </div>
+
+          <div class="mrm-sheet-deliverable">
+            <span class="mrm-sheet-label">Included Product Material</span>
+            <h3>Accompaniment tracks</h3>
+            <p>
+              Select products include accompaniment tracks that help players practice with stronger rhythmic context, musical support, and a more complete performance experience.
+            </p>
+          </div>
+
+          <div class="mrm-sheet-deliverable">
+            <span class="mrm-sheet-label">Why that matters</span>
+            <h3>More than a single file</h3>
+            <p>
+              The aim is to give students a fuller product experience — not just notation, but tools that help them engage with the music more effectively.
+            </p>
+          </div>
+
+          <div class="mrm-sheet-deliverable">
+            <span class="mrm-sheet-label">Who it serves</span>
+            <h3>Useful for students, teachers, and independent players</h3>
+            <p>
+              Whether you are using these materials inside a lesson setting or on your own, the products are designed to be approachable, practical, and musically worthwhile.
+            </p>
+          </div>
+        </div>
+
+        <div class="mrm-sheet-catalog-anchor" id="mrm-sheet-music-catalog">
+          <span class="mrm-sheet-kicker">Catalog</span>
+          <p>Explore the current Pocket Orchestra products below.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
