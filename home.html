@@ -71,10 +71,10 @@
     pointer-events:none;
   }
   .mrm-home-stage-media{
-    position:absolute; inset:22px 22px 110px; border-radius:22px; overflow:hidden;
+    position:absolute; inset:22px 22px 110px; border-radius:28px; overflow:hidden;
     box-shadow:0 20px 42px rgba(23,21,18,.24);
   }
-  .mrm-home-stage img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .mrm-home-stage img{ width:100%; height:100%; object-fit:cover; display:block; border-radius:inherit; }
   .mrm-home-stage-ribbon{
     position:absolute; left:22px; top:22px; z-index:2; padding:8px 12px;
     border-radius:999px; background:rgba(23,21,18,.58); color:#fff;
@@ -83,7 +83,7 @@
   }
   .mrm-home-stage-card{
     position:absolute; right:22px; bottom:22px; width:min(90%, 380px);
-    padding:24px 22px; border-radius:20px; background:rgba(252,248,241,.94);
+    padding:20px 22px; border-radius:20px; background:rgba(252,248,241,.94);
     backdrop-filter:blur(8px); border:1px solid rgba(142,129,85,.24);
     box-shadow:0 12px 28px rgba(23,21,18,.16);
   }
@@ -149,9 +149,35 @@
   }
 
   @media (max-width:1024px){
-    .mrm-home-hero-grid, .mrm-home-band-row, .mrm-home-path-grid, .mrm-home-signal-grid{ grid-template-columns:1fr; }
+    .mrm-home-section{ padding:68px 0; }
+    .mrm-home-hero-grid{ grid-template-columns:minmax(0,1fr); gap:28px; padding:46px 0 58px; }
+    .mrm-home-band-row, .mrm-home-path-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+    .mrm-home-signal-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
     .mrm-home-stage{ min-height:420px; }
-    .mrm-home-signal{ margin-top:28px; }
+    .mrm-home-signal{ margin-top:20px; }
+  }
+
+  @media (max-width:760px){
+    .mrm-home-shell{ width:min(1160px, calc(100% - 22px)); }
+    .mrm-home-section{ padding:52px 0; }
+    .mrm-home-btn-row{ gap:10px; margin-top:22px; }
+    .mrm-home-btn{ min-height:46px; padding:0 16px; font-size:.88rem; }
+    .mrm-home-jump{ margin-top:18px; gap:8px; }
+    .mrm-home-jump a{ padding:8px 12px; font-size:.8rem; }
+    .mrm-home-stage{ min-height:350px; border-radius:24px; padding:14px; }
+    .mrm-home-stage:before{ inset:8px; border-radius:18px; }
+    .mrm-home-stage-media{ inset:14px 14px 92px; border-radius:20px; }
+    .mrm-home-stage-card{ left:14px; right:14px; bottom:14px; width:auto; padding:14px 16px; }
+    .mrm-home-signal-grid, .mrm-home-band-row, .mrm-home-path-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .mrm-home-signal-card, .mrm-home-feature{ border-radius:18px; padding:16px; }
+    .mrm-home-faq-head{ padding:20px 18px 10px; }
+    .mrm-home-faq-item{ padding:16px 18px; }
+  }
+
+  @media (max-width:560px){
+    .mrm-home-redesign p{ font-size:.97rem; margin-bottom:12px; }
+    .mrm-home-redesign h3{ font-size:1.02rem; }
+    .mrm-home-signal-grid, .mrm-home-band-row, .mrm-home-path-grid{ grid-template-columns:1fr; }
   }
 </style>
 
@@ -186,7 +212,6 @@
           <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg" alt="Low brass lessons">
         </div>
         <div class="mrm-home-stage-card">
-          <h3>Instruction that meets students where they are.</h3>
           <p>
             Personalized lessons, flexible scheduling, and a studio experience designed to help young low brass musicians improve with confidence.
           </p>
