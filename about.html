@@ -1,28 +1,31 @@
 <!-- Low Brass Lessons - About Page HTML Block (Redesigned) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   .mrm-about-redesign,.mrm-about-redesign *{box-sizing:border-box;}
   .mrm-about-redesign{
     --bg:#fbf8f2; --bg2:#f6f1e7; --surface:#fff; --text:#171512; --muted:#5f5851;
     --line:#d9cfbe; --gold:#8e8155; --gold-dark:#6e643f; --gold-soft:#ede5d1; --dark:#171512;
     --shadow:0 18px 40px rgba(25,22,18,.07);
-    width:100%; background:var(--bg); color:var(--text); font-family:Georgia,"Times New Roman",serif; line-height:1.65;
+    width:100%; background:var(--bg); color:var(--text); font-family:'Source Sans 3', 'Open Sans', Arial, sans-serif; line-height:1.65;
   }
   .mrm-about-redesign a,.mrm-about-redesign a:hover,.mrm-about-redesign a:focus,.mrm-about-redesign a:visited{text-decoration:none !important;}
   .mrm-about-shell{ width:min(1160px, calc(100% - 32px)); margin:0 auto; }
   .mrm-about-section{ padding:84px 0; }
-  .mrm-about-redesign h1,.mrm-about-redesign h2,.mrm-about-redesign h3{ margin:0 0 16px; line-height:1.08; color:var(--text); font-weight:700; }
-  .mrm-about-redesign h1{ font-size:clamp(2rem, 4.6vw, 3.35rem); letter-spacing:-.022em; font-weight:600; }
-  .mrm-about-redesign h2{ font-size:clamp(1.85rem, 4vw, 3rem); letter-spacing:-.025em; }
-  .mrm-about-redesign h3{ font-size:clamp(1.08rem, 2vw, 1.4rem); }
-  .mrm-about-redesign p{ margin:0 0 16px; color:var(--muted); font-size:1.04rem; }
+  .mrm-about-redesign h1,.mrm-about-redesign h2,.mrm-about-redesign h3{ margin:0 0 16px; line-height:1.08; color:var(--text); font-weight:600; font-family:'Cormorant Garamond', Georgia, 'Times New Roman', serif; }
+  .mrm-about-redesign h1{ font-size:clamp(2rem, 4vw, 2.625rem); letter-spacing:-.022em; font-weight:600; }
+  .mrm-about-redesign h2{ font-size:clamp(1.75rem, 3.5vw, 2rem); letter-spacing:-.025em; }
+  .mrm-about-redesign h3{ font-size:clamp(1.375rem, 2.8vw, 1.625rem); }
+  .mrm-about-redesign p{ margin:0 0 1.5rem; color:var(--muted); font-size:1rem; line-height:1.5; }
   .mrm-about-kicker{
     display:inline-block; margin-bottom:12px; color:var(--gold); text-transform:uppercase;
-    letter-spacing:.18em; font:700 .79rem/1 Inter,Arial,sans-serif;
+    letter-spacing:.18em; font:700 .79rem/1 'Source Sans 3', 'Open Sans', Arial, sans-serif;
   }
   .mrm-about-btn-row{ display:flex; flex-wrap:wrap; gap:14px; margin-top:26px; }
   .mrm-about-btn{
     min-height:52px; display:inline-flex; align-items:center; justify-content:center; padding:0 22px; border-radius:999px;
-    border:1px solid transparent; font:700 .95rem Inter,Arial,sans-serif;
+    border:1px solid transparent; font:700 1.125rem/1 'Source Sans 3', 'Open Sans', Arial, sans-serif; letter-spacing:.02em;
   }
   .mrm-about-btn-primary{ background:var(--gold); color:#fff !important; }
   .mrm-about-btn-primary:hover{ background:var(--gold-dark); }
@@ -30,14 +33,13 @@
   .mrm-about-btn-secondary:hover{ border-color:var(--gold); color:var(--gold-dark) !important; }
 
   .mrm-about-hero{
-    background:linear-gradient(180deg, rgba(246,241,231,.9), rgba(255,255,255,.2)), var(--bg2);
-    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    background:var(--bg);
   }
   .mrm-about-hero-grid{
     display:grid; gap:26px; padding:56px 0 68px;
   }
   .mrm-about-editorial{
-    background:#fff; border:1px solid var(--line); border-radius:28px; padding:30px; box-shadow:var(--shadow);
+    background:transparent; border:none; border-radius:0; padding:10px 0 0; box-shadow:none;
   }
   .mrm-about-hero-intro{
     display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:44px; align-items:start;
@@ -55,7 +57,7 @@
   .mrm-about-benefit-check{
     width:24px; height:24px; border-radius:999px; margin-top:2px;
     background:var(--gold-soft); color:var(--gold-dark);
-    display:grid; place-items:center; font:700 .85rem/1 Inter,Arial,sans-serif;
+    display:grid; place-items:center; font:700 .85rem/1 'Source Sans 3', 'Open Sans', Arial, sans-serif;
   }
   .mrm-about-benefit h3{
     margin:0 0 4px; font-size:1.08rem; line-height:1.2;
@@ -63,37 +65,85 @@
   .mrm-about-benefit p{
     margin:0; font-size:.98rem;
   }
-  .mrm-about-hero-image-wrap{
+  .mrm-about-hero-transition{
     position:relative;
-    padding:18px 0 4px 42px;
+    margin-top:18px;
+    border:1px solid var(--line);
+    border-radius:30px;
+    overflow:hidden;
+    background:linear-gradient(140deg, #f7f1e5, #fff 52%, #efe6d4);
+    box-shadow:var(--shadow);
+    min-height:clamp(210px, 28vw, 320px);
+    isolation:isolate;
   }
-  .mrm-about-hero-image-wrap:before{
+  .mrm-about-hero-transition:before,
+  .mrm-about-hero-transition:after{
     content:"";
     position:absolute;
-    left:0;
-    top:0;
-    width:32%;
-    height:78%;
-    border:1px solid var(--line);
-    border-radius:20px;
-    background:linear-gradient(180deg, rgba(237,229,209,.55), rgba(255,255,255,0));
+    border-radius:999px;
+    filter:blur(1px);
+    opacity:.8;
   }
-  .mrm-about-hero-image{
-    width:100%;
-    aspect-ratio:21 / 8;
-    overflow:hidden;
-    border:1px solid var(--line);
-    border-radius:26px;
-    box-shadow:var(--shadow);
-    position:relative;
+  .mrm-about-hero-transition:before{
+    width:58%;
+    height:190%;
+    left:-14%;
+    top:-66%;
+    background:radial-gradient(circle at center, rgba(142,129,85,.22), rgba(142,129,85,0) 72%);
+  }
+  .mrm-about-hero-transition:after{
+    width:44%;
+    height:140%;
+    right:-10%;
+    bottom:-62%;
+    background:radial-gradient(circle at center, rgba(110,100,63,.18), rgba(110,100,63,0) 72%);
+  }
+  .mrm-about-hero-transition-wave{
+    position:absolute;
+    inset:auto -6% -58px;
+    height:56%;
+    background:linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.88));
+    clip-path:ellipse(64% 100% at 50% 100%);
     z-index:1;
   }
-  .mrm-about-hero-image img{
+  .mrm-about-hero-transition-note{
+    position:relative;
+    z-index:2;
+    display:grid;
+    gap:12px;
+    padding:36px clamp(22px,4vw,46px);
+    max-width:760px;
+  }
+  .mrm-about-hero-transition-note p{
+    margin:0;
+    color:var(--gold-dark);
+    font-size:1rem;
+  }
+  .mrm-about-hero-transition-note strong{
+    font:700 .78rem/1 'Source Sans 3', 'Open Sans', Arial, sans-serif;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+
+
+  .mrm-about-hero-logo-block{
     width:100%;
-    height:100%;
+    display:flex;
+    justify-content:center;
+    padding:22px 0 20px;
+    margin-top:8px;
+  }
+  .mrm-about-brand-divider{
+    display:flex;
+    justify-content:center;
+    width:100%;
+  }
+  .mrm-about-brand-logo{
+    width:min(420px, 78vw);
+    border-radius:18px;
     display:block;
-    object-fit:cover;
-    object-position:center 42%;
+    filter:drop-shadow(0 14px 24px rgba(25,22,18,.12));
   }
 
   .mrm-about-rail-layout{
@@ -104,7 +154,7 @@
   }
   .mrm-about-rail a{
     display:block; padding:10px 0; color:var(--muted) !important; border-bottom:1px solid rgba(217,207,190,.65);
-    font:600 .92rem Inter,Arial,sans-serif;
+    font:600 .92rem 'Source Sans 3', 'Open Sans', Arial, sans-serif;
   }
   .mrm-about-rail a:last-child{ border-bottom:none; }
   .mrm-about-rail a:hover{ color:var(--gold-dark) !important; }
@@ -134,7 +184,7 @@
     padding:16px 20px;
     background:var(--gold-soft);
     border-bottom:1px solid var(--line);
-    font:700 .93rem/1.35 Inter,Arial,sans-serif;
+    font:700 .93rem/1.35 'Source Sans 3', 'Open Sans', Arial, sans-serif;
     letter-spacing:.03em;
     text-transform:none;
     color:var(--text);
@@ -144,7 +194,8 @@
   }
   .mrm-about-split-body p:last-child{ margin-bottom:0; }
   .mrm-about-format-image{
-    margin-top:14px;
+    margin-top:0;
+    margin-bottom:14px;
     aspect-ratio:16 / 9;
     border-radius:16px;
     overflow:hidden;
@@ -159,7 +210,7 @@
   }
   .mrm-about-number{
     width:38px; height:38px; border-radius:50%; display:grid; place-items:center; margin-bottom:14px;
-    background:var(--gold-soft); color:var(--gold-dark); font:700 .95rem Inter,Arial,sans-serif;
+    background:var(--gold-soft); color:var(--gold-dark); font:700 .95rem 'Source Sans 3', 'Open Sans', Arial, sans-serif;
   }
 
   .mrm-about-dark{
@@ -170,24 +221,66 @@
   .mrm-about-dark .mrm-about-card{
     background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.12);
   }
+  .mrm-about-resource-link{
+    display:inline-flex;
+    margin-top:6px;
+    padding:10px 14px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:var(--gold-soft);
+    color:var(--gold-dark) !important;
+    font:700 1.125rem/1 'Source Sans 3', 'Open Sans', Arial, sans-serif;
+    letter-spacing:.02em;
+  }
+  .mrm-about-resource-link:hover{
+    border-color:var(--gold);
+    background:#f6edd9;
+  }
+
+  .mrm-about-expect-grid{
+    display:grid;
+    grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+    gap:18px;
+  }
+  .mrm-about-expect-intro{
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:24px;
+    background:linear-gradient(180deg, rgba(237,229,209,.6), #fff);
+  }
+  .mrm-about-expect-points{
+    display:grid;
+    gap:14px;
+  }
+  .mrm-about-expect-point{
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:18px 18px 16px;
+    background:#fff;
+    box-shadow:0 10px 22px rgba(25,22,18,.06);
+  }
+  .mrm-about-expect-point:nth-child(even){ margin-left:20px; }
+  .mrm-about-expect-point h3{ margin-bottom:8px; }
 
   @media (max-width:1024px){
     .mrm-about-section{ padding:68px 0; }
     .mrm-about-hero-grid{ padding:44px 0 52px; }
     .mrm-about-hero-intro{ grid-template-columns:1.05fr .95fr; gap:22px; }
-    .mrm-about-rail-layout{ grid-template-columns:220px minmax(0,1fr); gap:20px; }
+  
+  .mrm-about-rail-layout{ grid-template-columns:220px minmax(0,1fr); gap:20px; }
     .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
-    .mrm-about-hero-image-wrap{ padding-left:20px; }
-    .mrm-about-hero-image{ aspect-ratio:21 / 10; border-radius:22px; }
+    .mrm-about-hero-transition{ border-radius:24px; min-height:240px; margin-top:12px; }
+    .mrm-about-expect-grid{ grid-template-columns:1fr; }
     .mrm-about-editorial,.mrm-about-panel{ border-radius:22px; }
   }
 
   @media (max-width:760px){
     .mrm-about-shell{ width:min(1160px, calc(100% - 22px)); }
     .mrm-about-section{ padding:52px 0; }
-    .mrm-about-hero-grid{ gap:16px; padding:30px 0 38px; }
+    .mrm-about-hero-grid{ gap:16px; padding:30px 0 42px; }
     .mrm-about-hero-intro{ grid-template-columns:minmax(0,1fr); gap:16px; }
-    .mrm-about-rail-layout{ grid-template-columns:minmax(0,1fr); }
+  
+  .mrm-about-rail-layout{ grid-template-columns:minmax(0,1fr); }
     .mrm-about-rail{ position:static; top:auto; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px 14px; padding:16px; border-radius:18px; }
     .mrm-about-rail a{ padding:8px 0; font-size:.84rem; }
     .mrm-about-stack{ gap:16px; }
@@ -195,10 +288,14 @@
     .mrm-about-panel-body{ padding:8px 20px 20px; }
     .mrm-about-card{ border-radius:16px; padding:16px; }
     .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .mrm-about-hero-logo-block{ padding:16px 0 14px; margin-top:2px; }
+    .mrm-about-brand-logo{ width:min(320px, 86vw); }
+    .mrm-about-hero-transition{ min-height:210px; }
+    .mrm-about-expect-point:nth-child(even){ margin-left:0; }
   }
 
   @media (max-width:560px){
-    .mrm-about-redesign p{ font-size:.97rem; margin-bottom:12px; }
+    .mrm-about-redesign p{ font-size:1rem; line-height:1.5; margin-bottom:1.5rem; }
     .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:1fr; }
   }
 </style>
@@ -239,11 +336,12 @@
         </div>
       </div>
 
-      <div class="mrm-about-hero-image-wrap">
-        <figure class="mrm-about-hero-image">
-          <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg" alt="Low brass instruction">
-        </figure>
+      <div class="mrm-about-hero-logo-block">
+        <div class="mrm-about-brand-divider">
+          <img class="mrm-about-brand-logo" src="https://lowbrass-lessons.com/wp-content/uploads/2025/10/tuba-scaled.jpeg" alt="Low Brass Lessons logo">
+        </div>
       </div>
+
     </div>
   </section>
 
@@ -260,7 +358,7 @@
         <div class="mrm-about-panel" id="mrm-about-fit">
           <div class="mrm-about-panel-head">
             <span class="mrm-about-kicker">Why a multi-instructor studio helps</span>
-            <h2>More instructors means better fit, better availability, and more long-term support for families.</h2>
+            <h2>More instructors mean better fit and long-term support.</h2>
           </div>
           <div class="mrm-about-panel-body">
             <p>One of the strengths of Low Brass Lessons is that the studio is not limited to a single teaching schedule or a single teaching perspective. A broader instructor network makes it easier to match students with teachers who are a strong fit for their instrument, learning style, schedule, and goals.</p>
@@ -312,19 +410,21 @@
               <article class="mrm-about-split-card">
                 <h3 class="mrm-about-split-title">In-person lessons</h3>
                 <div class="mrm-about-split-body">
-                  <p>A strong fit for students who benefit from the energy of being in the room.</p>
                   <div class="mrm-about-format-image">
                     <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg" alt="In-person low brass lesson">
                   </div>
+                  <p>A strong fit for students who benefit from the energy of being in the room.</p>
+                  <a class="mrm-about-resource-link" href="/calendar/">Schedule a Lesson</a>
                 </div>
               </article>
               <article class="mrm-about-split-card">
                 <h3 class="mrm-about-split-title">Online lessons</h3>
                 <div class="mrm-about-split-body">
-                  <p>Practical and effective options for families who need flexibility without giving up quality instruction.</p>
                   <div class="mrm-about-format-image">
-                    <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/Online-Lesson-optimized-scaled.jpg" alt="Online low brass lesson">
+                    <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/online-lessons.png" alt="Online low brass lesson">
                   </div>
+                  <p>Practical and effective option for families who need flexibility without giving up quality instruction.</p>
+                  <a class="mrm-about-resource-link" href="https://www.amazon.com/s?k=usb+microphone" target="_blank" rel="noopener">Browse USB microphones on Amazon</a>
                 </div>
               </article>
             </div>
@@ -337,11 +437,16 @@
             <h2>A lesson experience designed to feel clear, welcoming, and worthwhile.</h2>
           </div>
           <div class="mrm-about-panel-body">
-            <div class="mrm-about-grid-2">
-              <div class="mrm-about-card"><h3>Clear communication</h3><p>Families should feel informed from the beginning. That includes a straightforward booking process, practical lesson information, and a studio experience that feels organized rather than confusing.</p></div>
-              <div class="mrm-about-card"><h3>Thoughtful instruction</h3><p>Lessons are meant to support progress over time, not just deliver occasional tips. Students should leave with direction, encouragement, and a stronger sense of what growth looks like.</p></div>
-              <div class="mrm-about-card"><h3>Flexibility without losing quality</h3><p>Online and in-person options make the studio more accessible, but the expectation remains the same: instruction should be personal, intentional, and educationally sound.</p></div>
-              <div class="mrm-about-card"><h3>A studio that can grow with the student</h3><p>As goals become more advanced, students benefit from being part of a studio built with enough structure and instructor depth to support that growth.</p></div>
+            <div class="mrm-about-expect-grid">
+              <div class="mrm-about-expect-intro">
+                <h3>What this feels like week to week</h3>
+                <p>Families should feel informed from the beginning. That includes a straightforward booking process, practical lesson information, and a studio experience that feels organized rather than confusing. Week to week, students should leave lessons with specific direction, parents should know what to expect next, and the overall rhythm should feel steady, encouraging, and musically purposeful rather than rushed or unclear.</p>
+              </div>
+              <div class="mrm-about-expect-points">
+                <div class="mrm-about-expect-point"><h3>Thoughtful instruction</h3><p>Lessons are meant to support progress over time, not just deliver occasional tips. Students should leave with direction, encouragement, and a stronger sense of what growth looks like.</p></div>
+                <div class="mrm-about-expect-point"><h3>Flexibility without losing quality</h3><p>Online and in-person options make the studio more accessible, but the expectation remains the same: instruction should be personal, intentional, and educationally sound.</p></div>
+                <div class="mrm-about-expect-point"><h3>A studio that can grow with the student</h3><p>As goals become more advanced, students benefit from being part of a studio built with enough structure and instructor depth to support that growth.</p></div>
+              </div>
             </div>
           </div>
         </div>

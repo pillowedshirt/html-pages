@@ -1,31 +1,36 @@
 <!-- Low Brass Lessons - Home Page HTML Block (Redesigned) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   .mrm-home-redesign, .mrm-home-redesign * { box-sizing:border-box; }
   .mrm-home-redesign{
     --bg:#fbf8f2; --bg2:#f6f1e7; --surface:#fff; --text:#171512; --muted:#5f5851;
     --line:#d9cfbe; --gold:#8e8155; --gold-dark:#6e643f; --gold-soft:#ede5d1;
     --shadow:0 18px 40px rgba(25,22,18,.07);
-    width:100%; color:var(--text); background:var(--bg); font-family:Georgia,"Times New Roman",serif; line-height:1.65;
+    width:100%; color:var(--text); background:var(--bg); font-family:'Source Sans 3', 'Open Sans', Arial, sans-serif; line-height:1.65;
     -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
   }
   .mrm-home-redesign a, .mrm-home-redesign a:hover, .mrm-home-redesign a:focus, .mrm-home-redesign a:visited { text-decoration:none !important; }
   .mrm-home-shell{ width:min(1160px, calc(100% - 32px)); margin:0 auto; }
   .mrm-home-section{ padding:82px 0; }
-  .mrm-home-redesign h1,.mrm-home-redesign h2,.mrm-home-redesign h3{ margin:0 0 12px; color:var(--text); line-height:1.06; font-weight:700; }
-  .mrm-home-redesign h1{ font-size:clamp(1.75rem, 3.2vw, 2.55rem); letter-spacing:-.02em; }
-  .mrm-home-redesign h2{ font-size:clamp(1.55rem, 2.8vw, 2.2rem); letter-spacing:-.018em; }
-  .mrm-home-redesign h3{ font-size:clamp(1.02rem, 1.8vw, 1.28rem); }
-  .mrm-home-redesign p{ margin:0 0 16px; font-size:1.04rem; color:var(--muted); }
+  .mrm-home-section--faq{ padding-top:42px; }
+  .mrm-home-redesign h1,.mrm-home-redesign h2,.mrm-home-redesign h3{ margin:0 0 12px; color:var(--text); line-height:1.06; font-weight:600; font-family:'Cormorant Garamond', Georgia, 'Times New Roman', serif; }
+  .mrm-home-redesign h1{ font-size:clamp(2rem, 4vw, 2.625rem); letter-spacing:-.02em; }
+  .mrm-home-redesign h2{ font-size:clamp(1.75rem, 3.5vw, 2rem); letter-spacing:-.018em; }
+  .mrm-home-redesign h3{ font-size:clamp(1.375rem, 2.8vw, 1.625rem); }
+  .mrm-home-redesign p{ margin:0 0 1.5rem; font-size:1rem; line-height:1.5; color:var(--muted); }
   .mrm-home-kicker{
+    font-family:'Cormorant Garamond', Georgia, 'Times New Roman', serif;
     display:inline-flex; align-items:center; gap:10px; padding:8px 14px; border-radius:999px;
     background:rgba(255,255,255,.78); border:1px solid var(--line); box-shadow:var(--shadow);
-    font:700 .78rem/1 Inter,Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:var(--gold);
+    font:700 .78rem/1 'Source Sans 3', 'Open Sans', Arial, sans-serif; letter-spacing:.16em; text-transform:uppercase; color:var(--gold);
   }
   .mrm-home-kicker:before{ content:""; width:8px; height:8px; border-radius:50%; background:var(--gold); opacity:.7; }
   .mrm-home-btn-row{ display:flex; flex-wrap:wrap; gap:12px; margin-top:22px; }
   .mrm-home-btn{
     min-height:52px; display:inline-flex; align-items:center; justify-content:center; padding:0 22px; border-radius:999px;
-    border:1px solid transparent; font:700 .95rem Inter,Arial,sans-serif; letter-spacing:.01em; transition:.2s ease;
+    border:1px solid transparent; font:700 1.125rem/1 'Source Sans 3', 'Open Sans', Arial, sans-serif; letter-spacing:.02em; transition:.2s ease;
   }
   .mrm-home-btn-primary{ background:var(--gold); color:#fff !important; }
   .mrm-home-btn-primary:hover{ background:var(--gold-dark); transform:translateY(-1px); }
@@ -46,15 +51,17 @@
     display:grid; grid-template-columns:1.18fr .82fr; gap:38px; align-items:center; padding:58px 0 72px;
   }
   .mrm-home-hero-copy{ position:relative; z-index:1; max-width:720px; }
-  .mrm-home-hero-copy .mrm-home-kicker{ margin-bottom:22px; }
-  .mrm-home-faq-head .mrm-home-kicker{ margin-bottom:18px; }
+  .mrm-home-hero-copy .mrm-home-kicker{
+    font-family:'Cormorant Garamond', Georgia, 'Times New Roman', serif; margin-bottom:22px; }
+  .mrm-home-faq-head .mrm-home-kicker{
+    font-family:'Cormorant Garamond', Georgia, 'Times New Roman', serif; margin-bottom:18px; }
   .mrm-home-lead{ font-size:1.16rem !important; max-width:62ch; }
   .mrm-home-jump{
     margin-top:26px; display:flex; flex-wrap:wrap; gap:10px;
   }
   .mrm-home-jump a{
     padding:10px 14px; border-radius:999px; border:1px solid var(--line); background:#fff; color:var(--text) !important;
-    font:600 .88rem Inter,Arial,sans-serif; box-shadow:var(--shadow);
+    font:600 .88rem 'Source Sans 3', 'Open Sans', Arial, sans-serif; box-shadow:var(--shadow);
   }
   .mrm-home-jump a:hover{ border-color:var(--gold); color:var(--gold-dark) !important; }
 
@@ -72,7 +79,7 @@
   .mrm-home-stage-ribbon{
     position:absolute; left:22px; top:22px; z-index:2; padding:8px 12px;
     border-radius:999px; background:rgba(23,21,18,.58); color:#fff;
-    font:600 .72rem/1 Inter,Arial,sans-serif; letter-spacing:.14em; text-transform:uppercase;
+    font:600 .72rem/1 'Source Sans 3', 'Open Sans', Arial, sans-serif; letter-spacing:.14em; text-transform:uppercase;
     backdrop-filter:blur(2px);
   }
   .mrm-home-stage-card{
@@ -102,12 +109,13 @@
   .mrm-home-band p{ margin-bottom:0; }
   .mrm-home-band-note{
     background:#fff; border:1px solid var(--line); border-radius:18px; padding:16px 18px; box-shadow:var(--shadow);
-    font:600 .92rem/1.4 Inter,Arial,sans-serif; color:var(--text);
+    font:600 .92rem/1.4 'Source Sans 3', 'Open Sans', Arial, sans-serif; color:var(--text);
   }
 
   .mrm-home-path-grid{
     display:grid; grid-template-columns:1.08fr .92fr; gap:24px; align-items:stretch;
   }
+  .mrm-home-offer-spacer{ height:10px; }
   .mrm-home-feature{
     background:#fff; border:1px solid var(--line); border-radius:28px; padding:30px; box-shadow:var(--shadow);
   }
@@ -115,8 +123,9 @@
     background:linear-gradient(180deg, rgba(246,241,231,.72), #fff 42%);
   }
   .mrm-home-tag{
+    font-family:'Source Sans 3', 'Open Sans', Arial, sans-serif;
     display:inline-block; margin-bottom:14px; padding:8px 12px; border-radius:999px; background:var(--gold-soft);
-    color:var(--gold-dark); font:700 .76rem Inter,Arial,sans-serif; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--gold-dark); font:700 .76rem 'Source Sans 3', 'Open Sans', Arial, sans-serif; letter-spacing:.08em; text-transform:uppercase;
   }
   .mrm-home-checks{ display:grid; gap:14px; margin-top:18px; }
   .mrm-home-check{
@@ -124,7 +133,7 @@
   }
   .mrm-home-check span{
     width:34px; height:34px; border-radius:50%; background:var(--gold-soft); color:var(--gold-dark);
-    display:grid; place-items:center; font:700 1rem Inter,Arial,sans-serif;
+    display:grid; place-items:center; font:700 1rem 'Source Sans 3', 'Open Sans', Arial, sans-serif;
   }
 
   .mrm-home-faq-wrap{
@@ -139,11 +148,12 @@
   }
   .mrm-home-faq-item h3:before{
     content:"Q"; width:28px; height:28px; border-radius:50%; background:var(--gold-soft); color:var(--gold-dark);
-    display:grid; place-items:center; font:700 .84rem Inter,Arial,sans-serif;
+    display:grid; place-items:center; font:700 .84rem 'Source Sans 3', 'Open Sans', Arial, sans-serif;
   }
 
   @media (max-width:1024px){
     .mrm-home-section{ padding:68px 0; }
+    .mrm-home-section--faq{ padding-top:36px; }
     .mrm-home-hero-grid{ grid-template-columns:minmax(0,1fr); gap:28px; padding:46px 0 58px; }
     .mrm-home-band-row, .mrm-home-path-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
     .mrm-home-signal-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
@@ -154,8 +164,9 @@
   @media (max-width:760px){
     .mrm-home-shell{ width:min(1160px, calc(100% - 22px)); }
     .mrm-home-section{ padding:52px 0; }
+    .mrm-home-section--faq{ padding-top:30px; }
     .mrm-home-btn-row{ gap:10px; margin-top:22px; }
-    .mrm-home-btn{ min-height:46px; padding:0 16px; font-size:.88rem; }
+    .mrm-home-btn{ min-height:46px; padding:0 16px; font-size:1.125rem; }
     .mrm-home-jump{ margin-top:18px; gap:8px; }
     .mrm-home-jump a{ padding:8px 12px; font-size:.8rem; }
     .mrm-home-stage{ min-height:350px; border-radius:24px; padding:14px; }
@@ -168,8 +179,7 @@
   }
 
   @media (max-width:560px){
-    .mrm-home-redesign p{ font-size:.97rem; margin-bottom:12px; }
-    .mrm-home-redesign h3{ font-size:1.02rem; }
+    .mrm-home-redesign p{ font-size:1rem; line-height:1.5; margin-bottom:1.5rem; }
     .mrm-home-signal-grid, .mrm-home-band-row, .mrm-home-path-grid{ grid-template-columns:1fr; }
   }
 </style>
@@ -183,7 +193,7 @@
         <p class="mrm-home-lead">
           Low Brass Lessons offers personalized low brass instruction for students and families who want more than occasional feedback. Through one-on-one lessons, thoughtful curriculum, and flexible scheduling, students build stronger fundamentals, greater confidence, and a more meaningful connection to music.
         </p>
-        <p>
+        <p class="mrm-home-lead">
           Whether your student is preparing for school ensemble music, building technique, developing confidence, or looking for a more structured approach to improvement, private lessons provide the personal guidance that group settings often cannot.
         </p>
 
@@ -241,7 +251,7 @@
   <section class="mrm-home-section" id="mrm-home-pathways">
     <div class="mrm-home-shell">
       <div class="mrm-home-path-grid">
-        <div class="mrm-home-feature mrm-home-feature-main">
+        <div class="mrm-home-offer-stack"><div class="mrm-home-offer-spacer" aria-hidden="true"></div><div class="mrm-home-feature mrm-home-feature-main">
           <span class="mrm-home-tag">Primary Offer</span>
           <h2>Private Lessons</h2>
           <p>
@@ -265,9 +275,9 @@
             <a class="mrm-home-btn mrm-home-btn-primary" href="/calendar/">Book a Lesson</a>
             <a class="mrm-home-btn mrm-home-btn-secondary" href="/about/">More Information</a>
           </div>
-        </div>
+        </div></div>
 
-        <div class="mrm-home-feature">
+        <div class="mrm-home-offer-stack"><div class="mrm-home-offer-spacer" aria-hidden="true"></div><div class="mrm-home-feature">
           <span class="mrm-home-tag">Supporting Offer</span>
           <h2>Sheet Music &amp; Curriculum Resources</h2>
           <p>
@@ -279,12 +289,12 @@
           <div class="mrm-home-btn-row">
             <a class="mrm-home-btn mrm-home-btn-secondary" href="/sheet-music/">Browse Sheet Music</a>
           </div>
-        </div>
+        </div></div>
       </div>
     </div>
   </section>
 
-  <section class="mrm-home-section" id="mrm-home-faq">
+  <section class="mrm-home-section mrm-home-section--faq" id="mrm-home-faq">
     <div class="mrm-home-shell">
       <div class="mrm-home-faq-wrap">
         <div class="mrm-home-faq-head">
