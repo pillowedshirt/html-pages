@@ -108,6 +108,7 @@
   .mrm-home-path-grid{
     display:grid; grid-template-columns:1.08fr .92fr; gap:24px; align-items:stretch;
   }
+  .mrm-home-offer-spacer{ height:10px; }
   .mrm-home-feature{
     background:#fff; border:1px solid var(--line); border-radius:28px; padding:30px; box-shadow:var(--shadow);
   }
@@ -241,7 +242,7 @@
   <section class="mrm-home-section" id="mrm-home-pathways">
     <div class="mrm-home-shell">
       <div class="mrm-home-path-grid">
-        <div class="mrm-home-feature mrm-home-feature-main">
+        <div class="mrm-home-offer-stack"><div class="mrm-home-offer-spacer" aria-hidden="true"></div><div class="mrm-home-feature mrm-home-feature-main">
           <span class="mrm-home-tag">Primary Offer</span>
           <h2>Private Lessons</h2>
           <p>
@@ -265,9 +266,9 @@
             <a class="mrm-home-btn mrm-home-btn-primary" href="/calendar/">Book a Lesson</a>
             <a class="mrm-home-btn mrm-home-btn-secondary" href="/about/">More Information</a>
           </div>
-        </div>
+        </div></div>
 
-        <div class="mrm-home-feature">
+        <div class="mrm-home-offer-stack"><div class="mrm-home-offer-spacer" aria-hidden="true"></div><div class="mrm-home-feature">
           <span class="mrm-home-tag">Supporting Offer</span>
           <h2>Sheet Music &amp; Curriculum Resources</h2>
           <p>
@@ -279,7 +280,7 @@
           <div class="mrm-home-btn-row">
             <a class="mrm-home-btn mrm-home-btn-secondary" href="/sheet-music/">Browse Sheet Music</a>
           </div>
-        </div>
+        </div></div>
       </div>
     </div>
   </section>
