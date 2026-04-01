@@ -65,35 +65,28 @@
   }
   .mrm-about-hero-image-wrap{
     position:relative;
-    padding:18px 0 4px 42px;
+    display:flex;
+    justify-content:center;
+    padding:10px 0 4px;
   }
-  .mrm-about-hero-image-wrap:before{
-    content:"";
-    position:absolute;
-    left:0;
-    top:0;
-    width:32%;
-    height:78%;
+  .mrm-about-hero-window{
+    width:min(920px, 100%);
     border:1px solid var(--line);
-    border-radius:20px;
-    background:linear-gradient(180deg, rgba(237,229,209,.55), rgba(255,255,255,0));
-  }
-  .mrm-about-hero-image{
-    width:100%;
-    aspect-ratio:21 / 8;
-    overflow:hidden;
-    border:1px solid var(--line);
-    border-radius:26px;
+    border-radius:28px;
     box-shadow:var(--shadow);
-    position:relative;
-    z-index:1;
+    background:#fff;
+    padding:14px;
   }
-  .mrm-about-hero-image img{
+  .mrm-about-hero-image-reveal{
     width:100%;
-    height:100%;
-    display:block;
-    object-fit:cover;
-    object-position:center 42%;
+    min-height:clamp(260px, 44vw, 520px);
+    border-radius:20px;
+    overflow:hidden;
+    border:1px solid rgba(217,207,190,.85);
+    background-image:url('https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg');
+    background-size:cover;
+    background-position:center 42%;
+    background-attachment:fixed;
   }
 
   .mrm-about-rail-layout{
@@ -144,7 +137,8 @@
   }
   .mrm-about-split-body p:last-child{ margin-bottom:0; }
   .mrm-about-format-image{
-    margin-top:14px;
+    margin-top:0;
+    margin-bottom:14px;
     aspect-ratio:16 / 9;
     border-radius:16px;
     overflow:hidden;
@@ -170,6 +164,46 @@
   .mrm-about-dark .mrm-about-card{
     background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.12);
   }
+  .mrm-about-resource-link{
+    display:inline-flex;
+    margin-top:6px;
+    padding:10px 14px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:var(--gold-soft);
+    color:var(--gold-dark) !important;
+    font:700 .82rem Inter,Arial,sans-serif;
+    letter-spacing:.02em;
+  }
+  .mrm-about-resource-link:hover{
+    border-color:var(--gold);
+    background:#f6edd9;
+  }
+
+  .mrm-about-expect-grid{
+    display:grid;
+    grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+    gap:18px;
+  }
+  .mrm-about-expect-intro{
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:24px;
+    background:linear-gradient(180deg, rgba(237,229,209,.6), #fff);
+  }
+  .mrm-about-expect-points{
+    display:grid;
+    gap:14px;
+  }
+  .mrm-about-expect-point{
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:18px 18px 16px;
+    background:#fff;
+    box-shadow:0 10px 22px rgba(25,22,18,.06);
+  }
+  .mrm-about-expect-point:nth-child(even){ margin-left:20px; }
+  .mrm-about-expect-point h3{ margin-bottom:8px; }
 
   @media (max-width:1024px){
     .mrm-about-section{ padding:68px 0; }
@@ -177,8 +211,9 @@
     .mrm-about-hero-intro{ grid-template-columns:1.05fr .95fr; gap:22px; }
     .mrm-about-rail-layout{ grid-template-columns:220px minmax(0,1fr); gap:20px; }
     .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
-    .mrm-about-hero-image-wrap{ padding-left:20px; }
-    .mrm-about-hero-image{ aspect-ratio:21 / 10; border-radius:22px; }
+    .mrm-about-hero-window{ border-radius:22px; padding:10px; }
+    .mrm-about-hero-image-reveal{ min-height:380px; border-radius:16px; background-attachment:scroll; }
+    .mrm-about-expect-grid{ grid-template-columns:1fr; }
     .mrm-about-editorial,.mrm-about-panel{ border-radius:22px; }
   }
 
@@ -195,6 +230,8 @@
     .mrm-about-panel-body{ padding:8px 20px 20px; }
     .mrm-about-card{ border-radius:16px; padding:16px; }
     .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .mrm-about-hero-image-reveal{ min-height:280px; }
+    .mrm-about-expect-point:nth-child(even){ margin-left:0; }
   }
 
   @media (max-width:560px){
@@ -240,9 +277,9 @@
       </div>
 
       <div class="mrm-about-hero-image-wrap">
-        <figure class="mrm-about-hero-image">
-          <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg" alt="Low brass instruction">
-        </figure>
+        <div class="mrm-about-hero-window">
+          <div class="mrm-about-hero-image-reveal" role="img" aria-label="Low brass instruction"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -312,19 +349,20 @@
               <article class="mrm-about-split-card">
                 <h3 class="mrm-about-split-title">In-person lessons</h3>
                 <div class="mrm-about-split-body">
-                  <p>A strong fit for students who benefit from the energy of being in the room.</p>
                   <div class="mrm-about-format-image">
                     <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg" alt="In-person low brass lesson">
                   </div>
+                  <p>A strong fit for students who benefit from the energy of being in the room.</p>
                 </div>
               </article>
               <article class="mrm-about-split-card">
                 <h3 class="mrm-about-split-title">Online lessons</h3>
                 <div class="mrm-about-split-body">
-                  <p>Practical and effective options for families who need flexibility without giving up quality instruction.</p>
                   <div class="mrm-about-format-image">
                     <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/Online-Lesson-optimized-scaled.jpg" alt="Online low brass lesson">
                   </div>
+                  <p>Practical and effective option for families who need flexibility without giving up quality instruction.</p>
+                  <a class="mrm-about-resource-link" href="https://www.amazon.com/s?k=usb+microphone" target="_blank" rel="noopener">Browse USB microphones on Amazon</a>
                 </div>
               </article>
             </div>
@@ -337,11 +375,16 @@
             <h2>A lesson experience designed to feel clear, welcoming, and worthwhile.</h2>
           </div>
           <div class="mrm-about-panel-body">
-            <div class="mrm-about-grid-2">
-              <div class="mrm-about-card"><h3>Clear communication</h3><p>Families should feel informed from the beginning. That includes a straightforward booking process, practical lesson information, and a studio experience that feels organized rather than confusing.</p></div>
-              <div class="mrm-about-card"><h3>Thoughtful instruction</h3><p>Lessons are meant to support progress over time, not just deliver occasional tips. Students should leave with direction, encouragement, and a stronger sense of what growth looks like.</p></div>
-              <div class="mrm-about-card"><h3>Flexibility without losing quality</h3><p>Online and in-person options make the studio more accessible, but the expectation remains the same: instruction should be personal, intentional, and educationally sound.</p></div>
-              <div class="mrm-about-card"><h3>A studio that can grow with the student</h3><p>As goals become more advanced, students benefit from being part of a studio built with enough structure and instructor depth to support that growth.</p></div>
+            <div class="mrm-about-expect-grid">
+              <div class="mrm-about-expect-intro">
+                <h3>What this feels like week to week</h3>
+                <p>Families should feel informed from the beginning. That includes a straightforward booking process, practical lesson information, and a studio experience that feels organized rather than confusing.</p>
+              </div>
+              <div class="mrm-about-expect-points">
+                <div class="mrm-about-expect-point"><h3>Thoughtful instruction</h3><p>Lessons are meant to support progress over time, not just deliver occasional tips. Students should leave with direction, encouragement, and a stronger sense of what growth looks like.</p></div>
+                <div class="mrm-about-expect-point"><h3>Flexibility without losing quality</h3><p>Online and in-person options make the studio more accessible, but the expectation remains the same: instruction should be personal, intentional, and educationally sound.</p></div>
+                <div class="mrm-about-expect-point"><h3>A studio that can grow with the student</h3><p>As goals become more advanced, students benefit from being part of a studio built with enough structure and instructor depth to support that growth.</p></div>
+              </div>
             </div>
           </div>
         </div>
