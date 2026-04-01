@@ -11,6 +11,7 @@
   .mrm-home-redesign a, .mrm-home-redesign a:hover, .mrm-home-redesign a:focus, .mrm-home-redesign a:visited { text-decoration:none !important; }
   .mrm-home-shell{ width:min(1160px, calc(100% - 32px)); margin:0 auto; }
   .mrm-home-section{ padding:82px 0; }
+  .mrm-home-section--faq{ padding-top:42px; }
   .mrm-home-redesign h1,.mrm-home-redesign h2,.mrm-home-redesign h3{ margin:0 0 12px; color:var(--text); line-height:1.06; font-weight:700; }
   .mrm-home-redesign h1{ font-size:clamp(1.75rem, 3.2vw, 2.55rem); letter-spacing:-.02em; }
   .mrm-home-redesign h2{ font-size:clamp(1.55rem, 2.8vw, 2.2rem); letter-spacing:-.018em; }
@@ -145,6 +146,7 @@
 
   @media (max-width:1024px){
     .mrm-home-section{ padding:68px 0; }
+    .mrm-home-section--faq{ padding-top:36px; }
     .mrm-home-hero-grid{ grid-template-columns:minmax(0,1fr); gap:28px; padding:46px 0 58px; }
     .mrm-home-band-row, .mrm-home-path-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
     .mrm-home-signal-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
@@ -155,6 +157,7 @@
   @media (max-width:760px){
     .mrm-home-shell{ width:min(1160px, calc(100% - 22px)); }
     .mrm-home-section{ padding:52px 0; }
+    .mrm-home-section--faq{ padding-top:30px; }
     .mrm-home-btn-row{ gap:10px; margin-top:22px; }
     .mrm-home-btn{ min-height:46px; padding:0 16px; font-size:.88rem; }
     .mrm-home-jump{ margin-top:18px; gap:8px; }
@@ -285,7 +288,7 @@
     </div>
   </section>
 
-  <section class="mrm-home-section" id="mrm-home-faq">
+  <section class="mrm-home-section mrm-home-section--faq" id="mrm-home-faq">
     <div class="mrm-home-shell">
       <div class="mrm-home-faq-wrap">
         <div class="mrm-home-faq-head">
