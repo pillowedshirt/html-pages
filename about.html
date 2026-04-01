@@ -63,30 +63,65 @@
   .mrm-about-benefit p{
     margin:0; font-size:.98rem;
   }
-  .mrm-about-hero-image-wrap{
+  .mrm-about-hero-transition{
     position:relative;
-    display:flex;
-    justify-content:center;
-    padding:10px 0 4px;
-  }
-  .mrm-about-hero-window{
-    width:min(920px, 100%);
+    margin-top:18px;
     border:1px solid var(--line);
-    border-radius:28px;
-    box-shadow:var(--shadow);
-    background:#fff;
-    padding:14px;
-  }
-  .mrm-about-hero-image-reveal{
-    width:100%;
-    min-height:clamp(260px, 44vw, 520px);
-    border-radius:20px;
+    border-radius:30px;
     overflow:hidden;
-    border:1px solid rgba(217,207,190,.85);
-    background-image:url('https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg');
-    background-size:cover;
-    background-position:center 42%;
-    background-attachment:fixed;
+    background:linear-gradient(140deg, #f7f1e5, #fff 52%, #efe6d4);
+    box-shadow:var(--shadow);
+    min-height:clamp(210px, 28vw, 320px);
+    isolation:isolate;
+  }
+  .mrm-about-hero-transition:before,
+  .mrm-about-hero-transition:after{
+    content:"";
+    position:absolute;
+    border-radius:999px;
+    filter:blur(1px);
+    opacity:.8;
+  }
+  .mrm-about-hero-transition:before{
+    width:58%;
+    height:190%;
+    left:-14%;
+    top:-66%;
+    background:radial-gradient(circle at center, rgba(142,129,85,.22), rgba(142,129,85,0) 72%);
+  }
+  .mrm-about-hero-transition:after{
+    width:44%;
+    height:140%;
+    right:-10%;
+    bottom:-62%;
+    background:radial-gradient(circle at center, rgba(110,100,63,.18), rgba(110,100,63,0) 72%);
+  }
+  .mrm-about-hero-transition-wave{
+    position:absolute;
+    inset:auto -6% -58px;
+    height:56%;
+    background:linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.88));
+    clip-path:ellipse(64% 100% at 50% 100%);
+    z-index:1;
+  }
+  .mrm-about-hero-transition-note{
+    position:relative;
+    z-index:2;
+    display:grid;
+    gap:12px;
+    padding:36px clamp(22px,4vw,46px);
+    max-width:760px;
+  }
+  .mrm-about-hero-transition-note p{
+    margin:0;
+    color:var(--gold-dark);
+    font-size:1rem;
+  }
+  .mrm-about-hero-transition-note strong{
+    font:700 .78rem/1 Inter,Arial,sans-serif;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--gold);
   }
 
   .mrm-about-rail-layout{
@@ -211,8 +246,7 @@
     .mrm-about-hero-intro{ grid-template-columns:1.05fr .95fr; gap:22px; }
     .mrm-about-rail-layout{ grid-template-columns:220px minmax(0,1fr); gap:20px; }
     .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
-    .mrm-about-hero-window{ border-radius:22px; padding:10px; }
-    .mrm-about-hero-image-reveal{ min-height:380px; border-radius:16px; background-attachment:scroll; }
+    .mrm-about-hero-transition{ border-radius:24px; min-height:240px; margin-top:12px; }
     .mrm-about-expect-grid{ grid-template-columns:1fr; }
     .mrm-about-editorial,.mrm-about-panel{ border-radius:22px; }
   }
@@ -230,7 +264,7 @@
     .mrm-about-panel-body{ padding:8px 20px 20px; }
     .mrm-about-card{ border-radius:16px; padding:16px; }
     .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
-    .mrm-about-hero-image-reveal{ min-height:280px; }
+    .mrm-about-hero-transition{ min-height:210px; }
     .mrm-about-expect-point:nth-child(even){ margin-left:0; }
   }
 
@@ -276,10 +310,12 @@
         </div>
       </div>
 
-      <div class="mrm-about-hero-image-wrap">
-        <div class="mrm-about-hero-window">
-          <div class="mrm-about-hero-image-reveal" role="img" aria-label="Low brass instruction"></div>
+      <div class="mrm-about-hero-transition" aria-hidden="true">
+        <div class="mrm-about-hero-transition-note">
+          <strong>Studio throughline</strong>
+          <p>From first conversations to regular lessons, the studio experience is designed to move with clarity and calm momentum—so families can feel an intentional bridge from initial interest into meaningful, week-to-week musical growth.</p>
         </div>
+        <div class="mrm-about-hero-transition-wave"></div>
       </div>
     </div>
   </section>
@@ -353,6 +389,7 @@
                     <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg" alt="In-person low brass lesson">
                   </div>
                   <p>A strong fit for students who benefit from the energy of being in the room.</p>
+                  <a class="mrm-about-resource-link" href="/calendar/">Schedule a Lesson</a>
                 </div>
               </article>
               <article class="mrm-about-split-card">
@@ -378,7 +415,7 @@
             <div class="mrm-about-expect-grid">
               <div class="mrm-about-expect-intro">
                 <h3>What this feels like week to week</h3>
-                <p>Families should feel informed from the beginning. That includes a straightforward booking process, practical lesson information, and a studio experience that feels organized rather than confusing.</p>
+                <p>Families should feel informed from the beginning. That includes a straightforward booking process, practical lesson information, and a studio experience that feels organized rather than confusing. Week to week, students should leave lessons with specific direction, parents should know what to expect next, and the overall rhythm should feel steady, encouraging, and musically purposeful rather than rushed or unclear.</p>
               </div>
               <div class="mrm-about-expect-points">
                 <div class="mrm-about-expect-point"><h3>Thoughtful instruction</h3><p>Lessons are meant to support progress over time, not just deliver occasional tips. Students should leave with direction, encouragement, and a stronger sense of what growth looks like.</p></div>
