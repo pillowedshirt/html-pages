@@ -63,10 +63,30 @@
   .mrm-about-benefit p{
     margin:0; font-size:.98rem;
   }
+  .mrm-about-hero-image-wrap{
+    position:relative;
+    padding:18px 0 4px 42px;
+  }
+  .mrm-about-hero-image-wrap:before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:32%;
+    height:78%;
+    border:1px solid var(--line);
+    border-radius:20px;
+    background:linear-gradient(180deg, rgba(237,229,209,.55), rgba(255,255,255,0));
+  }
   .mrm-about-hero-image{
     width:100%;
     aspect-ratio:21 / 8;
     overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:26px;
+    box-shadow:var(--shadow);
+    position:relative;
+    z-index:1;
   }
   .mrm-about-hero-image img{
     width:100%;
@@ -74,9 +94,6 @@
     display:block;
     object-fit:cover;
     object-position:center 42%;
-  }
-  .mrm-about-hero-divider{
-    border-top:1px solid var(--line);
   }
 
   .mrm-about-rail-layout{
@@ -103,8 +120,42 @@
   .mrm-about-grid-2{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
   .mrm-about-grid-3{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
   .mrm-about-card{
-    background:linear-gradient(180deg, rgba(246,241,231,.55), #fff 46%);
+    background:#fff;
     border:1px solid var(--line); border-radius:22px; padding:22px;
+  }
+  .mrm-about-split-card{
+    border:1px solid var(--line);
+    border-radius:22px;
+    overflow:hidden;
+    background:#fff;
+  }
+  .mrm-about-split-title{
+    margin:0;
+    padding:16px 20px;
+    background:var(--gold-soft);
+    border-bottom:1px solid var(--line);
+    font:700 .93rem/1.35 Inter,Arial,sans-serif;
+    letter-spacing:.03em;
+    text-transform:none;
+    color:var(--text);
+  }
+  .mrm-about-split-body{
+    padding:18px 20px 20px;
+  }
+  .mrm-about-split-body p:last-child{ margin-bottom:0; }
+  .mrm-about-format-image{
+    margin-top:14px;
+    aspect-ratio:16 / 9;
+    border-radius:16px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    box-shadow:0 10px 24px rgba(25,22,18,.08);
+  }
+  .mrm-about-format-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
   }
   .mrm-about-number{
     width:38px; height:38px; border-radius:50%; display:grid; place-items:center; margin-bottom:14px;
@@ -126,6 +177,7 @@
     .mrm-about-hero-intro{ grid-template-columns:1.05fr .95fr; gap:22px; }
     .mrm-about-rail-layout{ grid-template-columns:220px minmax(0,1fr); gap:20px; }
     .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .mrm-about-hero-image-wrap{ padding-left:20px; }
     .mrm-about-hero-image{ aspect-ratio:21 / 10; border-radius:22px; }
     .mrm-about-editorial,.mrm-about-panel{ border-radius:22px; }
   }
@@ -187,10 +239,11 @@
         </div>
       </div>
 
-      <div class="mrm-about-hero-image">
-        <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg" alt="Low brass instruction">
+      <div class="mrm-about-hero-image-wrap">
+        <figure class="mrm-about-hero-image">
+          <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg" alt="Low brass instruction">
+        </figure>
       </div>
-      <div class="mrm-about-hero-divider" aria-hidden="true"></div>
     </div>
   </section>
 
@@ -256,22 +309,24 @@
           </div>
           <div class="mrm-about-panel-body">
             <div class="mrm-about-grid-2">
-              <div class="mrm-about-card">
-                <span class="mrm-about-kicker">In-person lessons</span>
-                <h3>A strong fit for students who benefit from the energy of being in the room.</h3>
-                <p>In-person lessons can be especially helpful for students who respond well to face-to-face guidance, a structured environment, and the feeling of working side by side with an instructor.</p>
-                <p>Students often feel more engaged when the instructor is physically present to guide posture, sound, rhythm, and focus in real time.</p>
-                <p>Being in a lesson space can help students mentally shift into a more attentive and disciplined mode of learning.</p>
-                <p>Some students simply connect better in person, and that comfort can make consistency and confidence easier to build over time.</p>
-              </div>
-              <div class="mrm-about-card">
-                <span class="mrm-about-kicker">Online lessons</span>
-                <h3>A practical and effective option for families who need flexibility without giving up quality instruction.</h3>
-                <p>Online lessons can be an excellent fit for busy families, students outside the immediate area, and learners who benefit from the convenience of studying from home.</p>
-                <p>Families can avoid travel time and keep lessons more sustainable week to week, which often supports better long-term follow-through.</p>
-                <p>When lessons are thoughtfully structured, students can still receive clear feedback, accountability, and meaningful musical direction online.</p>
-                <p>Online lessons can widen the pool of possible teacher matches, making it easier to connect students with the right fit.</p>
-              </div>
+              <article class="mrm-about-split-card">
+                <h3 class="mrm-about-split-title">In-person lessons</h3>
+                <div class="mrm-about-split-body">
+                  <p>A strong fit for students who benefit from the energy of being in the room.</p>
+                  <div class="mrm-about-format-image">
+                    <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg" alt="In-person low brass lesson">
+                  </div>
+                </div>
+              </article>
+              <article class="mrm-about-split-card">
+                <h3 class="mrm-about-split-title">Online lessons</h3>
+                <div class="mrm-about-split-body">
+                  <p>Practical and effective options for families who need flexibility without giving up quality instruction.</p>
+                  <div class="mrm-about-format-image">
+                    <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/Online-Lesson-optimized-scaled.jpg" alt="Online low brass lesson">
+                  </div>
+                </div>
+              </article>
             </div>
           </div>
         </div>
