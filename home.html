@@ -12,7 +12,7 @@
   .mrm-home-shell{ width:min(1160px, calc(100% - 32px)); margin:0 auto; }
   .mrm-home-section{ padding:82px 0; }
   .mrm-home-redesign h1,.mrm-home-redesign h2,.mrm-home-redesign h3{ margin:0 0 16px; color:var(--text); line-height:1.06; font-weight:700; }
-  .mrm-home-redesign h1{ font-size:clamp(2.3rem, 5vw, 4.4rem); letter-spacing:-.03em; }
+  .mrm-home-redesign h1{ font-size:clamp(1.9rem, 4vw, 3rem); letter-spacing:-.025em; }
   .mrm-home-redesign h2{ font-size:clamp(1.9rem, 4vw, 3rem); letter-spacing:-.025em; }
   .mrm-home-redesign h3{ font-size:clamp(1.08rem, 2vw, 1.45rem); }
   .mrm-home-redesign p{ margin:0 0 16px; font-size:1.04rem; color:var(--muted); }
@@ -46,6 +46,8 @@
     display:grid; grid-template-columns:1.18fr .82fr; gap:38px; align-items:center; padding:58px 0 72px;
   }
   .mrm-home-hero-copy{ position:relative; z-index:1; max-width:720px; }
+  .mrm-home-hero-copy .mrm-home-kicker{ margin-bottom:22px; }
+  .mrm-home-faq-head .mrm-home-kicker{ margin-bottom:18px; }
   .mrm-home-lead{ font-size:1.16rem !important; max-width:62ch; }
   .mrm-home-jump{
     margin-top:26px; display:flex; flex-wrap:wrap; gap:10px;
@@ -61,14 +63,6 @@
     background:linear-gradient(145deg, #d8cec0, #f2eadf 54%, #c8b8a4);
     border:1px solid rgba(110,100,63,.22); box-shadow:var(--shadow);
     padding:22px;
-  }
-  .mrm-home-stage:before{
-    content:""; position:absolute; inset:12px; border:1px solid rgba(255,255,255,.55); border-radius:24px; pointer-events:none;
-  }
-  .mrm-home-stage:after{
-    content:""; position:absolute; left:-28px; top:56px; width:92px; height:92px; border-radius:50%;
-    background:radial-gradient(circle at 38% 38%, rgba(255,255,255,.88), rgba(255,255,255,0) 72%);
-    pointer-events:none;
   }
   .mrm-home-stage-media{
     position:absolute; inset:22px 22px 110px; border-radius:28px; overflow:hidden;
@@ -165,7 +159,6 @@
     .mrm-home-jump{ margin-top:18px; gap:8px; }
     .mrm-home-jump a{ padding:8px 12px; font-size:.8rem; }
     .mrm-home-stage{ min-height:350px; border-radius:24px; padding:14px; }
-    .mrm-home-stage:before{ inset:8px; border-radius:18px; }
     .mrm-home-stage-media{ inset:14px 14px 92px; border-radius:20px; }
     .mrm-home-stage-card{ left:14px; right:14px; bottom:14px; width:auto; padding:14px 16px; }
     .mrm-home-signal-grid, .mrm-home-band-row, .mrm-home-path-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
