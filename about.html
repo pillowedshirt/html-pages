@@ -130,7 +130,7 @@
   .mrm-about-hero-logo-block{
     width:100%;
     padding:0;
-    margin:18px 0;
+    margin:18px 0 4px;
   }
   .mrm-about-brand-divider{
     position:relative;
@@ -140,7 +140,12 @@
     overflow:hidden;
     border:1px solid var(--line);
     box-shadow:0 18px 34px rgba(25,22,18,.16);
-    background:#1f1b16;
+    background-color:#1f1b16;
+    background-image:url('https://lowbrass-lessons.com/wp-content/uploads/2025/10/tuba-scaled.jpeg');
+    background-repeat:no-repeat;
+    background-size:138%;
+    background-position:center 42%;
+    background-attachment:fixed;
     isolation:isolate;
   }
   .mrm-about-brand-divider::before{
@@ -152,15 +157,19 @@
     pointer-events:none;
   }
   .mrm-about-brand-logo{
+    position:absolute;
+    inset:0;
     width:100%;
     height:100%;
     object-fit:cover;
     object-position:center 42%;
     display:block;
-    transform:scale(1.16);
-    transform-origin:center;
-    transition:transform .18s linear, object-position .18s linear;
-    will-change:transform,object-position;
+    opacity:0;
+    pointer-events:none;
+  }
+
+  .mrm-about-main-section{
+    padding-top:22px;
   }
 
   .mrm-about-rail-layout{
@@ -286,6 +295,7 @@
   .mrm-about-rail-layout{ grid-template-columns:220px minmax(0,1fr); gap:20px; }
     .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
     .mrm-about-hero-transition{ border-radius:24px; min-height:240px; margin-top:12px; }
+    .mrm-about-main-section{ padding-top:18px; }
     .mrm-about-expect-grid{ grid-template-columns:1fr; }
     .mrm-about-editorial,.mrm-about-panel{ border-radius:22px; }
   }
@@ -304,8 +314,15 @@
     .mrm-about-panel-body{ padding:8px 20px 20px; }
     .mrm-about-card{ border-radius:16px; padding:16px; }
     .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
-    .mrm-about-hero-logo-block{ margin:14px 0; }
-    .mrm-about-brand-divider{ height:clamp(220px, 56vw, 300px); border-radius:22px; }
+    .mrm-about-hero-logo-block{ margin:14px 0 3px; }
+    .mrm-about-brand-divider{
+      height:clamp(220px, 56vw, 300px);
+      border-radius:22px;
+      background-attachment:scroll;
+      background-size:cover;
+      background-position:center 42%;
+    }
+    .mrm-about-main-section{ padding-top:14px; }
     .mrm-about-hero-transition{ min-height:210px; }
   }
 
@@ -315,31 +332,7 @@
   }
 </style>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    var revealWindow = document.querySelector('.mrm-about-brand-divider');
-    var revealImage = document.querySelector('.mrm-about-brand-logo');
-    if (!revealWindow || !revealImage) return;
 
-    function updateReveal() {
-      var rect = revealWindow.getBoundingClientRect();
-      var vh = window.innerHeight || document.documentElement.clientHeight;
-      var start = vh * 0.92;
-      var end = -rect.height * 0.48;
-      var progress = (start - rect.top) / (start - end);
-      var clamped = Math.max(0, Math.min(progress, 1));
-      var scale = 1.16 - (clamped * 0.18);
-      var y = 42 - (clamped * 12);
-
-      revealImage.style.transform = 'scale(' + scale.toFixed(3) + ')';
-      revealImage.style.objectPosition = 'center ' + y.toFixed(2) + '%';
-    }
-
-    updateReveal();
-    window.addEventListener('scroll', updateReveal, { passive: true });
-    window.addEventListener('resize', updateReveal);
-  });
-</script>
 
 <div class="mrm-about-redesign">
   <section class="mrm-about-hero">
@@ -386,7 +379,7 @@
     </div>
   </section>
 
-  <section class="mrm-about-section">
+  <section class="mrm-about-section mrm-about-main-section">
     <div class="mrm-about-shell mrm-about-rail-layout">
       <aside class="mrm-about-rail">
         <a href="#mrm-about-fit">Studio fit</a>
