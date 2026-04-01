@@ -36,13 +36,13 @@
   }
 
   .mrm-sheet-section {
-    padding: 42px 0;
+    padding: 50px 0;
   }
 
   .mrm-sheet-grid {
     display: grid;
-    grid-template-columns: 1.05fr .95fr;
-    gap: 34px;
+    grid-template-columns: 1.08fr .92fr;
+    gap: 40px;
     align-items: center;
   }
 
@@ -165,9 +165,9 @@
   .mrm-sheet-card {
     background: #fff;
     border: 1px solid var(--mrm-line);
-    border-radius: 22px;
+    border-radius: 24px;
     box-shadow: var(--mrm-shadow);
-    padding: 30px;
+    padding: 34px;
   }
 
   .mrm-sheet-feature-band {
@@ -229,6 +229,17 @@
   .mrm-sheet-catalog-anchor p {
     margin-bottom: 0;
   }
+  .mrm-sheet-offer {
+    margin-top: 18px;
+    padding: 38px;
+    border-radius: 24px;
+    border: 1px solid var(--mrm-line);
+    background: linear-gradient(140deg, rgba(237,229,209,.85), #fff 52%, rgba(246,241,231,.9));
+    box-shadow: var(--mrm-shadow);
+    text-align: center;
+  }
+  .mrm-sheet-offer p { max-width: 64ch; margin: 0 auto 16px; }
+  .mrm-sheet-offer .mrm-sheet-btn-row { justify-content: center; }
 
   @media (max-width: 1024px) {
     .mrm-sheet-grid,
@@ -261,17 +272,17 @@
           <span class="mrm-sheet-kicker">Pocket Orchestra Series</span>
           <h1>Original low brass music built around a modern approach to student development.</h1>
           <p class="mrm-sheet-lead">
-            Created by <a class="mrm-sheet-composer-link" href="/composer/">[Composer Name]</a>, the Pocket Orchestra Series is designed to help develop low brass players through music that feels current, playable, and musically rewarding.
+            Created by <a class="mrm-sheet-composer-link" href="/composer/">Isaac Davanzo</a>, the Pocket Orchestra Series is designed to help develop low brass players through music that feels current, playable, and musically rewarding.
           </p>
           <p>
-            Rather than treating educational repertoire as something dry or purely functional, <a class="mrm-sheet-composer-link" href="/composer/">[Composer Name]</a> is pioneering a more modern approach to low brass learning — one that blends thoughtful pedagogy with fresh musical writing, practical usefulness, and a stronger sense of artistic identity.
+            Rather than treating educational repertoire as something dry or purely functional, <a class="mrm-sheet-composer-link" href="/composer/">Isaac Davanzo</a> is pioneering a more modern approach to low brass learning — one that blends thoughtful pedagogy with fresh musical writing, practical usefulness, and a stronger sense of artistic identity.
           </p>
           <p>
             These products are intended for players, teachers, and studios looking for music that supports growth while still feeling polished enough to be exciting to rehearse, study, and perform.
           </p>
 
           <div class="mrm-sheet-btn-row">
-            <a class="mrm-sheet-btn mrm-sheet-btn-primary" href="#mrm-sheet-music-catalog">Browse the Catalog</a>
+            <a class="mrm-sheet-btn mrm-sheet-btn-primary" href="#catalog-listing" id="mrm-browse-catalog">Browse the Catalog</a>
             <a class="mrm-sheet-btn mrm-sheet-btn-secondary" href="/composer/">Meet the Composer</a>
           </div>
         </div>
@@ -287,12 +298,12 @@
     <div class="mrm-sheet-shell">
       <div class="mrm-sheet-card">
         <span class="mrm-sheet-kicker">What makes this series different</span>
-        <h2>Product-focused materials created by <a class="mrm-sheet-composer-link" href="/composer/">[Composer Name]</a> for modern low brass study.</h2>
+        <h2>Product-focused materials created by <a class="mrm-sheet-composer-link" href="/composer/">Isaac Davanzo</a> for modern low brass study.</h2>
         <p>
           The Pocket Orchestra Series is not just a library of PDFs. It is a growing catalog of educational products created to make independent practice, lesson work, and musical development feel more engaging and more complete.
         </p>
         <p>
-          Each release is built to give players useful materials they can immediately work with, while also reflecting the larger creative vision developed by <a class="mrm-sheet-composer-link" href="/composer/">[Composer Name]</a>. The goal is simple: music that helps students improve, but still feels artistically intentional.
+          Each release is built to give players useful materials they can immediately work with, while also reflecting the larger creative vision developed by <a class="mrm-sheet-composer-link" href="/composer/">Isaac Davanzo</a>. The goal is simple: music that helps students improve, but still feels artistically intentional.
         </p>
 
         <div class="mrm-sheet-feature-band">
@@ -310,7 +321,7 @@
           </div>
         </div>
 
-        <div class="mrm-sheet-deliverables">
+        <div class="mrm-sheet-deliverables" style="margin-top:28px;">
           <div class="mrm-sheet-deliverable">
             <span class="mrm-sheet-label">Included Product Material</span>
             <h3>Downloadable sheet music PDFs</h3>
@@ -327,28 +338,36 @@
             </p>
           </div>
 
-          <div class="mrm-sheet-deliverable">
-            <span class="mrm-sheet-label">Why that matters</span>
-            <h3>More than a single file</h3>
-            <p>
-              The aim is to give students a fuller product experience — not just notation, but tools that help them engage with the music more effectively.
-            </p>
-          </div>
 
-          <div class="mrm-sheet-deliverable">
-            <span class="mrm-sheet-label">Who it serves</span>
-            <h3>Useful for students, teachers, and independent players</h3>
-            <p>
-              Whether you are using these materials inside a lesson setting or on your own, the products are designed to be approachable, practical, and musically worthwhile.
-            </p>
-          </div>
         </div>
 
-        <div class="mrm-sheet-catalog-anchor" id="mrm-sheet-music-catalog">
-          <span class="mrm-sheet-kicker">Catalog</span>
-          <p>Explore the current Pocket Orchestra products below.</p>
+
+      </div>
+    </div>
+  </section>
+  <section class="mrm-sheet-section" style="padding-top:0;">
+    <div class="mrm-sheet-shell">
+      <div class="mrm-sheet-offer">
+        <span class="mrm-sheet-kicker">Lesson Member Offer</span>
+        <h2>Get full sheet music access for $5/month when enrolled in lessons.</h2>
+        <p>Families currently enrolled in lessons can subscribe for complete sheet music access at a discounted rate of $5 per month, making it easy to keep fresh music in regular rotation.</p>
+        <div class="mrm-sheet-btn-row">
+          <a class="mrm-sheet-btn mrm-sheet-btn-primary" href="/calendar/">Book Lessons &amp; Unlock Access</a>
         </div>
       </div>
     </div>
   </section>
 </div>
+<div id="catalog-listing" style="height:1px; margin-top:-1px;" aria-hidden="true"></div>
+<script>
+  (function(){
+    var trigger = document.getElementById('mrm-browse-catalog');
+    if(!trigger) return;
+    trigger.addEventListener('click', function(e){
+      var target = document.querySelector('#catalog-listing, .mrm-catalog-listing, .sheet-music-catalog, .wp-block-shortcode + *');
+      if(!target) return;
+      e.preventDefault();
+      target.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  })();
+</script>

@@ -11,7 +11,7 @@
   .mrm-about-shell{ width:min(1160px, calc(100% - 32px)); margin:0 auto; }
   .mrm-about-section{ padding:84px 0; }
   .mrm-about-redesign h1,.mrm-about-redesign h2,.mrm-about-redesign h3{ margin:0 0 16px; line-height:1.08; color:var(--text); font-weight:700; }
-  .mrm-about-redesign h1{ font-size:clamp(2.3rem, 5vw, 4rem); letter-spacing:-.03em; }
+  .mrm-about-redesign h1{ font-size:clamp(2rem, 4.6vw, 3.35rem); letter-spacing:-.022em; font-weight:600; }
   .mrm-about-redesign h2{ font-size:clamp(1.85rem, 4vw, 3rem); letter-spacing:-.025em; }
   .mrm-about-redesign h3{ font-size:clamp(1.08rem, 2vw, 1.4rem); }
   .mrm-about-redesign p{ margin:0 0 16px; color:var(--muted); font-size:1.04rem; }
@@ -34,23 +34,66 @@
     border-top:1px solid var(--line); border-bottom:1px solid var(--line);
   }
   .mrm-about-hero-grid{
-    display:grid; grid-template-columns:.82fr 1.18fr; gap:28px; align-items:stretch; padding:56px 0 72px;
-  }
-  .mrm-about-photo{
-    min-height:500px; border-radius:30px; overflow:hidden; border:1px solid var(--line); box-shadow:var(--shadow);
-  }
-  .mrm-about-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .mrm-about-hero-copy{
-    display:grid; gap:22px; align-content:center;
+    display:grid; gap:26px; padding:56px 0 68px;
   }
   .mrm-about-editorial{
     background:#fff; border:1px solid var(--line); border-radius:28px; padding:30px; box-shadow:var(--shadow);
   }
-  .mrm-about-intro-grid{
-    display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; margin-top:24px;
+  .mrm-about-hero-intro{
+    display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:44px; align-items:start;
   }
-  .mrm-about-intro-card{
-    background:rgba(255,255,255,.76); border:1px solid var(--line); border-radius:22px; padding:24px; box-shadow:var(--shadow);
+  .mrm-about-hero-copy{
+    display:grid; gap:14px; align-content:center;
+    min-height:100%;
+  }
+  .mrm-about-benefits{
+    display:grid; gap:22px;
+  }
+  .mrm-about-benefit{
+    display:grid; grid-template-columns:24px 1fr; gap:12px; align-items:start;
+  }
+  .mrm-about-benefit-check{
+    width:24px; height:24px; border-radius:999px; margin-top:2px;
+    background:var(--gold-soft); color:var(--gold-dark);
+    display:grid; place-items:center; font:700 .85rem/1 Inter,Arial,sans-serif;
+  }
+  .mrm-about-benefit h3{
+    margin:0 0 4px; font-size:1.08rem; line-height:1.2;
+  }
+  .mrm-about-benefit p{
+    margin:0; font-size:.98rem;
+  }
+  .mrm-about-hero-image-wrap{
+    position:relative;
+    padding:18px 0 4px 42px;
+  }
+  .mrm-about-hero-image-wrap:before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:32%;
+    height:78%;
+    border:1px solid var(--line);
+    border-radius:20px;
+    background:linear-gradient(180deg, rgba(237,229,209,.55), rgba(255,255,255,0));
+  }
+  .mrm-about-hero-image{
+    width:100%;
+    aspect-ratio:21 / 8;
+    overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:26px;
+    box-shadow:var(--shadow);
+    position:relative;
+    z-index:1;
+  }
+  .mrm-about-hero-image img{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+    object-position:center 42%;
   }
 
   .mrm-about-rail-layout{
@@ -77,8 +120,42 @@
   .mrm-about-grid-2{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
   .mrm-about-grid-3{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
   .mrm-about-card{
-    background:linear-gradient(180deg, rgba(246,241,231,.55), #fff 46%);
+    background:#fff;
     border:1px solid var(--line); border-radius:22px; padding:22px;
+  }
+  .mrm-about-split-card{
+    border:1px solid var(--line);
+    border-radius:22px;
+    overflow:hidden;
+    background:#fff;
+  }
+  .mrm-about-split-title{
+    margin:0;
+    padding:16px 20px;
+    background:var(--gold-soft);
+    border-bottom:1px solid var(--line);
+    font:700 .93rem/1.35 Inter,Arial,sans-serif;
+    letter-spacing:.03em;
+    text-transform:none;
+    color:var(--text);
+  }
+  .mrm-about-split-body{
+    padding:18px 20px 20px;
+  }
+  .mrm-about-split-body p:last-child{ margin-bottom:0; }
+  .mrm-about-format-image{
+    margin-top:14px;
+    aspect-ratio:16 / 9;
+    border-radius:16px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    box-shadow:0 10px 24px rgba(25,22,18,.08);
+  }
+  .mrm-about-format-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
   }
   .mrm-about-number{
     width:38px; height:38px; border-radius:50%; display:grid; place-items:center; margin-bottom:14px;
@@ -94,43 +171,78 @@
     background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.12);
   }
 
-  .mrm-about-faq-item{ padding:22px 0; border-top:1px solid var(--line); }
-  .mrm-about-faq-item:first-child{ border-top:none; padding-top:0; }
-
   @media (max-width:1024px){
-    .mrm-about-hero-grid,.mrm-about-rail-layout,.mrm-about-intro-grid,.mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:1fr; }
-    .mrm-about-rail{ position:static; }
-    .mrm-about-photo{ min-height:380px; }
+    .mrm-about-section{ padding:68px 0; }
+    .mrm-about-hero-grid{ padding:44px 0 52px; }
+    .mrm-about-hero-intro{ grid-template-columns:1.05fr .95fr; gap:22px; }
+    .mrm-about-rail-layout{ grid-template-columns:220px minmax(0,1fr); gap:20px; }
+    .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .mrm-about-hero-image-wrap{ padding-left:20px; }
+    .mrm-about-hero-image{ aspect-ratio:21 / 10; border-radius:22px; }
+    .mrm-about-editorial,.mrm-about-panel{ border-radius:22px; }
+  }
+
+  @media (max-width:760px){
+    .mrm-about-shell{ width:min(1160px, calc(100% - 22px)); }
+    .mrm-about-section{ padding:52px 0; }
+    .mrm-about-hero-grid{ gap:16px; padding:30px 0 38px; }
+    .mrm-about-hero-intro{ grid-template-columns:minmax(0,1fr); gap:16px; }
+    .mrm-about-rail-layout{ grid-template-columns:minmax(0,1fr); }
+    .mrm-about-rail{ position:static; top:auto; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px 14px; padding:16px; border-radius:18px; }
+    .mrm-about-rail a{ padding:8px 0; font-size:.84rem; }
+    .mrm-about-stack{ gap:16px; }
+    .mrm-about-panel-head{ padding:20px 20px 0; }
+    .mrm-about-panel-body{ padding:8px 20px 20px; }
+    .mrm-about-card{ border-radius:16px; padding:16px; }
+    .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+  }
+
+  @media (max-width:560px){
+    .mrm-about-redesign p{ font-size:.97rem; margin-bottom:12px; }
+    .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:1fr; }
   }
 </style>
 
 <div class="mrm-about-redesign">
   <section class="mrm-about-hero">
     <div class="mrm-about-shell mrm-about-hero-grid">
-      <div class="mrm-about-photo">
-        <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg" alt="Low brass instruction">
+      <div class="mrm-about-editorial">
+        <div class="mrm-about-hero-intro">
+          <div class="mrm-about-hero-copy">
+              <span class="mrm-about-kicker">Why private lessons matter</span>
+              <h1>Thoughtful instruction built for real growth</h1>
+              <p>Private instruction works best when structure, communication, and musicianship are all treated with equal care. This studio is designed to provide that kind of consistent, thoughtful support for developing low brass players.</p>
+          </div>
+          <div class="mrm-about-benefits">
+            <div class="mrm-about-benefit">
+              <div class="mrm-about-benefit-check">✓</div>
+              <div>
+                <h3>Better fundamentals</h3>
+                <p>Students receive focused help with tone, articulation, rhythm, range, flexibility, breathing, posture, and overall musicianship in a way that is tailored to how they actually play.</p>
+              </div>
+            </div>
+            <div class="mrm-about-benefit">
+              <div class="mrm-about-benefit-check">✓</div>
+              <div>
+                <h3>More productive practice</h3>
+                <p>Lessons help students understand not only what to practice, but how to practice effectively so their effort leads to clearer progress and greater confidence.</p>
+              </div>
+            </div>
+            <div class="mrm-about-benefit">
+              <div class="mrm-about-benefit-check">✓</div>
+              <div>
+                <h3>More confidence in performance</h3>
+                <p>Whether preparing for class, auditions, solos, or ensemble music, students benefit from consistent guidance that helps them feel more prepared and less overwhelmed.</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="mrm-about-hero-copy">
-        <div class="mrm-about-editorial">
-          <span class="mrm-about-kicker">Why private lessons matter</span>
-          <h1>Private instruction gives students the kind of support school ensembles often cannot provide on their own.</h1>
-        </div>
-
-        <div class="mrm-about-intro-grid">
-          <div class="mrm-about-intro-card">
-            <h3>Better fundamentals</h3>
-            <p>Students receive focused help with tone, articulation, rhythm, range, flexibility, breathing, posture, and overall musicianship in a way that is tailored to how they actually play.</p>
-          </div>
-          <div class="mrm-about-intro-card">
-            <h3>More productive practice</h3>
-            <p>Lessons help students understand not only what to practice, but how to practice effectively so their effort leads to clearer progress and greater confidence.</p>
-          </div>
-          <div class="mrm-about-intro-card">
-            <h3>More confidence in performance</h3>
-            <p>Whether preparing for class, auditions, solos, or ensemble music, students benefit from consistent guidance that helps them feel more prepared and less overwhelmed.</p>
-          </div>
-        </div>
+      <div class="mrm-about-hero-image-wrap">
+        <figure class="mrm-about-hero-image">
+          <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg" alt="Low brass instruction">
+        </figure>
       </div>
     </div>
   </section>
@@ -142,7 +254,6 @@
         <a href="#mrm-about-standards">Instructor standards</a>
         <a href="#mrm-about-formats">Lesson formats</a>
         <a href="#mrm-about-expect">What families can expect</a>
-        <a href="#mrm-about-faq">Questions families may still have</a>
       </aside>
 
       <div class="mrm-about-stack">
@@ -198,22 +309,24 @@
           </div>
           <div class="mrm-about-panel-body">
             <div class="mrm-about-grid-2">
-              <div class="mrm-about-card">
-                <span class="mrm-about-kicker">In-person lessons</span>
-                <h3>A strong fit for students who benefit from the energy of being in the room.</h3>
-                <p>In-person lessons can be especially helpful for students who respond well to face-to-face guidance, a structured environment, and the feeling of working side by side with an instructor.</p>
-                <p>Students often feel more engaged when the instructor is physically present to guide posture, sound, rhythm, and focus in real time.</p>
-                <p>Being in a lesson space can help students mentally shift into a more attentive and disciplined mode of learning.</p>
-                <p>Some students simply connect better in person, and that comfort can make consistency and confidence easier to build over time.</p>
-              </div>
-              <div class="mrm-about-card">
-                <span class="mrm-about-kicker">Online lessons</span>
-                <h3>A practical and effective option for families who need flexibility without giving up quality instruction.</h3>
-                <p>Online lessons can be an excellent fit for busy families, students outside the immediate area, and learners who benefit from the convenience of studying from home.</p>
-                <p>Families can avoid travel time and keep lessons more sustainable week to week, which often supports better long-term follow-through.</p>
-                <p>When lessons are thoughtfully structured, students can still receive clear feedback, accountability, and meaningful musical direction online.</p>
-                <p>Online lessons can widen the pool of possible teacher matches, making it easier to connect students with the right fit.</p>
-              </div>
+              <article class="mrm-about-split-card">
+                <h3 class="mrm-about-split-title">In-person lessons</h3>
+                <div class="mrm-about-split-body">
+                  <p>A strong fit for students who benefit from the energy of being in the room.</p>
+                  <div class="mrm-about-format-image">
+                    <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg" alt="In-person low brass lesson">
+                  </div>
+                </div>
+              </article>
+              <article class="mrm-about-split-card">
+                <h3 class="mrm-about-split-title">Online lessons</h3>
+                <div class="mrm-about-split-body">
+                  <p>Practical and effective options for families who need flexibility without giving up quality instruction.</p>
+                  <div class="mrm-about-format-image">
+                    <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/Online-Lesson-optimized-scaled.jpg" alt="Online low brass lesson">
+                  </div>
+                </div>
+              </article>
             </div>
           </div>
         </div>
@@ -233,35 +346,6 @@
           </div>
         </div>
 
-        <div class="mrm-about-panel" id="mrm-about-faq">
-          <div class="mrm-about-panel-head">
-            <span class="mrm-about-kicker">About the studio</span>
-            <h2>Questions families may still have.</h2>
-          </div>
-          <div class="mrm-about-panel-body">
-            <div class="mrm-about-faq-item">
-              <h3>Is this studio only for advanced students?</h3>
-              <p>No. Low Brass Lessons is especially well suited for developing musicians who would benefit from more individual guidance, stronger practice habits, and a more personal learning environment.</p>
-            </div>
-            <div class="mrm-about-faq-item">
-              <h3>Why emphasize instructor standards so strongly?</h3>
-              <p>Because trust matters. Families should know that the studio is thoughtful about who teaches students and what expectations are in place for working with young musicians.</p>
-            </div>
-            <div class="mrm-about-faq-item">
-              <h3>What makes this different from simply finding any private teacher?</h3>
-              <p>This studio is built to provide not only private instruction, but a more intentional overall experience: clearer systems, more flexibility, stronger screening standards, and a broader teaching network that can better support families over time.</p>
-            </div>
-            <div class="mrm-about-faq-item">
-              <h3>What is the next step if we are interested?</h3>
-              <p>The simplest next step is to visit the calendar page, review available options, and choose a lesson format that fits your student and schedule.</p>
-            </div>
-
-            <div class="mrm-about-btn-row" style="justify-content:center; margin-top:30px;">
-              <a class="mrm-about-btn mrm-about-btn-primary" href="/calendar/">Book Private Lessons</a>
-              <a class="mrm-about-btn mrm-about-btn-secondary" href="/contact/">Ask a Question</a>
-            </div>
-          </div>
-        </div>
 
       </div>
     </div>

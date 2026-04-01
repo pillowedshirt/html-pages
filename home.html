@@ -11,10 +11,10 @@
   .mrm-home-redesign a, .mrm-home-redesign a:hover, .mrm-home-redesign a:focus, .mrm-home-redesign a:visited { text-decoration:none !important; }
   .mrm-home-shell{ width:min(1160px, calc(100% - 32px)); margin:0 auto; }
   .mrm-home-section{ padding:82px 0; }
-  .mrm-home-redesign h1,.mrm-home-redesign h2,.mrm-home-redesign h3{ margin:0 0 16px; color:var(--text); line-height:1.06; font-weight:700; }
-  .mrm-home-redesign h1{ font-size:clamp(2.3rem, 5vw, 4.4rem); letter-spacing:-.03em; }
-  .mrm-home-redesign h2{ font-size:clamp(1.9rem, 4vw, 3rem); letter-spacing:-.025em; }
-  .mrm-home-redesign h3{ font-size:clamp(1.08rem, 2vw, 1.45rem); }
+  .mrm-home-redesign h1,.mrm-home-redesign h2,.mrm-home-redesign h3{ margin:0 0 12px; color:var(--text); line-height:1.06; font-weight:700; }
+  .mrm-home-redesign h1{ font-size:clamp(1.75rem, 3.2vw, 2.55rem); letter-spacing:-.02em; }
+  .mrm-home-redesign h2{ font-size:clamp(1.55rem, 2.8vw, 2.2rem); letter-spacing:-.018em; }
+  .mrm-home-redesign h3{ font-size:clamp(1.02rem, 1.8vw, 1.28rem); }
   .mrm-home-redesign p{ margin:0 0 16px; font-size:1.04rem; color:var(--muted); }
   .mrm-home-kicker{
     display:inline-flex; align-items:center; gap:10px; padding:8px 14px; border-radius:999px;
@@ -22,7 +22,7 @@
     font:700 .78rem/1 Inter,Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:var(--gold);
   }
   .mrm-home-kicker:before{ content:""; width:8px; height:8px; border-radius:50%; background:var(--gold); opacity:.7; }
-  .mrm-home-btn-row{ display:flex; flex-wrap:wrap; gap:14px; margin-top:30px; }
+  .mrm-home-btn-row{ display:flex; flex-wrap:wrap; gap:12px; margin-top:22px; }
   .mrm-home-btn{
     min-height:52px; display:inline-flex; align-items:center; justify-content:center; padding:0 22px; border-radius:999px;
     border:1px solid transparent; font:700 .95rem Inter,Arial,sans-serif; letter-spacing:.01em; transition:.2s ease;
@@ -46,6 +46,8 @@
     display:grid; grid-template-columns:1.18fr .82fr; gap:38px; align-items:center; padding:58px 0 72px;
   }
   .mrm-home-hero-copy{ position:relative; z-index:1; max-width:720px; }
+  .mrm-home-hero-copy .mrm-home-kicker{ margin-bottom:22px; }
+  .mrm-home-faq-head .mrm-home-kicker{ margin-bottom:18px; }
   .mrm-home-lead{ font-size:1.16rem !important; max-width:62ch; }
   .mrm-home-jump{
     margin-top:26px; display:flex; flex-wrap:wrap; gap:10px;
@@ -57,14 +59,27 @@
   .mrm-home-jump a:hover{ border-color:var(--gold); color:var(--gold-dark) !important; }
 
   .mrm-home-stage{
-    position:relative; min-height:520px; border-radius:28px; overflow:hidden; border:1px solid var(--line);
-    box-shadow:var(--shadow); background:#d9d1c6;
+    position:relative; min-height:520px; border-radius:32px; overflow:hidden;
+    background:linear-gradient(145deg, #d8cec0, #f2eadf 54%, #c8b8a4);
+    border:1px solid rgba(110,100,63,.22); box-shadow:var(--shadow);
+    padding:22px;
   }
-  .mrm-home-stage img{ width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
+  .mrm-home-stage-media{
+    position:absolute; inset:22px 22px 110px; border-radius:28px; overflow:hidden;
+    box-shadow:0 20px 42px rgba(23,21,18,.24);
+  }
+  .mrm-home-stage img{ width:100%; height:100%; object-fit:cover; display:block; border-radius:inherit; }
+  .mrm-home-stage-ribbon{
+    position:absolute; left:22px; top:22px; z-index:2; padding:8px 12px;
+    border-radius:999px; background:rgba(23,21,18,.58); color:#fff;
+    font:600 .72rem/1 Inter,Arial,sans-serif; letter-spacing:.14em; text-transform:uppercase;
+    backdrop-filter:blur(2px);
+  }
   .mrm-home-stage-card{
-    position:absolute; right:22px; bottom:22px; width:min(88%, 370px);
-    padding:24px 22px; border-radius:22px; background:rgba(255,255,255,.92);
-    backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.75);
+    position:absolute; right:22px; bottom:22px; width:min(90%, 380px);
+    padding:20px 22px; border-radius:20px; background:rgba(252,248,241,.94);
+    backdrop-filter:blur(8px); border:1px solid rgba(142,129,85,.24);
+    box-shadow:0 12px 28px rgba(23,21,18,.16);
   }
   .mrm-home-stage-card p:last-child{ margin-bottom:0; }
 
@@ -128,9 +143,34 @@
   }
 
   @media (max-width:1024px){
-    .mrm-home-hero-grid, .mrm-home-band-row, .mrm-home-path-grid, .mrm-home-signal-grid{ grid-template-columns:1fr; }
+    .mrm-home-section{ padding:68px 0; }
+    .mrm-home-hero-grid{ grid-template-columns:minmax(0,1fr); gap:28px; padding:46px 0 58px; }
+    .mrm-home-band-row, .mrm-home-path-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+    .mrm-home-signal-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
     .mrm-home-stage{ min-height:420px; }
-    .mrm-home-signal{ margin-top:28px; }
+    .mrm-home-signal{ margin-top:20px; }
+  }
+
+  @media (max-width:760px){
+    .mrm-home-shell{ width:min(1160px, calc(100% - 22px)); }
+    .mrm-home-section{ padding:52px 0; }
+    .mrm-home-btn-row{ gap:10px; margin-top:22px; }
+    .mrm-home-btn{ min-height:46px; padding:0 16px; font-size:.88rem; }
+    .mrm-home-jump{ margin-top:18px; gap:8px; }
+    .mrm-home-jump a{ padding:8px 12px; font-size:.8rem; }
+    .mrm-home-stage{ min-height:350px; border-radius:24px; padding:14px; }
+    .mrm-home-stage-media{ inset:14px 14px 92px; border-radius:20px; }
+    .mrm-home-stage-card{ left:14px; right:14px; bottom:14px; width:auto; padding:14px 16px; }
+    .mrm-home-signal-grid, .mrm-home-band-row, .mrm-home-path-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .mrm-home-signal-card, .mrm-home-feature{ border-radius:18px; padding:16px; }
+    .mrm-home-faq-head{ padding:20px 18px 10px; }
+    .mrm-home-faq-item{ padding:16px 18px; }
+  }
+
+  @media (max-width:560px){
+    .mrm-home-redesign p{ font-size:.97rem; margin-bottom:12px; }
+    .mrm-home-redesign h3{ font-size:1.02rem; }
+    .mrm-home-signal-grid, .mrm-home-band-row, .mrm-home-path-grid{ grid-template-columns:1fr; }
   }
 </style>
 
@@ -153,16 +193,18 @@
         </div>
 
         <div class="mrm-home-jump">
-          <a href="#mrm-home-identity">Studio identity</a>
+          <a href="#mrm-home-identity">Core values</a>
           <a href="#mrm-home-pathways">Lesson pathways</a>
           <a href="#mrm-home-faq">Helpful answers</a>
         </div>
       </div>
 
       <div class="mrm-home-stage">
-        <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg" alt="Low brass lessons">
+        <div class="mrm-home-stage-ribbon">Studio Session</div>
+        <div class="mrm-home-stage-media">
+          <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg" alt="Low brass lessons">
+        </div>
         <div class="mrm-home-stage-card">
-          <h3>Instruction that meets students where they are.</h3>
           <p>
             Personalized lessons, flexible scheduling, and a studio experience designed to help young low brass musicians improve with confidence.
           </p>
@@ -195,17 +237,6 @@
       </div>
     </div>
   </div>
-
-  <section class="mrm-home-band">
-    <div class="mrm-home-shell mrm-home-band-row">
-      <p>
-        A lesson studio built around clarity, consistency, and encouragement.
-      </p>
-      <div class="mrm-home-band-note">
-        Online &amp; in-person options — Built for developing musicians
-      </div>
-    </div>
-  </section>
 
   <section class="mrm-home-section" id="mrm-home-pathways">
     <div class="mrm-home-shell">
