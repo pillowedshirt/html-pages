@@ -393,6 +393,13 @@
   }
   .mrm-student-item .mrm-tag{ margin-bottom:8px; }
   .mrm-student-item p{ margin:0; }
+  .mrm-pocket-spotlight{position:relative;overflow:hidden;background:linear-gradient(145deg,#1f1b16,#2c251d 56%,#171512);border:1px solid rgba(255,255,255,.18);border-radius:24px;padding:30px;color:#fff;box-shadow:var(--mrm-shadow);}
+  .mrm-pocket-spotlight:before{content:"";position:absolute;width:230px;height:230px;border-radius:50%;top:-90px;right:-80px;background:radial-gradient(circle, rgba(184,137,114,.6), rgba(184,137,114,0));}
+  .mrm-pocket-spotlight h3,.mrm-pocket-spotlight p{position:relative;color:#fff;}
+  .mrm-pocket-spotlight p{color:rgba(255,255,255,.85);}
+  .mrm-pocket-ring{display:inline-block;margin-bottom:14px;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.28);font:700 .74rem Inter,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;position:relative;}
+  .mrm-pocket-cta-wrap{margin-top:28px;text-align:center;}
+  .mrm-pocket-cta{display:inline-flex;min-height:62px;padding:0 34px;border-radius:999px;font-size:1rem;box-shadow:var(--mrm-shadow);}
 
   @media (max-width: 1024px) {
     .mrm-pillars,
@@ -463,13 +470,16 @@
             Curriculum should connect directly to what the student is actually working on. That can include school ensemble music, audition preparation, region or honor band materials, solos, chair tests, or other immediate goals.
           </p>
         </div>
-        <div class="mrm-soft-card">
-          <span class="mrm-tag mrm-tag-forest">Emphasis 3</span>
+        <div class="mrm-pocket-spotlight">
+          <span class="mrm-pocket-ring">Emphasis 3 · Pocket Orchestra</span>
           <h3>Pocket Orchestra adds something distinctive.</h3>
           <p>
             Alongside traditional lesson materials, the Pocket Orchestra series is being commissioned to give students access to musical opportunities that feel creative, polished, and genuinely special.
           </p>
         </div>
+      </div>
+      <div class="mrm-pocket-cta-wrap">
+        <a class="mrm-btn mrm-btn-primary mrm-pocket-cta" href="/sheet-music/">Explore Pocket Orchestra Sheet Music</a>
       </div>
     </div>
   </section>
