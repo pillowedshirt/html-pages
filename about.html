@@ -1,31 +1,31 @@
 <!-- Low Brass Lessons - About Page HTML Block (Redesigned) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   .mrm-about-redesign,.mrm-about-redesign *{box-sizing:border-box;}
   .mrm-about-redesign{
     --bg:#fbf8f2; --bg2:#f6f1e7; --surface:#fff; --text:#171512; --muted:#5f5851;
     --line:#d9cfbe; --gold:#8e8155; --gold-dark:#6e643f; --gold-soft:#ede5d1; --dark:#171512;
     --shadow:0 18px 40px rgba(25,22,18,.07);
-    width:100%; background:var(--bg); color:var(--text); font-family:'Open Sans', Arial, sans-serif; line-height:1.65;
+    width:100%; background:var(--bg); color:var(--text); font-family:'Source Sans 3', 'Open Sans', Arial, sans-serif; line-height:1.65;
   }
   .mrm-about-redesign a,.mrm-about-redesign a:hover,.mrm-about-redesign a:focus,.mrm-about-redesign a:visited{text-decoration:none !important;}
   .mrm-about-shell{ width:min(1160px, calc(100% - 32px)); margin:0 auto; }
   .mrm-about-section{ padding:84px 0; }
-  .mrm-about-redesign h1,.mrm-about-redesign h2,.mrm-about-redesign h3{ margin:0 0 16px; line-height:1.08; color:var(--text); font-weight:700; }
+  .mrm-about-redesign h1,.mrm-about-redesign h2,.mrm-about-redesign h3{ margin:0 0 16px; line-height:1.08; color:var(--text); font-weight:600; font-family:'Cormorant Garamond', Georgia, 'Times New Roman', serif; }
   .mrm-about-redesign h1{ font-size:clamp(2rem, 4vw, 2.625rem); letter-spacing:-.022em; font-weight:600; }
   .mrm-about-redesign h2{ font-size:clamp(1.75rem, 3.5vw, 2rem); letter-spacing:-.025em; }
   .mrm-about-redesign h3{ font-size:clamp(1.375rem, 2.8vw, 1.625rem); }
   .mrm-about-redesign p{ margin:0 0 1.5rem; color:var(--muted); font-size:1rem; line-height:1.5; }
   .mrm-about-kicker{
     display:inline-block; margin-bottom:12px; color:var(--gold); text-transform:uppercase;
-    letter-spacing:.18em; font:700 .79rem/1 'Open Sans', Arial, sans-serif;
+    letter-spacing:.18em; font:700 .79rem/1 'Source Sans 3', 'Open Sans', Arial, sans-serif;
   }
   .mrm-about-btn-row{ display:flex; flex-wrap:wrap; gap:14px; margin-top:26px; }
   .mrm-about-btn{
     min-height:52px; display:inline-flex; align-items:center; justify-content:center; padding:0 22px; border-radius:999px;
-    border:1px solid transparent; font:700 1.125rem/1 'Open Sans', Arial, sans-serif; letter-spacing:.02em;
+    border:1px solid transparent; font:700 1.125rem/1 'Source Sans 3', 'Open Sans', Arial, sans-serif; letter-spacing:.02em;
   }
   .mrm-about-btn-primary{ background:var(--gold); color:#fff !important; }
   .mrm-about-btn-primary:hover{ background:var(--gold-dark); }
@@ -33,14 +33,13 @@
   .mrm-about-btn-secondary:hover{ border-color:var(--gold); color:var(--gold-dark) !important; }
 
   .mrm-about-hero{
-    background:linear-gradient(180deg, rgba(246,241,231,.9), rgba(255,255,255,.2)), var(--bg2);
-    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    background:var(--bg);
   }
   .mrm-about-hero-grid{
     display:grid; gap:26px; padding:56px 0 68px;
   }
   .mrm-about-editorial{
-    background:#fff; border:1px solid var(--line); border-radius:28px; padding:30px; box-shadow:var(--shadow);
+    background:transparent; border:none; border-radius:0; padding:10px 0 0; box-shadow:none;
   }
   .mrm-about-hero-intro{
     display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:44px; align-items:start;
@@ -58,7 +57,7 @@
   .mrm-about-benefit-check{
     width:24px; height:24px; border-radius:999px; margin-top:2px;
     background:var(--gold-soft); color:var(--gold-dark);
-    display:grid; place-items:center; font:700 .85rem/1 'Open Sans', Arial, sans-serif;
+    display:grid; place-items:center; font:700 .85rem/1 'Source Sans 3', 'Open Sans', Arial, sans-serif;
   }
   .mrm-about-benefit h3{
     margin:0 0 4px; font-size:1.08rem; line-height:1.2;
@@ -121,10 +120,24 @@
     font-size:1rem;
   }
   .mrm-about-hero-transition-note strong{
-    font:700 .78rem/1 'Open Sans', Arial, sans-serif;
+    font:700 .78rem/1 'Source Sans 3', 'Open Sans', Arial, sans-serif;
     letter-spacing:.16em;
     text-transform:uppercase;
     color:var(--gold);
+  }
+
+
+  .mrm-about-brand-divider{
+    display:flex;
+    justify-content:center;
+    margin:8px auto 6px;
+    width:100%;
+  }
+  .mrm-about-brand-logo{
+    width:min(420px, 78vw);
+    border-radius:18px;
+    display:block;
+    filter:drop-shadow(0 14px 24px rgba(25,22,18,.12));
   }
 
   .mrm-about-rail-layout{
@@ -135,7 +148,7 @@
   }
   .mrm-about-rail a{
     display:block; padding:10px 0; color:var(--muted) !important; border-bottom:1px solid rgba(217,207,190,.65);
-    font:600 .92rem 'Open Sans', Arial, sans-serif;
+    font:600 .92rem 'Source Sans 3', 'Open Sans', Arial, sans-serif;
   }
   .mrm-about-rail a:last-child{ border-bottom:none; }
   .mrm-about-rail a:hover{ color:var(--gold-dark) !important; }
@@ -165,7 +178,7 @@
     padding:16px 20px;
     background:var(--gold-soft);
     border-bottom:1px solid var(--line);
-    font:700 .93rem/1.35 'Open Sans', Arial, sans-serif;
+    font:700 .93rem/1.35 'Source Sans 3', 'Open Sans', Arial, sans-serif;
     letter-spacing:.03em;
     text-transform:none;
     color:var(--text);
@@ -191,7 +204,7 @@
   }
   .mrm-about-number{
     width:38px; height:38px; border-radius:50%; display:grid; place-items:center; margin-bottom:14px;
-    background:var(--gold-soft); color:var(--gold-dark); font:700 .95rem 'Open Sans', Arial, sans-serif;
+    background:var(--gold-soft); color:var(--gold-dark); font:700 .95rem 'Source Sans 3', 'Open Sans', Arial, sans-serif;
   }
 
   .mrm-about-dark{
@@ -210,7 +223,7 @@
     border:1px solid var(--line);
     background:var(--gold-soft);
     color:var(--gold-dark) !important;
-    font:700 1.125rem/1 'Open Sans', Arial, sans-serif;
+    font:700 1.125rem/1 'Source Sans 3', 'Open Sans', Arial, sans-serif;
     letter-spacing:.02em;
   }
   .mrm-about-resource-link:hover{
@@ -247,7 +260,8 @@
     .mrm-about-section{ padding:68px 0; }
     .mrm-about-hero-grid{ padding:44px 0 52px; }
     .mrm-about-hero-intro{ grid-template-columns:1.05fr .95fr; gap:22px; }
-    .mrm-about-rail-layout{ grid-template-columns:220px minmax(0,1fr); gap:20px; }
+  
+  .mrm-about-rail-layout{ grid-template-columns:220px minmax(0,1fr); gap:20px; }
     .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
     .mrm-about-hero-transition{ border-radius:24px; min-height:240px; margin-top:12px; }
     .mrm-about-expect-grid{ grid-template-columns:1fr; }
@@ -257,9 +271,10 @@
   @media (max-width:760px){
     .mrm-about-shell{ width:min(1160px, calc(100% - 22px)); }
     .mrm-about-section{ padding:52px 0; }
-    .mrm-about-hero-grid{ gap:16px; padding:30px 0 38px; }
+    .mrm-about-hero-grid{ gap:16px; padding:30px 0 42px; }
     .mrm-about-hero-intro{ grid-template-columns:minmax(0,1fr); gap:16px; }
-    .mrm-about-rail-layout{ grid-template-columns:minmax(0,1fr); }
+  
+  .mrm-about-rail-layout{ grid-template-columns:minmax(0,1fr); }
     .mrm-about-rail{ position:static; top:auto; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px 14px; padding:16px; border-radius:18px; }
     .mrm-about-rail a{ padding:8px 0; font-size:.84rem; }
     .mrm-about-stack{ gap:16px; }
@@ -267,6 +282,7 @@
     .mrm-about-panel-body{ padding:8px 20px 20px; }
     .mrm-about-card{ border-radius:16px; padding:16px; }
     .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .mrm-about-brand-logo{ width:min(320px, 86vw); }
     .mrm-about-hero-transition{ min-height:210px; }
     .mrm-about-expect-point:nth-child(even){ margin-left:0; }
   }
@@ -285,6 +301,9 @@
           <div class="mrm-about-hero-copy">
               <span class="mrm-about-kicker">Why private lessons matter</span>
               <h1>Thoughtful instruction built for real growth</h1>
+              <div class="mrm-about-brand-divider">
+                <img class="mrm-about-brand-logo" src="/wp-content/uploads/low-brass-lessons-logo.png" alt="Low Brass Lessons logo">
+              </div>
               <p>Private instruction works best when structure, communication, and musicianship are all treated with equal care. This studio is designed to provide that kind of consistent, thoughtful support for developing low brass players.</p>
           </div>
           <div class="mrm-about-benefits">
