@@ -129,21 +129,38 @@
 
   .mrm-about-hero-logo-block{
     width:100%;
-    display:flex;
-    justify-content:center;
-    padding:22px 0 20px;
-    margin-top:8px;
+    padding:0;
+    margin:18px 0;
   }
   .mrm-about-brand-divider{
-    display:flex;
-    justify-content:center;
+    position:relative;
     width:100%;
+    height:clamp(230px, 27vw, 320px);
+    border-radius:28px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    box-shadow:0 18px 34px rgba(25,22,18,.16);
+    background:#1f1b16;
+    isolation:isolate;
+  }
+  .mrm-about-brand-divider::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:1;
+    background:linear-gradient(180deg, rgba(23,21,18,.2), rgba(23,21,18,0) 48%, rgba(23,21,18,.28));
+    pointer-events:none;
   }
   .mrm-about-brand-logo{
-    width:min(420px, 78vw);
-    border-radius:18px;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center 42%;
     display:block;
-    filter:drop-shadow(0 14px 24px rgba(25,22,18,.12));
+    transform:scale(1.16);
+    transform-origin:center;
+    transition:transform .18s linear, object-position .18s linear;
+    will-change:transform,object-position;
   }
 
   .mrm-about-rail-layout{
@@ -259,7 +276,6 @@
     background:#fff;
     box-shadow:0 10px 22px rgba(25,22,18,.06);
   }
-  .mrm-about-expect-point:nth-child(even){ margin-left:20px; }
   .mrm-about-expect-point h3{ margin-bottom:8px; }
 
   @media (max-width:1024px){
@@ -288,10 +304,9 @@
     .mrm-about-panel-body{ padding:8px 20px 20px; }
     .mrm-about-card{ border-radius:16px; padding:16px; }
     .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
-    .mrm-about-hero-logo-block{ padding:16px 0 14px; margin-top:2px; }
-    .mrm-about-brand-logo{ width:min(320px, 86vw); }
+    .mrm-about-hero-logo-block{ margin:14px 0; }
+    .mrm-about-brand-divider{ height:clamp(220px, 56vw, 300px); border-radius:22px; }
     .mrm-about-hero-transition{ min-height:210px; }
-    .mrm-about-expect-point:nth-child(even){ margin-left:0; }
   }
 
   @media (max-width:560px){
@@ -299,6 +314,32 @@
     .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:1fr; }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var revealWindow = document.querySelector('.mrm-about-brand-divider');
+    var revealImage = document.querySelector('.mrm-about-brand-logo');
+    if (!revealWindow || !revealImage) return;
+
+    function updateReveal() {
+      var rect = revealWindow.getBoundingClientRect();
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      var start = vh * 0.92;
+      var end = -rect.height * 0.48;
+      var progress = (start - rect.top) / (start - end);
+      var clamped = Math.max(0, Math.min(progress, 1));
+      var scale = 1.16 - (clamped * 0.18);
+      var y = 42 - (clamped * 12);
+
+      revealImage.style.transform = 'scale(' + scale.toFixed(3) + ')';
+      revealImage.style.objectPosition = 'center ' + y.toFixed(2) + '%';
+    }
+
+    updateReveal();
+    window.addEventListener('scroll', updateReveal, { passive: true });
+    window.addEventListener('resize', updateReveal);
+  });
+</script>
 
 <div class="mrm-about-redesign">
   <section class="mrm-about-hero">
