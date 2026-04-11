@@ -445,6 +445,53 @@
       padding:10px 8px;
     }
   }
+@media (max-width:760px){
+  #mrm-about-standards .mrm-scroll-deck{
+    position:relative;
+    width:100%;
+    display:block;
+    overflow:visible;
+    padding-bottom:18px;
+  }
+
+  #mrm-about-standards .mrm-scroll-deck-track{
+    position:relative;
+    min-height:300px;
+  }
+
+  #mrm-about-standards .mrm-scroll-deck-card{
+    position:absolute;
+    inset:0;
+    width:100%;
+    transition:
+      transform .42s cubic-bezier(.22,.8,.2,1),
+      opacity .28s ease;
+    will-change:transform, opacity;
+  }
+
+  #mrm-about-standards .mrm-scroll-deck-card.is-front{
+    z-index:3;
+    transform:translate3d(0,0,0) scale(1);
+    opacity:1;
+  }
+
+  #mrm-about-standards .mrm-scroll-deck-card.is-middle{
+    z-index:2;
+    transform:translate3d(0,10px,0) scale(.985);
+    opacity:1;
+  }
+
+  #mrm-about-standards .mrm-scroll-deck-card.is-back{
+    z-index:1;
+    transform:translate3d(0,18px,0) scale(.97);
+    opacity:1;
+  }
+
+  #mrm-about-standards .mrm-scroll-deck-card.is-leaving{
+    transform:translate3d(-108%,22px,0) scale(.96);
+    opacity:.98;
+  }
+}
 </style>
 
 
@@ -529,22 +576,24 @@
             <p>Low Brass Lessons is built around the idea that families should feel confident not only in the lesson format, but also in the qualifications and professionalism of the instructors they encounter.</p>
           </div>
           <div class="mrm-about-panel-body">
-            <div class="mrm-about-grid-2">
-              <div class="mrm-about-card">
-                <h3>Educational Preparation</h3>
-                <p>Instructors are selected for strong musical and educational backgrounds, including standards such as formal music training and, where applicable, music education degree preparation or completion.</p>
-              </div>
-              <div class="mrm-about-card">
-                <h3>Student-Facing Professionalism</h3>
-                <p>Instructors should be able to communicate clearly, teach responsibly, and represent the studio in a way that is organized, encouraging, and dependable for families.</p>
-              </div>
-              <div class="mrm-about-card">
-                <h3>Safety and Trust</h3>
-                <p>Student safety matters. We place an importance on requirements such as a valid fingerprint clearance cards when considering musicians for working directly with our young musicians and families.</p>
-              </div>
-              <div class="mrm-about-card">
-                <h3>Instructional Fit</h3>
-                <p>Our instructors are able to demonstrate the ability to teach developing musicians patiently, clearly, and with attention to long-term growth. We ensure that every instructor has a clear pedagogical approach.</p>
+            <div class="mrm-about-grid-2 mrm-scroll-deck" data-scroll-deck>
+              <div class="mrm-scroll-deck-track">
+                <div class="mrm-about-card mrm-scroll-deck-card" data-scroll-deck-card>
+                  <h3>Educational Preparation</h3>
+                  <p>Instructors are selected for strong musical and educational backgrounds, including standards such as formal music training and, where applicable, music education degree preparation or completion.</p>
+                </div>
+                <div class="mrm-about-card mrm-scroll-deck-card" data-scroll-deck-card>
+                  <h3>Student-Facing Professionalism</h3>
+                  <p>Instructors should be able to communicate clearly, teach responsibly, and represent the studio in a way that is organized, encouraging, and dependable for families.</p>
+                </div>
+                <div class="mrm-about-card mrm-scroll-deck-card" data-scroll-deck-card>
+                  <h3>Safety and Trust</h3>
+                  <p>Student safety matters. We place an importance on requirements such as a valid fingerprint clearance cards when considering musicians for working directly with our young musicians and families.</p>
+                </div>
+                <div class="mrm-about-card mrm-scroll-deck-card" data-scroll-deck-card>
+                  <h3>Instructional Fit</h3>
+                  <p>Our instructors are able to demonstrate the ability to teach developing musicians patiently, clearly, and with attention to long-term growth. We ensure that every instructor has a clear pedagogical approach.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -607,3 +656,86 @@
     </div>
   </section>
 </div>
+<script>
+(function(){
+  if (!window.matchMedia("(max-width:760px)").matches) return;
+
+  const decks = document.querySelectorAll('#mrm-about-standards [data-scroll-deck]');
+  if (!decks.length) return;
+
+  function initDeck(deck){
+    const track = deck.querySelector('.mrm-scroll-deck-track');
+    const cards = Array.from(deck.querySelectorAll('[data-scroll-deck-card]'));
+    if (!track || !cards.length) return;
+
+    let index = 0;
+    let animating = false;
+    let touchStartY = 0;
+
+    function setHeight(){
+      track.style.height = cards[index].offsetHeight + 'px';
+    }
+
+    function paint(){
+      cards.forEach((card, i) => {
+        card.classList.remove('is-front','is-middle','is-back','is-leaving');
+        if (i === index) card.classList.add('is-front');
+        else if (i === index + 1) card.classList.add('is-middle');
+        else card.classList.add('is-back');
+      });
+      requestAnimationFrame(setHeight);
+    }
+
+    function inZone(){
+      const rect = deck.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const mid = vh * 0.5;
+      return rect.top <= mid && rect.bottom >= mid;
+    }
+
+    function nextCard(){
+      if (animating || index >= cards.length - 1) return false;
+      animating = true;
+      cards[index].classList.add('is-leaving');
+      setTimeout(() => {
+        index += 1;
+        animating = false;
+        paint();
+      }, 420);
+      return true;
+    }
+
+    window.addEventListener('wheel', function(event){
+      if (event.deltaY > 8 && inZone() && index < cards.length - 1) {
+        event.preventDefault();
+        nextCard();
+      }
+    }, { passive:false });
+
+    deck.addEventListener('touchstart', function(e){
+      touchStartY = e.changedTouches[0].clientY;
+    }, { passive:true });
+
+    deck.addEventListener('touchmove', function(e){
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      if (dy < -18 && inZone() && index < cards.length - 1) {
+        e.preventDefault();
+      }
+    }, { passive:false });
+
+    deck.addEventListener('touchend', function(e){
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      if (dy < -24 && inZone() && index < cards.length - 1) {
+        nextCard();
+      }
+    }, { passive:false });
+
+    window.addEventListener('resize', setHeight);
+    window.addEventListener('load', setHeight);
+
+    paint();
+  }
+
+  decks.forEach(initDeck);
+})();
+</script>

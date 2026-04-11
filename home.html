@@ -331,6 +331,73 @@
       white-space:nowrap;
     }
   }
+@media (max-width:760px){
+  .mrm-scroll-deck{
+    position:relative;
+    width:100%;
+    overflow:visible;
+  }
+
+  .mrm-scroll-deck-track{
+    position:relative;
+    min-height:260px;
+  }
+
+  .mrm-scroll-deck-card{
+    position:absolute;
+    inset:0;
+    width:100%;
+    max-width:100%;
+    overflow:hidden;
+    transition:
+      transform .42s cubic-bezier(.22,.8,.2,1),
+      opacity .28s ease;
+    will-change:transform, opacity;
+  }
+
+  .mrm-scroll-deck-card.is-front{
+    z-index:3;
+    transform:translate3d(0,0,0) scale(1);
+    opacity:1;
+  }
+
+  .mrm-scroll-deck-card.is-middle{
+    z-index:2;
+    transform:translate3d(0,10px,0) scale(.985);
+    opacity:1;
+  }
+
+  .mrm-scroll-deck-card.is-back{
+    z-index:1;
+    transform:translate3d(0,18px,0) scale(.97);
+    opacity:1;
+  }
+
+  .mrm-scroll-deck-card.is-leaving{
+    transform:translate3d(-108%,22px,0) scale(.96);
+    opacity:.98;
+  }
+
+  #mrm-home-identity.mrm-scroll-deck{
+    display:block;
+    padding-bottom:18px;
+  }
+
+  #mrm-home-identity .mrm-home-signal-card{
+    min-height:260px;
+    height:auto;
+    word-break:normal;
+    overflow-wrap:break-word;
+    white-space:normal;
+  }
+
+  #mrm-home-identity .mrm-home-signal-card h3,
+  #mrm-home-identity .mrm-home-signal-card p{
+    word-break:normal;
+    overflow-wrap:break-word;
+    white-space:normal;
+  }
+}
 </style>
 
 <div class="mrm-home-redesign">
@@ -373,24 +440,26 @@
 
   <div class="mrm-home-signal">
     <div class="mrm-home-shell">
-      <div class="mrm-home-signal-grid" id="mrm-home-identity">
-        <div class="mrm-home-signal-card">
-          <h3>Mission</h3>
-          <p>
-            To help young low brass musicians build strong fundamentals, musical confidence, and long-term enthusiasm for learning through thoughtful private instruction.
-          </p>
-        </div>
-        <div class="mrm-home-signal-card">
-          <h3>What Makes This Studio Unique?</h3>
-          <p>
-            We offer an exclusive and modern curriculum specifically designed to support low brass development.
-          </p>
-        </div>
-        <div class="mrm-home-signal-card">
-          <h3>Who This Is For?</h3>
-          <p>
-            Families and students looking to develop skill on low brass instruments and build a lasting love for music through performance.
-          </p>
+      <div class="mrm-home-signal-grid mrm-scroll-deck" id="mrm-home-identity" data-scroll-deck>
+        <div class="mrm-scroll-deck-track">
+          <div class="mrm-home-signal-card mrm-scroll-deck-card" data-scroll-deck-card>
+            <h3>Mission</h3>
+            <p>
+              To help young low brass musicians build strong fundamentals, musical confidence, and long-term enthusiasm for learning through thoughtful private instruction.
+            </p>
+          </div>
+          <div class="mrm-home-signal-card mrm-scroll-deck-card" data-scroll-deck-card>
+            <h3>What Makes This Studio Unique?</h3>
+            <p>
+              We offer an exclusive and modern curriculum specifically designed to support low brass development.
+            </p>
+          </div>
+          <div class="mrm-home-signal-card mrm-scroll-deck-card" data-scroll-deck-card>
+            <h3>Who This Is For?</h3>
+            <p>
+              Families and students looking to develop skill on low brass instruments and build a lasting love for music through performance.
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -481,3 +550,120 @@
     </div>
   </section>
 </div>
+
+<script>
+(function(){
+  if (!window.matchMedia("(max-width:760px)").matches) return;
+
+  const decks = document.querySelectorAll('[data-scroll-deck]');
+  if (!decks.length) return;
+
+  function initDeck(deck){
+    const track = deck.querySelector('.mrm-scroll-deck-track');
+    const cards = Array.from(deck.querySelectorAll('[data-scroll-deck-card]'));
+    if (!track || !cards.length) return;
+
+    let index = 0;
+    let locked = false;
+    let animating = false;
+    let lastWheelAt = 0;
+    let touchStartY = 0;
+
+    function setHeight(){
+      const front = cards[index];
+      if (!front) return;
+      track.style.height = front.offsetHeight + 'px';
+    }
+
+    function paint(){
+      cards.forEach((card, i) => {
+        card.classList.remove('is-front','is-middle','is-back','is-leaving');
+        if (i === index) card.classList.add('is-front');
+        else if (i === index + 1) card.classList.add('is-middle');
+        else card.classList.add('is-back');
+      });
+      requestAnimationFrame(setHeight);
+    }
+
+    function inZone(){
+      const rect = deck.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const mid = vh * 0.5;
+      return rect.top <= mid && rect.bottom >= mid;
+    }
+
+    function nextCard(){
+      if (animating || index >= cards.length - 1) return false;
+      animating = true;
+      const current = cards[index];
+      current.classList.add('is-leaving');
+
+      setTimeout(() => {
+        index += 1;
+        animating = false;
+        paint();
+      }, 420);
+
+      return true;
+    }
+
+    function maybeAdvanceDown(event){
+      if (!inZone()) return false;
+      if (index >= cards.length - 1) return false;
+      if (animating) {
+        event.preventDefault();
+        return true;
+      }
+      event.preventDefault();
+      nextCard();
+      return true;
+    }
+
+    window.addEventListener('wheel', function(event){
+      if (!window.matchMedia("(max-width:760px)").matches) return;
+      const now = Date.now();
+      if (Math.abs(event.deltaY) < 8) return;
+      if (event.deltaY > 0) {
+        if (now - lastWheelAt < 240) {
+          if (inZone() && index < cards.length - 1) event.preventDefault();
+          return;
+        }
+        lastWheelAt = now;
+        maybeAdvanceDown(event);
+      }
+    }, { passive:false });
+
+    deck.addEventListener('touchstart', function(e){
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartY = e.changedTouches[0].clientY;
+    }, { passive:true });
+
+    deck.addEventListener('touchmove', function(e){
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      const currentY = e.changedTouches[0].clientY;
+      const dy = currentY - touchStartY;
+
+      if (dy < -18 && inZone() && index < cards.length - 1) {
+        e.preventDefault();
+      }
+    }, { passive:false });
+
+    deck.addEventListener('touchend', function(e){
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      const endY = e.changedTouches[0].clientY;
+      const dy = endY - touchStartY;
+
+      if (dy < -24 && inZone() && index < cards.length - 1) {
+        nextCard();
+      }
+    }, { passive:false });
+
+    window.addEventListener('resize', setHeight);
+    window.addEventListener('load', setHeight);
+
+    paint();
+  }
+
+  decks.forEach(initDeck);
+})();
+</script>
