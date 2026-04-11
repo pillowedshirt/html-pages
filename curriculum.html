@@ -487,7 +487,7 @@
       display:grid;
       grid-template-columns:repeat(3,minmax(0,1fr));
       gap:0;
-      overflow:visible;
+      overflow:hidden;
       scroll-snap-type:none;
       -webkit-overflow-scrolling:auto;
       border-radius:999px;
@@ -495,6 +495,7 @@
       background:#fff;
       box-shadow:var(--mrm-shadow);
       padding-bottom:0;
+      align-items:stretch;
     }
 
     .mrm-pillar{
@@ -503,6 +504,10 @@
       border-radius:0;
       box-shadow:none;
       padding:14px 10px;
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
     }
 
     .mrm-pillar strong{
@@ -539,16 +544,25 @@
     .mrm-dark-band .mrm-three-col{
       display:grid;
       grid-auto-flow:column;
-      grid-auto-columns:86%;
-      gap:12px;
+      grid-auto-columns:100%;
+      gap:0;
       overflow-x:auto;
-      scroll-snap-type:x proximity;
+      scroll-snap-type:x mandatory;
       -webkit-overflow-scrolling:touch;
-      padding-bottom:4px;
+      padding-bottom:8px;
     }
 
     .mrm-dark-band .mrm-three-col > *{
       scroll-snap-align:start;
+      width:100%;
+      max-width:100%;
+    }
+
+    .mrm-dark-band .mrm-dark-card h3,
+    .mrm-dark-band .mrm-dark-card p{
+      word-break:normal;
+      overflow-wrap:break-word;
+      white-space:normal;
     }
 
     .mrm-card,
@@ -568,7 +582,7 @@
 
   @media (max-width: 560px) {
     .mrm-dark-band .mrm-three-col{
-      grid-auto-columns:90%;
+      grid-auto-columns:100%;
     }
 
     .mrm-pillars{
