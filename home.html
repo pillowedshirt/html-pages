@@ -331,73 +331,78 @@
       white-space:nowrap;
     }
   }
+@media (min-width:761px){
+  .mrm-mobile-scroll-deck{
+    display:none !important;
+  }
+}
+@media (min-width:821px){
+  .mrm-mobile-scroll-deck{
+    display:none !important;
+  }
+}
+
 @media (max-width:760px){
-  .mrm-scroll-deck{
+  .mrm-home-identity-desktop,
+  .mrm-about-standards-desktop{
+    display:none !important;
+  }
+}
+@media (max-width:820px){
+  .mrm-pocket-desktop,
+  .mrm-sheet-features-desktop{
+    display:none !important;
+  }
+}
+
+@media (max-width:820px){
+  .mrm-mobile-scroll-deck{
     position:relative;
     width:100%;
+    display:block;
     overflow:visible;
+    padding-bottom:18px;
   }
 
-  .mrm-scroll-deck-track{
+  .mrm-mobile-scroll-deck-track{
     position:relative;
     min-height:260px;
   }
 
-  .mrm-scroll-deck-card{
+  .mrm-mobile-scroll-deck-card{
     position:absolute;
     inset:0;
     width:100%;
     max-width:100%;
-    overflow:hidden;
-    transition:
-      transform .42s cubic-bezier(.22,.8,.2,1),
-      opacity .28s ease;
+    transition:transform .42s cubic-bezier(.22,.8,.2,1), opacity .28s ease;
     will-change:transform, opacity;
+    overflow:hidden;
   }
 
-  .mrm-scroll-deck-card.is-front{
+  .mrm-mobile-scroll-deck-card.is-front{
     z-index:3;
     transform:translate3d(0,0,0) scale(1);
     opacity:1;
   }
 
-  .mrm-scroll-deck-card.is-middle{
+  .mrm-mobile-scroll-deck-card.is-middle{
     z-index:2;
     transform:translate3d(0,10px,0) scale(.985);
     opacity:1;
   }
 
-  .mrm-scroll-deck-card.is-back{
+  .mrm-mobile-scroll-deck-card.is-back{
     z-index:1;
     transform:translate3d(0,18px,0) scale(.97);
     opacity:1;
   }
 
-  .mrm-scroll-deck-card.is-leaving{
+  .mrm-mobile-scroll-deck-card.is-leaving{
     transform:translate3d(-108%,22px,0) scale(.96);
     opacity:.98;
   }
-
-  #mrm-home-identity.mrm-scroll-deck{
-    display:block;
-    padding-bottom:18px;
-  }
-
-  #mrm-home-identity .mrm-home-signal-card{
-    min-height:260px;
-    height:auto;
-    word-break:normal;
-    overflow-wrap:break-word;
-    white-space:normal;
-  }
-
-  #mrm-home-identity .mrm-home-signal-card h3,
-  #mrm-home-identity .mrm-home-signal-card p{
-    word-break:normal;
-    overflow-wrap:break-word;
-    white-space:normal;
-  }
 }
+
 </style>
 
 <div class="mrm-home-redesign">
@@ -440,26 +445,47 @@
 
   <div class="mrm-home-signal">
     <div class="mrm-home-shell">
-      <div class="mrm-home-signal-grid mrm-scroll-deck" id="mrm-home-identity" data-scroll-deck>
-        <div class="mrm-scroll-deck-track">
-          <div class="mrm-home-signal-card mrm-scroll-deck-card" data-scroll-deck-card>
+      <div class="mrm-home-signal-grid mrm-home-identity-desktop" id="mrm-home-identity">
+        <div class="mrm-home-signal-card">
+          <h3>Mission</h3>
+          <p>
+            To help young low brass musicians build strong fundamentals, musical confidence, and long-term enthusiasm for learning through thoughtful private instruction.
+          </p>
+        </div>
+        <div class="mrm-home-signal-card">
+          <h3>What Makes This Studio Unique?</h3>
+          <p>
+            We offer an exclusive and modern curriculum specifically designed to support low brass development.
+          </p>
+        </div>
+        <div class="mrm-home-signal-card">
+          <h3>Who This Is For?</h3>
+          <p>
+            Families and students looking to develop skill on low brass instruments and build a lasting love for music through performance.
+          </p>
+        </div>
+      </div>
+
+      <div class="mrm-home-identity-mobiledeck mrm-mobile-scroll-deck" data-mobile-scroll-deck>
+        <div class="mrm-mobile-scroll-deck-track">
+          <article class="mrm-home-signal-card mrm-mobile-scroll-deck-card" data-mobile-scroll-deck-card>
             <h3>Mission</h3>
             <p>
               To help young low brass musicians build strong fundamentals, musical confidence, and long-term enthusiasm for learning through thoughtful private instruction.
             </p>
-          </div>
-          <div class="mrm-home-signal-card mrm-scroll-deck-card" data-scroll-deck-card>
+          </article>
+          <article class="mrm-home-signal-card mrm-mobile-scroll-deck-card" data-mobile-scroll-deck-card>
             <h3>What Makes This Studio Unique?</h3>
             <p>
               We offer an exclusive and modern curriculum specifically designed to support low brass development.
             </p>
-          </div>
-          <div class="mrm-home-signal-card mrm-scroll-deck-card" data-scroll-deck-card>
+          </article>
+          <article class="mrm-home-signal-card mrm-mobile-scroll-deck-card" data-mobile-scroll-deck-card>
             <h3>Who This Is For?</h3>
             <p>
               Families and students looking to develop skill on low brass instruments and build a lasting love for music through performance.
             </p>
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -551,119 +577,137 @@
   </section>
 </div>
 
+
+
 <script>
 (function(){
-  if (!window.matchMedia("(max-width:760px)").matches) return;
+  const mobile760 = window.matchMedia("(max-width:760px)").matches;
+  const mobile820 = window.matchMedia("(max-width:820px)").matches;
+  if (!mobile760 && !mobile820) return;
 
-  const decks = document.querySelectorAll('[data-scroll-deck]');
+  const decks = Array.from(document.querySelectorAll('[data-mobile-scroll-deck]'));
   if (!decks.length) return;
 
+  let activeDeck = null;
+  let touchStartY = 0;
+  let wheelLock = false;
+
+  function inMidZone(deck){
+    const rect = deck.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    const mid = vh * 0.5;
+    return rect.top <= mid && rect.bottom >= mid;
+  }
+
+  function setDeckHeight(deck, index){
+    const track = deck.querySelector('.mrm-mobile-scroll-deck-track');
+    const cards = Array.from(deck.querySelectorAll('[data-mobile-scroll-deck-card]'));
+    if (!track || !cards[index]) return;
+    track.style.height = cards[index].offsetHeight + 'px';
+  }
+
+  function paintDeck(deck){
+    const cards = Array.from(deck.querySelectorAll('[data-mobile-scroll-deck-card]'));
+    let index = Number(deck.dataset.deckIndex || 0);
+
+    cards.forEach((card, i) => {
+      card.classList.remove('is-front','is-middle','is-back','is-leaving');
+      if (i === index) card.classList.add('is-front');
+      else if (i === index + 1) card.classList.add('is-middle');
+      else card.classList.add('is-back');
+    });
+
+    requestAnimationFrame(() => setDeckHeight(deck, index));
+  }
+
+  function nextCard(deck){
+    if (deck.dataset.animating === '1') return false;
+
+    const cards = Array.from(deck.querySelectorAll('[data-mobile-scroll-deck-card]'));
+    let index = Number(deck.dataset.deckIndex || 0);
+    if (index >= cards.length - 1) return false;
+
+    deck.dataset.animating = '1';
+    cards[index].classList.add('is-leaving');
+
+    window.setTimeout(() => {
+      deck.dataset.deckIndex = String(index + 1);
+      deck.dataset.animating = '0';
+      paintDeck(deck);
+    }, 420);
+
+    return true;
+  }
+
   function initDeck(deck){
-    const track = deck.querySelector('.mrm-scroll-deck-track');
-    const cards = Array.from(deck.querySelectorAll('[data-scroll-deck-card]'));
-    if (!track || !cards.length) return;
-
-    let index = 0;
-    let locked = false;
-    let animating = false;
-    let lastWheelAt = 0;
-    let touchStartY = 0;
-
-    function setHeight(){
-      const front = cards[index];
-      if (!front) return;
-      track.style.height = front.offsetHeight + 'px';
-    }
-
-    function paint(){
-      cards.forEach((card, i) => {
-        card.classList.remove('is-front','is-middle','is-back','is-leaving');
-        if (i === index) card.classList.add('is-front');
-        else if (i === index + 1) card.classList.add('is-middle');
-        else card.classList.add('is-back');
-      });
-      requestAnimationFrame(setHeight);
-    }
-
-    function inZone(){
-      const rect = deck.getBoundingClientRect();
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-      const mid = vh * 0.5;
-      return rect.top <= mid && rect.bottom >= mid;
-    }
-
-    function nextCard(){
-      if (animating || index >= cards.length - 1) return false;
-      animating = true;
-      const current = cards[index];
-      current.classList.add('is-leaving');
-
-      setTimeout(() => {
-        index += 1;
-        animating = false;
-        paint();
-      }, 420);
-
-      return true;
-    }
-
-    function maybeAdvanceDown(event){
-      if (!inZone()) return false;
-      if (index >= cards.length - 1) return false;
-      if (animating) {
-        event.preventDefault();
-        return true;
-      }
-      event.preventDefault();
-      nextCard();
-      return true;
-    }
-
-    window.addEventListener('wheel', function(event){
-      if (!window.matchMedia("(max-width:760px)").matches) return;
-      const now = Date.now();
-      if (Math.abs(event.deltaY) < 8) return;
-      if (event.deltaY > 0) {
-        if (now - lastWheelAt < 240) {
-          if (inZone() && index < cards.length - 1) event.preventDefault();
-          return;
-        }
-        lastWheelAt = now;
-        maybeAdvanceDown(event);
-      }
-    }, { passive:false });
-
-    deck.addEventListener('touchstart', function(e){
-      if (!e.changedTouches || !e.changedTouches.length) return;
-      touchStartY = e.changedTouches[0].clientY;
-    }, { passive:true });
-
-    deck.addEventListener('touchmove', function(e){
-      if (!e.changedTouches || !e.changedTouches.length) return;
-      const currentY = e.changedTouches[0].clientY;
-      const dy = currentY - touchStartY;
-
-      if (dy < -18 && inZone() && index < cards.length - 1) {
-        e.preventDefault();
-      }
-    }, { passive:false });
-
-    deck.addEventListener('touchend', function(e){
-      if (!e.changedTouches || !e.changedTouches.length) return;
-      const endY = e.changedTouches[0].clientY;
-      const dy = endY - touchStartY;
-
-      if (dy < -24 && inZone() && index < cards.length - 1) {
-        nextCard();
-      }
-    }, { passive:false });
-
-    window.addEventListener('resize', setHeight);
-    window.addEventListener('load', setHeight);
-
-    paint();
+    deck.dataset.deckIndex = '0';
+    deck.dataset.animating = '0';
+    paintDeck(deck);
   }
 
   decks.forEach(initDeck);
+
+  function findActiveDeck(){
+    return decks.find(inMidZone) || null;
+  }
+
+  window.addEventListener('wheel', function(event){
+    activeDeck = findActiveDeck();
+    if (!activeDeck) return;
+    if (event.deltaY <= 8) return;
+
+    const cards = activeDeck.querySelectorAll('[data-mobile-scroll-deck-card]');
+    const index = Number(activeDeck.dataset.deckIndex || 0);
+
+    if (index < cards.length - 1) {
+      event.preventDefault();
+      if (!wheelLock) {
+        wheelLock = true;
+        nextCard(activeDeck);
+        setTimeout(() => { wheelLock = false; }, 440);
+      }
+    }
+  }, { passive:false });
+
+  window.addEventListener('touchstart', function(e){
+    if (!e.changedTouches || !e.changedTouches.length) return;
+    touchStartY = e.changedTouches[0].clientY;
+  }, { passive:true });
+
+  window.addEventListener('touchmove', function(e){
+    activeDeck = findActiveDeck();
+    if (!activeDeck) return;
+
+    const currentY = e.changedTouches[0].clientY;
+    const dy = currentY - touchStartY;
+    const cards = activeDeck.querySelectorAll('[data-mobile-scroll-deck-card]');
+    const index = Number(activeDeck.dataset.deckIndex || 0);
+
+    if (dy < -18 && index < cards.length - 1) {
+      e.preventDefault();
+    }
+  }, { passive:false });
+
+  window.addEventListener('touchend', function(e){
+    activeDeck = findActiveDeck();
+    if (!activeDeck) return;
+
+    const endY = e.changedTouches[0].clientY;
+    const dy = endY - touchStartY;
+    const cards = activeDeck.querySelectorAll('[data-mobile-scroll-deck-card]');
+    const index = Number(activeDeck.dataset.deckIndex || 0);
+
+    if (dy < -24 && index < cards.length - 1) {
+      nextCard(activeDeck);
+    }
+  }, { passive:false });
+
+  window.addEventListener('resize', function(){
+    decks.forEach(deck => paintDeck(deck));
+  });
+
+  window.addEventListener('load', function(){
+    decks.forEach(deck => paintDeck(deck));
+  });
 })();
 </script>
