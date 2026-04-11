@@ -445,6 +445,92 @@
       padding:10px 8px;
     }
   }
+
+
+/* ===== MOBILE DECK SYSTEM: ABOUT INSTRUCTOR STANDARDS ===== */
+@media (max-width:760px){
+  #mrm-about-standards [data-deck]{
+    position:relative;
+    width:100%;
+    margin:0 auto;
+    padding-bottom:14px;
+    touch-action:none;
+    overscroll-behavior:contain;
+  }
+
+  #mrm-about-standards .mrm-mobile-deck-track{
+    position:relative;
+    width:100%;
+    min-height:280px;
+  }
+
+  #mrm-about-standards .mrm-about-card.mrm-mobile-deck-card{
+    position:absolute;
+    inset:0;
+    width:100%;
+    border-radius:22px;
+    background:#fff;
+    box-shadow:0 14px 30px rgba(0,0,0,.12);
+    transition:
+      transform .42s cubic-bezier(.22,.8,.2,1),
+      opacity .32s ease,
+      box-shadow .32s ease;
+    will-change:transform, opacity;
+    overflow:hidden;
+  }
+
+  #mrm-about-standards .mrm-about-card.mrm-mobile-deck-card[data-layer="active"]{
+    z-index:3;
+    transform:translate3d(0,0,0) scale(1);
+    opacity:1;
+  }
+
+  #mrm-about-standards .mrm-about-card.mrm-mobile-deck-card[data-layer="next"]{
+    z-index:2;
+    transform:translate3d(0,0,0) scale(.995);
+    opacity:1;
+  }
+
+  #mrm-about-standards .mrm-about-card.mrm-mobile-deck-card[data-layer="rest"]{
+    z-index:1;
+    transform:translate3d(0,0,0) scale(.99);
+    opacity:1;
+  }
+
+  #mrm-about-standards .mrm-about-card.mrm-mobile-deck-card.is-exiting-left{
+    transform:translate3d(-108%,0,0) rotate(-1deg);
+  }
+
+  #mrm-about-standards .mrm-about-card.mrm-mobile-deck-card.is-entering-from-right{
+    transform:translate3d(108%,0,0) rotate(.8deg);
+  }
+
+  #mrm-about-standards .mrm-about-card.mrm-mobile-deck-card.is-exiting-right{
+    transform:translate3d(108%,0,0) rotate(1deg);
+  }
+
+  #mrm-about-standards .mrm-about-card.mrm-mobile-deck-card.is-entering-from-left{
+    transform:translate3d(-108%,0,0) rotate(-.8deg);
+  }
+
+  #mrm-about-standards .mrm-mobile-deck-progress{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-top:14px;
+  }
+
+  #mrm-about-standards .mrm-mobile-deck-dot{
+    width:8px;
+    height:8px;
+    border-radius:999px;
+    background:rgba(255,255,255,.28);
+  }
+
+  #mrm-about-standards .mrm-mobile-deck-dot.is-active{
+    background:#d7c792;
+  }
+}
 </style>
 
 
@@ -529,25 +615,27 @@
             <p>Low Brass Lessons is built around the idea that families should feel confident not only in the lesson format, but also in the qualifications and professionalism of the instructors they encounter.</p>
           </div>
           <div class="mrm-about-panel-body">
-            <div class="mrm-about-grid-2">
-              <div class="mrm-about-card">
-                <h3>Educational Preparation</h3>
-                <p>Instructors are selected for strong musical and educational backgrounds, including standards such as formal music training and, where applicable, music education degree preparation or completion.</p>
+            <div class="mrm-about-grid-2" data-deck>
+              <div class="mrm-mobile-deck-track">
+                <div class="mrm-about-card mrm-mobile-deck-card" data-deck-card>
+                  <h3>Educational Preparation</h3>
+                  <p>Instructors are selected for strong musical and educational backgrounds, including standards such as formal music training and, where applicable, music education degree preparation or completion.</p>
+                </div>
+                <div class="mrm-about-card mrm-mobile-deck-card" data-deck-card>
+                  <h3>Student-Facing Professionalism</h3>
+                  <p>Instructors should be able to communicate clearly, teach responsibly, and represent the studio in a way that is organized, encouraging, and dependable for families.</p>
+                </div>
+                <div class="mrm-about-card mrm-mobile-deck-card" data-deck-card>
+                  <h3>Safety and Trust</h3>
+                  <p>Student safety matters. We place an importance on requirements such as a valid fingerprint clearance cards when considering musicians for working directly with our young musicians and families.</p>
+                </div>
+                <div class="mrm-about-card mrm-mobile-deck-card" data-deck-card>
+                  <h3>Instructional Fit</h3>
+                  <p>Our instructors are able to demonstrate the ability to teach developing musicians patiently, clearly, and with attention to long-term growth. We ensure that every instructor has a clear pedagogical approach.</p>
+                </div>
               </div>
-              <div class="mrm-about-card">
-                <h3>Student-Facing Professionalism</h3>
-                <p>Instructors should be able to communicate clearly, teach responsibly, and represent the studio in a way that is organized, encouraging, and dependable for families.</p>
-              </div>
-              <div class="mrm-about-card">
-                <h3>Safety and Trust</h3>
-                <p>Student safety matters. We place an importance on requirements such as a valid fingerprint clearance cards when considering musicians for working directly with our young musicians and families.</p>
-              </div>
-              <div class="mrm-about-card">
-                <h3>Instructional Fit</h3>
-                <p>Our instructors are able to demonstrate the ability to teach developing musicians patiently, clearly, and with attention to long-term growth. We ensure that every instructor has a clear pedagogical approach.</p>
-              </div>
+              <div class="mrm-mobile-deck-progress" aria-hidden="true"></div>
             </div>
-          </div>
         </div>
 
         <div class="mrm-about-panel" id="mrm-about-formats">
@@ -607,3 +695,133 @@
     </div>
   </section>
 </div>
+
+<script>
+(function(){
+  if (!window.matchMedia("(max-width:760px)").matches) return;
+
+  function initDeck(deck){
+    const track = deck.querySelector(".mrm-mobile-deck-track");
+    const cards = Array.from(deck.querySelectorAll("[data-deck-card]"));
+    const progress = deck.querySelector(".mrm-mobile-deck-progress");
+    if (!track || !cards.length) return;
+
+    let index = 0;
+    let animating = false;
+    let startX = 0;
+    let startY = 0;
+
+    progress.innerHTML = cards.map((_, i) =>
+      '<span class="mrm-mobile-deck-dot' + (i === 0 ? ' is-active' : '') + '"></span>'
+    ).join("");
+
+    const dots = Array.from(progress.querySelectorAll(".mrm-mobile-deck-dot"));
+
+    function setHeight(){
+      track.style.height = cards[index].offsetHeight + "px";
+    }
+
+    function paint(){
+      cards.forEach((card, i) => {
+        card.classList.remove("is-exiting-left","is-entering-from-right","is-exiting-right","is-entering-from-left");
+        if (i === index) card.setAttribute("data-layer","active");
+        else if (i === index + 1) card.setAttribute("data-layer","next");
+        else card.setAttribute("data-layer","rest");
+      });
+      dots.forEach((dot, i) => dot.classList.toggle("is-active", i === index));
+      requestAnimationFrame(setHeight);
+    }
+
+    function next(){
+      if (animating || index >= cards.length - 1) return false;
+      animating = true;
+      const current = cards[index];
+      const nxt = cards[index + 1];
+      nxt.setAttribute("data-layer","active");
+      nxt.classList.add("is-entering-from-right");
+      requestAnimationFrame(() => {
+        current.classList.add("is-exiting-left");
+        nxt.classList.remove("is-entering-from-right");
+      });
+      setTimeout(() => {
+        index += 1;
+        animating = false;
+        paint();
+      }, 430);
+      return true;
+    }
+
+    function prev(){
+      if (animating || index <= 0) return false;
+      animating = true;
+      const current = cards[index];
+      const prv = cards[index - 1];
+      prv.setAttribute("data-layer","active");
+      prv.classList.add("is-entering-from-left");
+      requestAnimationFrame(() => {
+        current.classList.add("is-exiting-right");
+        prv.classList.remove("is-entering-from-left");
+      });
+      setTimeout(() => {
+        index -= 1;
+        animating = false;
+        paint();
+      }, 430);
+      return true;
+    }
+
+    function inZone(){
+      const rect = deck.getBoundingClientRect();
+      const vh = window.innerHeight;
+      return rect.top < vh * 0.55 && rect.bottom > vh * 0.45;
+    }
+
+    deck.addEventListener("touchstart", e => {
+      const t = e.changedTouches[0];
+      startX = t.clientX;
+      startY = t.clientY;
+    }, { passive:true });
+
+    deck.addEventListener("touchend", e => {
+      const t = e.changedTouches[0];
+      const dx = t.clientX - startX;
+      const dy = t.clientY - startY;
+
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 36) {
+        if (dx < 0) next();
+        else prev();
+        return;
+      }
+
+      if (!inZone()) return;
+      if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 30) {
+        if (dy < 0 && index < cards.length - 1) {
+          e.preventDefault();
+          next();
+        } else if (dy > 0 && index > 0) {
+          e.preventDefault();
+          prev();
+        }
+      }
+    }, { passive:false });
+
+    window.addEventListener("wheel", e => {
+      if (!inZone()) return;
+      if (e.deltaY > 12 && index < cards.length - 1) {
+        e.preventDefault();
+        next();
+      } else if (e.deltaY < -12 && index > 0) {
+        e.preventDefault();
+        prev();
+      }
+    }, { passive:false });
+
+    window.addEventListener("resize", setHeight);
+    window.addEventListener("load", setHeight);
+
+    paint();
+  }
+
+  document.querySelectorAll("#mrm-about-standards [data-deck]").forEach(initDeck);
+})();
+</script>

@@ -331,6 +331,129 @@
       white-space:nowrap;
     }
   }
+
+
+/* ===== MOBILE DECK SYSTEM: HOME CORE VALUES ===== */
+@media (max-width:760px){
+  .mrm-mobile-deck{
+    position:relative;
+    width:100%;
+    margin:0 auto;
+    padding-bottom:14px;
+    touch-action:none;
+    overscroll-behavior:contain;
+  }
+
+  .mrm-mobile-deck-track{
+    position:relative;
+    width:100%;
+    min-height:260px;
+  }
+
+  .mrm-mobile-deck-card{
+    position:absolute;
+    inset:0;
+    width:100%;
+    border-radius:20px;
+    background:#fff;
+    box-shadow:0 14px 30px rgba(25,22,18,.10);
+    transition:
+      transform .42s cubic-bezier(.22,.8,.2,1),
+      opacity .32s ease,
+      box-shadow .32s ease;
+    will-change:transform, opacity;
+    backface-visibility:hidden;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+  }
+
+  .mrm-mobile-deck-card[data-layer="active"]{
+    z-index:3;
+    transform:translate3d(0,0,0) scale(1);
+    opacity:1;
+    pointer-events:auto;
+  }
+
+  .mrm-mobile-deck-card[data-layer="next"]{
+    z-index:2;
+    transform:translate3d(0,0,0) scale(.995);
+    opacity:1;
+    pointer-events:none;
+  }
+
+  .mrm-mobile-deck-card[data-layer="rest"]{
+    z-index:1;
+    transform:translate3d(0,0,0) scale(.99);
+    opacity:1;
+    pointer-events:none;
+  }
+
+  .mrm-mobile-deck-card.is-exiting-left{
+    transform:translate3d(-108%,0,0) rotate(-1.2deg);
+    opacity:.96;
+  }
+
+  .mrm-mobile-deck-card.is-entering-from-right{
+    transform:translate3d(108%,0,0) rotate(.8deg);
+    opacity:1;
+  }
+
+  .mrm-mobile-deck-card.is-exiting-right{
+    transform:translate3d(108%,0,0) rotate(1.2deg);
+    opacity:.96;
+  }
+
+  .mrm-mobile-deck-card.is-entering-from-left{
+    transform:translate3d(-108%,0,0) rotate(-.8deg);
+    opacity:1;
+  }
+
+  .mrm-mobile-deck-progress{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-top:14px;
+  }
+
+  .mrm-mobile-deck-dot{
+    width:8px;
+    height:8px;
+    border-radius:999px;
+    background:rgba(25,22,18,.18);
+    transition:transform .2s ease, background .2s ease;
+  }
+
+  .mrm-mobile-deck-dot.is-active{
+    background:rgba(142,129,85,.95);
+    transform:scale(1.15);
+  }
+
+  .mrm-home-signal-grid.mrm-mobile-deck{
+    overflow:visible;
+    display:block;
+    padding:0;
+  }
+
+  .mrm-home-signal-grid.mrm-mobile-deck .mrm-home-signal-card{
+    width:100%;
+    max-width:100%;
+    min-height:260px;
+    height:auto;
+    padding:20px;
+    word-break:normal;
+    overflow-wrap:break-word;
+    white-space:normal;
+  }
+
+  .mrm-home-signal-grid.mrm-mobile-deck .mrm-home-signal-card h3,
+  .mrm-home-signal-grid.mrm-mobile-deck .mrm-home-signal-card p{
+    word-break:normal;
+    overflow-wrap:break-word;
+    white-space:normal;
+  }
+}
 </style>
 
 <div class="mrm-home-redesign">
@@ -373,26 +496,30 @@
 
   <div class="mrm-home-signal">
     <div class="mrm-home-shell">
-      <div class="mrm-home-signal-grid" id="mrm-home-identity">
-        <div class="mrm-home-signal-card">
-          <h3>Mission</h3>
-          <p>
-            To help young low brass musicians build strong fundamentals, musical confidence, and long-term enthusiasm for learning through thoughtful private instruction.
-          </p>
+      <div class="mrm-home-signal-grid mrm-mobile-deck" id="mrm-home-identity" data-deck>
+        <div class="mrm-mobile-deck-track">
+          <div class="mrm-home-signal-card mrm-mobile-deck-card" data-deck-card>
+            <h3>Mission</h3>
+            <p>
+              To help young low brass musicians build strong fundamentals, musical confidence, and long-term enthusiasm for learning through thoughtful private instruction.
+            </p>
+          </div>
+          <div class="mrm-home-signal-card mrm-mobile-deck-card" data-deck-card>
+            <h3>What Makes This Studio Unique?</h3>
+            <p>
+              We offer an exclusive and modern curriculum specifically designed to support low brass development.
+            </p>
+          </div>
+          <div class="mrm-home-signal-card mrm-mobile-deck-card" data-deck-card>
+            <h3>Who This Is For?</h3>
+            <p>
+              Families and students looking to develop skill on low brass instruments and build a lasting love for music through performance.
+            </p>
+          </div>
         </div>
-        <div class="mrm-home-signal-card">
-          <h3>What Makes This Studio Unique?</h3>
-          <p>
-            We offer an exclusive and modern curriculum specifically designed to support low brass development.
-          </p>
-        </div>
-        <div class="mrm-home-signal-card">
-          <h3>Who This Is For?</h3>
-          <p>
-            Families and students looking to develop skill on low brass instruments and build a lasting love for music through performance.
-          </p>
-        </div>
+        <div class="mrm-mobile-deck-progress" aria-hidden="true"></div>
       </div>
+    </div>
     </div>
   </div>
 
@@ -481,3 +608,180 @@
     </div>
   </section>
 </div>
+
+<script>
+(function(){
+  if (!window.matchMedia("(max-width:760px)").matches) return;
+
+  function initDeck(deck){
+    const track = deck.querySelector(".mrm-mobile-deck-track");
+    const cards = Array.from(deck.querySelectorAll("[data-deck-card]"));
+    const progress = deck.querySelector(".mrm-mobile-deck-progress");
+    if (!track || !cards.length) return;
+
+    let index = 0;
+    let animating = false;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let deckLockedByScroll = false;
+
+    progress.innerHTML = cards.map((_, i) =>
+      '<span class="mrm-mobile-deck-dot' + (i === 0 ? ' is-active' : '') + '"></span>'
+    ).join("");
+
+    const dots = Array.from(progress.querySelectorAll(".mrm-mobile-deck-dot"));
+
+    function setTrackHeight(){
+      const active = cards[index];
+      if (!active) return;
+      const h = active.offsetHeight;
+      track.style.height = h + "px";
+      deck.style.minHeight = (h + 22) + "px";
+    }
+
+    function paint(){
+      cards.forEach((card, i) => {
+        card.classList.remove(
+          "is-exiting-left",
+          "is-entering-from-right",
+          "is-exiting-right",
+          "is-entering-from-left"
+        );
+
+        if (i === index) card.setAttribute("data-layer", "active");
+        else if (i === index + 1) card.setAttribute("data-layer", "next");
+        else card.setAttribute("data-layer", "rest");
+      });
+
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("is-active", i === index);
+      });
+
+      requestAnimationFrame(setTrackHeight);
+    }
+
+    function goNext(){
+      if (animating || index >= cards.length - 1) return false;
+      animating = true;
+
+      const current = cards[index];
+      const next = cards[index + 1];
+
+      next.setAttribute("data-layer", "active");
+      next.classList.add("is-entering-from-right");
+      requestAnimationFrame(() => {
+        current.classList.add("is-exiting-left");
+        next.classList.remove("is-entering-from-right");
+      });
+
+      window.setTimeout(() => {
+        index += 1;
+        animating = false;
+        paint();
+      }, 430);
+
+      return true;
+    }
+
+    function goPrev(){
+      if (animating || index <= 0) return false;
+      animating = true;
+
+      const current = cards[index];
+      const prev = cards[index - 1];
+
+      prev.setAttribute("data-layer", "active");
+      prev.classList.add("is-entering-from-left");
+      requestAnimationFrame(() => {
+        current.classList.add("is-exiting-right");
+        prev.classList.remove("is-entering-from-left");
+      });
+
+      window.setTimeout(() => {
+        index -= 1;
+        animating = false;
+        paint();
+      }, 430);
+
+      return true;
+    }
+
+    function inActivationZone(){
+      const rect = deck.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      return rect.top < vh * 0.55 && rect.bottom > vh * 0.45;
+    }
+
+    function handleVerticalIntent(direction, event){
+      if (!inActivationZone()) return;
+      if (direction > 0 && index < cards.length - 1) {
+        if (event) event.preventDefault();
+        deckLockedByScroll = true;
+        goNext();
+        return;
+      }
+      if (direction < 0 && index > 0) {
+        if (event) event.preventDefault();
+        deckLockedByScroll = true;
+        goPrev();
+        return;
+      }
+      deckLockedByScroll = false;
+    }
+
+    deck.addEventListener("touchstart", function(e){
+      const t = e.changedTouches[0];
+      touchStartX = t.clientX;
+      touchStartY = t.clientY;
+    }, { passive:true });
+
+    deck.addEventListener("touchmove", function(e){
+      const t = e.changedTouches[0];
+      const dx = t.clientX - touchStartX;
+      const dy = t.clientY - touchStartY;
+
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 24) {
+        e.preventDefault();
+      }
+    }, { passive:false });
+
+    deck.addEventListener("touchend", function(e){
+      const t = e.changedTouches[0];
+      const dx = t.clientX - touchStartX;
+      const dy = t.clientY - touchStartY;
+
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 36) {
+        if (dx < 0) goNext();
+        else goPrev();
+        return;
+      }
+
+      if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 30) {
+        if (dy < 0) handleVerticalIntent(1, e);
+        else handleVerticalIntent(-1, e);
+      }
+    }, { passive:false });
+
+    window.addEventListener("wheel", function(e){
+      if (!window.matchMedia("(max-width:760px)").matches) return;
+      if (!inActivationZone()) return;
+      if (Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
+
+      if (e.deltaY > 12 && index < cards.length - 1) {
+        e.preventDefault();
+        goNext();
+      } else if (e.deltaY < -12 && index > 0) {
+        e.preventDefault();
+        goPrev();
+      }
+    }, { passive:false });
+
+    window.addEventListener("resize", setTrackHeight);
+    window.addEventListener("load", setTrackHeight);
+
+    paint();
+  }
+
+  document.querySelectorAll("[data-deck]").forEach(initDeck);
+})();
+</script>

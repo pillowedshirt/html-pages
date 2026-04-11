@@ -601,6 +601,63 @@
       font-size:.62rem;
     }
   }
+
+
+/* ===== MOBILE DECK SYSTEM: CURRICULUM POCKET ORCHESTRA ===== */
+@media (max-width:820px){
+  .mrm-dark-band [data-deck]{
+    position:relative;
+    width:100%;
+    margin:0 auto;
+    padding-bottom:14px;
+    touch-action:none;
+    overscroll-behavior:contain;
+  }
+
+  .mrm-dark-band .mrm-mobile-deck-track{
+    position:relative;
+    width:100%;
+    min-height:290px;
+  }
+
+  .mrm-dark-band .mrm-dark-card.mrm-mobile-deck-card{
+    position:absolute;
+    inset:0;
+    width:100%;
+    border-radius:20px;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 18px 34px rgba(0,0,0,.20);
+    transition:transform .42s cubic-bezier(.22,.8,.2,1), opacity .32s ease;
+  }
+
+  .mrm-dark-band .mrm-dark-card.mrm-mobile-deck-card[data-layer="active"]{ z-index:3; transform:translate3d(0,0,0) scale(1); opacity:1; }
+  .mrm-dark-band .mrm-dark-card.mrm-mobile-deck-card[data-layer="next"]{ z-index:2; transform:translate3d(0,0,0) scale(.995); opacity:1; }
+  .mrm-dark-band .mrm-dark-card.mrm-mobile-deck-card[data-layer="rest"]{ z-index:1; transform:translate3d(0,0,0) scale(.99); opacity:1; }
+
+  .mrm-dark-band .mrm-dark-card.mrm-mobile-deck-card.is-exiting-left{ transform:translate3d(-108%,0,0) rotate(-1deg); }
+  .mrm-dark-band .mrm-dark-card.mrm-mobile-deck-card.is-entering-from-right{ transform:translate3d(108%,0,0) rotate(.8deg); }
+  .mrm-dark-band .mrm-dark-card.mrm-mobile-deck-card.is-exiting-right{ transform:translate3d(108%,0,0) rotate(1deg); }
+  .mrm-dark-band .mrm-dark-card.mrm-mobile-deck-card.is-entering-from-left{ transform:translate3d(-108%,0,0) rotate(-.8deg); }
+
+  .mrm-dark-band .mrm-mobile-deck-progress{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-top:14px;
+  }
+
+  .mrm-dark-band .mrm-mobile-deck-dot{
+    width:8px;
+    height:8px;
+    border-radius:999px;
+    background:rgba(255,255,255,.24);
+  }
+
+  .mrm-dark-band .mrm-mobile-deck-dot.is-active{
+    background:#d7c792;
+  }
+}
 </style>
 
 <div class="mrm-curriculum-block">
@@ -714,25 +771,28 @@
         </p>
       </div>
 
-      <div class="mrm-three-col">
-        <div class="mrm-dark-card">
-          <h3>Commissioned Specifically For Our Studio</h3>
-          <p>
-            You cannot find this kind of curriculum anywhere else. We are working to inspire students to develop artistry through a creative and one of a kind series of pieces designed specifically for their growth.
-          </p>
+      <div class="mrm-three-col" data-deck>
+        <div class="mrm-mobile-deck-track">
+          <div class="mrm-dark-card mrm-mobile-deck-card" data-deck-card>
+            <h3>Commissioned Specifically For Our Studio</h3>
+            <p>
+              You cannot find this kind of curriculum anywhere else. We are working to inspire students to develop artistry through a creative and one of a kind series of pieces designed specifically for their growth.
+            </p>
+          </div>
+          <div class="mrm-dark-card mrm-mobile-deck-card" data-deck-card>
+            <h3>Accessible And Beautiful</h3>
+            <p>
+              The aim is to create repertoire that encourages developing students to build their artistry over time. We push students to apply the fundamentals of playing their instruments in the engaging and fun environments our pieces create.
+            </p>
+          </div>
+          <div class="mrm-dark-card mrm-mobile-deck-card" data-deck-card>
+            <h3>We A Building A New Kind Of Lesson Literature</h3>
+            <p>
+              This collection of pieces is unlike any low brass music that has come before it. We are pushing to innovate the learning process for our students and create a distinct musical experience unlike any others.
+            </p>
+          </div>
         </div>
-        <div class="mrm-dark-card">
-          <h3>Accessible And Beautiful</h3>
-          <p>
-            The aim is to create repertoire that encourages developing students to build their artistry over time. We push students to apply the fundamentals of playing their instruments in the engaging and fun environments our pieces create.
-          </p>
-        </div>
-        <div class="mrm-dark-card">
-          <h3>We A Building A New Kind Of Lesson Literature</h3>
-          <p>
-            This collection of pieces is unlike any low brass music that has come before it. We are pushing to innovate the learning process for our students and create a distinct musical experience unlike any others.
-          </p>
-        </div>
+        <div class="mrm-mobile-deck-progress" aria-hidden="true"></div>
       </div>
       <div class="mrm-pocket-cta-wrap">
         <div class="mrm-pocket-cta">
@@ -793,3 +853,121 @@
   </section>
 
 </div>
+
+<script>
+(function(){
+  if (!window.matchMedia("(max-width:820px)").matches) return;
+
+  function initDeck(deck){
+    const track = deck.querySelector(".mrm-mobile-deck-track");
+    const cards = Array.from(deck.querySelectorAll("[data-deck-card]"));
+    const progress = deck.querySelector(".mrm-mobile-deck-progress");
+    if (!track || !cards.length) return;
+
+    let index = 0;
+    let animating = false;
+    let sx = 0;
+    let sy = 0;
+
+    progress.innerHTML = cards.map((_, i) =>
+      '<span class="mrm-mobile-deck-dot' + (i === 0 ? ' is-active' : '') + '"></span>'
+    ).join("");
+
+    const dots = Array.from(progress.querySelectorAll(".mrm-mobile-deck-dot"));
+
+    function setHeight(){ track.style.height = cards[index].offsetHeight + "px"; }
+
+    function paint(){
+      cards.forEach((card, i) => {
+        card.classList.remove("is-exiting-left","is-entering-from-right","is-exiting-right","is-entering-from-left");
+        if (i === index) card.setAttribute("data-layer","active");
+        else if (i === index + 1) card.setAttribute("data-layer","next");
+        else card.setAttribute("data-layer","rest");
+      });
+      dots.forEach((dot, i) => dot.classList.toggle("is-active", i === index));
+      requestAnimationFrame(setHeight);
+    }
+
+    function next(){
+      if (animating || index >= cards.length - 1) return false;
+      animating = true;
+      const current = cards[index];
+      const nxt = cards[index + 1];
+      nxt.classList.add("is-entering-from-right");
+      requestAnimationFrame(() => {
+        current.classList.add("is-exiting-left");
+        nxt.classList.remove("is-entering-from-right");
+      });
+      setTimeout(() => { index += 1; animating = false; paint(); }, 430);
+      return true;
+    }
+
+    function prev(){
+      if (animating || index <= 0) return false;
+      animating = true;
+      const current = cards[index];
+      const prv = cards[index - 1];
+      prv.classList.add("is-entering-from-left");
+      requestAnimationFrame(() => {
+        current.classList.add("is-exiting-right");
+        prv.classList.remove("is-entering-from-left");
+      });
+      setTimeout(() => { index -= 1; animating = false; paint(); }, 430);
+      return true;
+    }
+
+    function inZone(){
+      const rect = deck.getBoundingClientRect();
+      const vh = window.innerHeight;
+      return rect.top < vh * 0.55 && rect.bottom > vh * 0.45;
+    }
+
+    deck.addEventListener("touchstart", e => {
+      const t = e.changedTouches[0];
+      sx = t.clientX;
+      sy = t.clientY;
+    }, { passive:true });
+
+    deck.addEventListener("touchend", e => {
+      const t = e.changedTouches[0];
+      const dx = t.clientX - sx;
+      const dy = t.clientY - sy;
+
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 36) {
+        if (dx < 0) next();
+        else prev();
+        return;
+      }
+
+      if (!inZone()) return;
+      if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 30) {
+        if (dy < 0 && index < cards.length - 1) {
+          e.preventDefault();
+          next();
+        } else if (dy > 0 && index > 0) {
+          e.preventDefault();
+          prev();
+        }
+      }
+    }, { passive:false });
+
+    window.addEventListener("wheel", e => {
+      if (!inZone()) return;
+      if (e.deltaY > 12 && index < cards.length - 1) {
+        e.preventDefault();
+        next();
+      } else if (e.deltaY < -12 && index > 0) {
+        e.preventDefault();
+        prev();
+      }
+    }, { passive:false });
+
+    window.addEventListener("resize", setHeight);
+    window.addEventListener("load", setHeight);
+
+    paint();
+  }
+
+  document.querySelectorAll(".mrm-dark-band [data-deck]").forEach(initDeck);
+})();
+</script>
