@@ -385,12 +385,13 @@
     overflow:visible;
     margin:0;
     padding:0;
+    --pin-top-offset:0px;
   }
 
   .mrm-mobile-pin-sticky{
     position:sticky;
-    top:50vh;
-    transform:translateY(-50%);
+    top:var(--pin-top-offset);
+    transform:none;
     height:auto;
     display:block;
     overflow:visible;
@@ -556,8 +557,8 @@
 
 <script>
 (function(){
-  const HOLD_PORTION = 0.38;   // pause at full opacity before transition starts
-  const SEGMENT_VH = 95;       // scroll distance per card transition
+  const HOLD_PORTION = 0.38;   // how long each card stays fully visible
+  const SEGMENT_VH = 95;       // scroll distance per transition
 
   function clamp(value, min, max){
     return Math.max(min, Math.min(max, value));
@@ -576,18 +577,26 @@
     return Array.from(document.querySelectorAll('[data-pin-stack]'));
   }
 
-  function setSectionHeight(section, cardsLength){
-    const viewportH = window.innerHeight || document.documentElement.clientHeight;
-    const transitionPx = Math.max(1, cardsLength - 1) * (viewportH * (SEGMENT_VH / 100));
-
-    /* only enough height to pin the deck and run the transitions */
-    section.style.height = (viewportH + transitionPx) + 'px';
-  }
-
-  function setStageHeight(stage, cards){
+  function getStageHeight(cards, stage){
     const maxHeight = Math.max.apply(null, cards.map(card => card.offsetHeight));
     const cssMin = parseFloat(getComputedStyle(stage).getPropertyValue('min-height')) || 0;
-    stage.style.minHeight = Math.max(maxHeight, cssMin) + 'px';
+    return Math.max(maxHeight, cssMin);
+  }
+
+  function setSectionMetrics(section, stage, cards){
+    const viewportH = window.innerHeight || document.documentElement.clientHeight;
+    const stageHeight = getStageHeight(cards, stage);
+
+    const transitionPx = Math.max(1, cards.length - 1) * (viewportH * (SEGMENT_VH / 100));
+
+    /* The section only needs to be as tall as the visible stage plus the transition runway */
+    section.style.height = (stageHeight + transitionPx) + 'px';
+
+    /* Center the stage itself, not a full-screen wrapper */
+    const pinTopOffset = Math.max(0, (viewportH - stageHeight) / 2);
+    section.style.setProperty('--pin-top-offset', pinTopOffset + 'px');
+
+    stage.style.minHeight = stageHeight + 'px';
   }
 
   function paintSection(section){
@@ -597,9 +606,11 @@
     const cards = Array.from(section.querySelectorAll('.mrm-mobile-pin-card'));
     if (!stage || cards.length < 2) return;
 
-    const rect = section.getBoundingClientRect();
     const viewportH = window.innerHeight || document.documentElement.clientHeight;
-    const totalScrollable = section.offsetHeight - viewportH;
+    const stageHeight = stage.offsetHeight;
+    const totalScrollable = Math.max(1, section.offsetHeight - stageHeight);
+
+    const rect = section.getBoundingClientRect();
     const sectionTop = window.scrollY + rect.top;
     const local = clamp(window.scrollY - sectionTop, 0, totalScrollable);
 
@@ -650,6 +661,7 @@
 
       if (!isActiveForViewport(section)) {
         section.style.height = '';
+        section.style.removeProperty('--pin-top-offset');
         stage.style.minHeight = '';
         cards.forEach(card => {
           card.style.transform = '';
@@ -659,8 +671,7 @@
         return;
       }
 
-      setStageHeight(stage, cards);
-      setSectionHeight(section, cards.length);
+      setSectionMetrics(section, stage, cards);
       paintSection(section);
     });
   }
