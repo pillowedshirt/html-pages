@@ -129,21 +129,42 @@
 
   .mrm-about-hero-logo-block{
     width:100%;
-    display:flex;
-    justify-content:center;
-    padding:22px 0 20px;
-    margin-top:8px;
+    padding:0;
+    margin:18px 0 2px;
   }
   .mrm-about-brand-divider{
-    display:flex;
-    justify-content:center;
+    position:relative;
     width:100%;
+    height:clamp(230px, 27vw, 320px);
+    border-radius:28px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    box-shadow:0 18px 34px rgba(25,22,18,.16);
+    background-color:#1f1b16;
+    isolation:isolate;
+  }
+  .mrm-about-brand-divider::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:1;
+    background:linear-gradient(180deg, rgba(23,21,18,.2), rgba(23,21,18,0) 48%, rgba(23,21,18,.28));
+    pointer-events:none;
   }
   .mrm-about-brand-logo{
-    width:min(420px, 78vw);
-    border-radius:18px;
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center 42%;
     display:block;
-    filter:drop-shadow(0 14px 24px rgba(25,22,18,.12));
+    opacity:1;
+    pointer-events:none;
+  }
+
+  .mrm-about-main-section{
+    padding-top:11px;
   }
 
   .mrm-about-rail-layout{
@@ -259,7 +280,6 @@
     background:#fff;
     box-shadow:0 10px 22px rgba(25,22,18,.06);
   }
-  .mrm-about-expect-point:nth-child(even){ margin-left:20px; }
   .mrm-about-expect-point h3{ margin-bottom:8px; }
 
   @media (max-width:1024px){
@@ -270,6 +290,7 @@
   .mrm-about-rail-layout{ grid-template-columns:220px minmax(0,1fr); gap:20px; }
     .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
     .mrm-about-hero-transition{ border-radius:24px; min-height:240px; margin-top:12px; }
+    .mrm-about-main-section{ padding-top:9px; }
     .mrm-about-expect-grid{ grid-template-columns:1fr; }
     .mrm-about-editorial,.mrm-about-panel{ border-radius:22px; }
   }
@@ -288,10 +309,13 @@
     .mrm-about-panel-body{ padding:8px 20px 20px; }
     .mrm-about-card{ border-radius:16px; padding:16px; }
     .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
-    .mrm-about-hero-logo-block{ padding:16px 0 14px; margin-top:2px; }
-    .mrm-about-brand-logo{ width:min(320px, 86vw); }
+    .mrm-about-hero-logo-block{ margin:14px 0 3px; }
+    .mrm-about-brand-divider{
+      height:clamp(220px, 56vw, 300px);
+      border-radius:22px;
+    }
+    .mrm-about-main-section{ padding-top:7px; }
     .mrm-about-hero-transition{ min-height:210px; }
-    .mrm-about-expect-point:nth-child(even){ margin-left:0; }
   }
 
   @media (max-width:560px){
@@ -300,36 +324,39 @@
   }
 </style>
 
+
+
 <div class="mrm-about-redesign">
   <section class="mrm-about-hero">
     <div class="mrm-about-shell mrm-about-hero-grid">
       <div class="mrm-about-editorial">
         <div class="mrm-about-hero-intro">
           <div class="mrm-about-hero-copy">
-              <span class="mrm-about-kicker">Why private lessons matter</span>
-              <h1>Thoughtful instruction built for real growth</h1>
-              <p>Private instruction works best when structure, communication, and musicianship are all treated with equal care. This studio is designed to provide that kind of consistent, thoughtful support for developing low brass players.</p>
+              <span class="mrm-about-kicker">About</span>
+              <h1>A Studio Designed To Foster Growth</h1>
+              <p>If you're looking to give your student the best resources and opportunities to develop instrumental proficiency, then Low Brass Lessons is the right place for you. We place educational value at the center of everything we do. This fosters an environment in which students are able to truly develop artistic musical expression.</p>
+              <p>For families, finding the highest quality musical instruction should be the focus. We place a high priority on maintaining consistent communication, streamlining scheduling, and finding the highest quality low brass professionals to support our students.</p>
           </div>
           <div class="mrm-about-benefits">
             <div class="mrm-about-benefit">
               <div class="mrm-about-benefit-check">✓</div>
               <div>
-                <h3>Better fundamentals</h3>
-                <p>Students receive focused help with tone, articulation, rhythm, range, flexibility, breathing, posture, and overall musicianship in a way that is tailored to how they actually play.</p>
+                <h3>Better Fundamentals</h3>
+                <p>Students receive focused help with tone, articulation, rhythm, range, flexibility, breathing, posture, and overall musicianship in a way that builds off their current strengths.</p>
               </div>
             </div>
             <div class="mrm-about-benefit">
               <div class="mrm-about-benefit-check">✓</div>
               <div>
-                <h3>More productive practice</h3>
-                <p>Lessons help students understand not only what to practice, but how to practice effectively so their effort leads to clearer progress and greater confidence.</p>
+                <h3>More Productive Practice</h3>
+                <p>Lessons help students understand not only what to practice, but how to practice effectively so their effort leads to clearer progress and achievement.</p>
               </div>
             </div>
             <div class="mrm-about-benefit">
               <div class="mrm-about-benefit-check">✓</div>
               <div>
-                <h3>More confidence in performance</h3>
-                <p>Whether preparing for class, auditions, solos, or ensemble music, students benefit from consistent guidance that helps them feel more prepared and less overwhelmed.</p>
+                <h3>Increase Musical Confidence</h3>
+                <p>Confidence develops from clarity of expression and modeling technical excellence. Our instructors embody these qualities and push students to be more confident in their playing.</p>
               </div>
             </div>
           </div>
@@ -345,7 +372,7 @@
     </div>
   </section>
 
-  <section class="mrm-about-section">
+  <section class="mrm-about-section mrm-about-main-section">
     <div class="mrm-about-shell mrm-about-rail-layout">
       <aside class="mrm-about-rail">
         <a href="#mrm-about-fit">Studio fit</a>
@@ -361,13 +388,13 @@
             <h2>More instructors mean better fit and long-term support.</h2>
           </div>
           <div class="mrm-about-panel-body">
-            <p>One of the strengths of Low Brass Lessons is that the studio is not limited to a single teaching schedule or a single teaching perspective. A broader instructor network makes it easier to match students with teachers who are a strong fit for their instrument, learning style, schedule, and goals.</p>
+            <p>One of the biggest strengths of Low Brass Lessons is that the studio is not limited to a single teaching schedule or a single pedagogical approach. Our broader instructor network makes it easier to match students with teachers who are a strong fit for their instrument, learning style, schedule, and goals.</p>
             <p>It also makes the studio more flexible for families. More instructors can mean more availability, more consistency over time, and more pathways for students to stay supported as needs change.</p>
 
             <div class="mrm-about-grid-3">
-              <div class="mrm-about-card"><div class="mrm-about-number">1</div><p>Students can be paired with instructors who align with their instrument, age, and developmental needs.</p></div>
-              <div class="mrm-about-card"><div class="mrm-about-number">2</div><p>Families have more options for finding lesson times that actually work with school and home life.</p></div>
-              <div class="mrm-about-card"><div class="mrm-about-number">3</div><p>A carefully built team allows the studio to grow without lowering expectations for quality or professionalism.</p></div>
+              <div class="mrm-about-card"><div class="mrm-about-number">1</div><p>Multiple instructor options provides the most flexible model for lesson scheduling. This allows consistent learning even with busy schedules.</p></div>
+              <div class="mrm-about-card"><div class="mrm-about-number">2</div><p>Families have access to multiple teaching philosophies, so students can best match their learning style to their instructor.</p></div>
+              <div class="mrm-about-card"><div class="mrm-about-number">3</div><p>A high standard for instructor quality means that families can have peace of mind regarding lesson effectiveness and safety.</p></div>
             </div>
           </div>
         </div>
@@ -381,20 +408,20 @@
           <div class="mrm-about-panel-body">
             <div class="mrm-about-grid-2">
               <div class="mrm-about-card">
-                <h3>Educational preparation</h3>
+                <h3>Educational Preparation</h3>
                 <p>Instructors are selected for strong musical and educational backgrounds, including standards such as formal music training and, where applicable, music education degree preparation or completion.</p>
               </div>
               <div class="mrm-about-card">
-                <h3>Student-facing professionalism</h3>
+                <h3>Student-Facing Professionalism</h3>
                 <p>Instructors should be able to communicate clearly, teach responsibly, and represent the studio in a way that is organized, encouraging, and dependable for families.</p>
               </div>
               <div class="mrm-about-card">
-                <h3>Safety and trust</h3>
-                <p>Student safety matters. Standards may include requirements such as a valid fingerprint clearance card and other qualifications appropriate for working directly with young musicians and families.</p>
+                <h3>Safety and Trust</h3>
+                <p>Student safety matters. We place an importance on requirements such as a valid fingerprint clearance cards when considering musicians for working directly with our young musicians and families.</p>
               </div>
               <div class="mrm-about-card">
-                <h3>Instructional fit</h3>
-                <p>Strong playing alone is not enough. Instructors should also demonstrate the ability to teach developing musicians patiently, clearly, and with attention to long-term growth.</p>
+                <h3>Instructional Fit</h3>
+                <p>Our instructors are able to demonstrate the ability to teach developing musicians patiently, clearly, and with attention to long-term growth. We ensure that every instructor has a clear pedagogical approach.</p>
               </div>
             </div>
           </div>
@@ -408,23 +435,23 @@
           <div class="mrm-about-panel-body">
             <div class="mrm-about-grid-2">
               <article class="mrm-about-split-card">
-                <h3 class="mrm-about-split-title">In-person lessons</h3>
+                <h3 class="mrm-about-split-title">In-person Lessons</h3>
                 <div class="mrm-about-split-body">
                   <div class="mrm-about-format-image">
                     <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/In-Person-Lesson-edited-scaled.jpg" alt="In-person low brass lesson">
                   </div>
-                  <p>A strong fit for students who benefit from the energy of being in the room.</p>
+                  <p>A strong fit for students who benefit from the energy of being in the room. We account for instructor travel and include an additional $5 charge per lesson paid directly to the instructor to account for travel costs.</p>
                   <a class="mrm-about-resource-link" href="/calendar/">Schedule a Lesson</a>
                 </div>
               </article>
               <article class="mrm-about-split-card">
-                <h3 class="mrm-about-split-title">Online lessons</h3>
+                <h3 class="mrm-about-split-title">Online Lessons</h3>
                 <div class="mrm-about-split-body">
                   <div class="mrm-about-format-image">
                     <img src="https://lowbrass-lessons.com/wp-content/uploads/2025/11/online-lessons.png" alt="Online low brass lesson">
                   </div>
-                  <p>Practical and effective option for families who need flexibility without giving up quality instruction.</p>
-                  <a class="mrm-about-resource-link" href="https://www.amazon.com/s?k=usb+microphone" target="_blank" rel="noopener">Browse USB microphones on Amazon</a>
+                  <p>Practical and effective option for families who need locational flexibility. Quality instruction is the top priority and proper equipment makes this seemless. We recommend all students buy a USB microphone before starting these lessons.</p>
+                  <a class="mrm-about-resource-link" href="https://a.co/d/0brdO6aq" target="_blank" rel="noopener">Our Recommended Student Microphone</a>
                 </div>
               </article>
             </div>
@@ -439,13 +466,14 @@
           <div class="mrm-about-panel-body">
             <div class="mrm-about-expect-grid">
               <div class="mrm-about-expect-intro">
-                <h3>What this feels like week to week</h3>
-                <p>Families should feel informed from the beginning. That includes a straightforward booking process, practical lesson information, and a studio experience that feels organized rather than confusing. Week to week, students should leave lessons with specific direction, parents should know what to expect next, and the overall rhythm should feel steady, encouraging, and musically purposeful rather than rushed or unclear.</p>
+                <h3>Lessons Week To Week</h3>
+                <p>Our model thrives on families that are looking for a long term educational plan for their students growth. We offer free 30 minute consultations in which families can Meet the Instructor via video call to learn more about their process, work through schedules, and get an overall feel for instructor compatibility. This allows families to make a confident and informed decision before committing to lessons.</p>
+                <p>Often times students enroll in weekly or biweekly lessons to see linear results throughout the year. And, we offer the option to schedule one off lessons with instructors if you'd like to expand the pedagogical perspectives your student is exposed to and maximize their growth. Fundamentally, the students drive and passion is the factor for how much a student can learn, not an instructors availability.</p>
               </div>
               <div class="mrm-about-expect-points">
-                <div class="mrm-about-expect-point"><h3>Thoughtful instruction</h3><p>Lessons are meant to support progress over time, not just deliver occasional tips. Students should leave with direction, encouragement, and a stronger sense of what growth looks like.</p></div>
-                <div class="mrm-about-expect-point"><h3>Flexibility without losing quality</h3><p>Online and in-person options make the studio more accessible, but the expectation remains the same: instruction should be personal, intentional, and educationally sound.</p></div>
-                <div class="mrm-about-expect-point"><h3>A studio that can grow with the student</h3><p>As goals become more advanced, students benefit from being part of a studio built with enough structure and instructor depth to support that growth.</p></div>
+                <div class="mrm-about-expect-point"><h3>Thoughtful Instruction</h3><p>Lessons are meant to support progress over time, not just deliver occasional tips. Students should leave with direction, encouragement, and a stronger sense of what growth looks like.</p></div>
+                <div class="mrm-about-expect-point"><h3>Flexibility Without Losing Quality</h3><p>Online and in-person options make the studio more accessible and accommodating. Lesson content and quality of instruction remains consistent between each lesson format, making them seamlessly interchangeable.</p></div>
+                <div class="mrm-about-expect-point"><h3>A Studio That Grows With You</h3><p>As goals become more advanced, your students will benefit more from a studio built around having long term structure and support for student growth.</p></div>
               </div>
             </div>
           </div>
