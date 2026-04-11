@@ -601,6 +601,53 @@
       font-size:.62rem;
     }
   }
+@media (max-width:820px){
+  .mrm-dark-band .mrm-scroll-deck{
+    position:relative;
+    width:100%;
+    display:block;
+    overflow:visible;
+    padding-bottom:18px;
+  }
+
+  .mrm-dark-band .mrm-scroll-deck-track{
+    position:relative;
+    min-height:280px;
+  }
+
+  .mrm-dark-band .mrm-scroll-deck-card{
+    position:absolute;
+    inset:0;
+    width:100%;
+    transition:
+      transform .42s cubic-bezier(.22,.8,.2,1),
+      opacity .28s ease;
+    will-change:transform, opacity;
+  }
+
+  .mrm-dark-band .mrm-scroll-deck-card.is-front{
+    z-index:3;
+    transform:translate3d(0,0,0) scale(1);
+    opacity:1;
+  }
+
+  .mrm-dark-band .mrm-scroll-deck-card.is-middle{
+    z-index:2;
+    transform:translate3d(0,10px,0) scale(.985);
+    opacity:1;
+  }
+
+  .mrm-dark-band .mrm-scroll-deck-card.is-back{
+    z-index:1;
+    transform:translate3d(0,18px,0) scale(.97);
+    opacity:1;
+  }
+
+  .mrm-dark-band .mrm-scroll-deck-card.is-leaving{
+    transform:translate3d(-108%,22px,0) scale(.96);
+    opacity:.98;
+  }
+}
 </style>
 
 <div class="mrm-curriculum-block">
@@ -714,24 +761,26 @@
         </p>
       </div>
 
-      <div class="mrm-three-col">
-        <div class="mrm-dark-card">
-          <h3>Commissioned Specifically For Our Studio</h3>
-          <p>
-            You cannot find this kind of curriculum anywhere else. We are working to inspire students to develop artistry through a creative and one of a kind series of pieces designed specifically for their growth.
-          </p>
-        </div>
-        <div class="mrm-dark-card">
-          <h3>Accessible And Beautiful</h3>
-          <p>
-            The aim is to create repertoire that encourages developing students to build their artistry over time. We push students to apply the fundamentals of playing their instruments in the engaging and fun environments our pieces create.
-          </p>
-        </div>
-        <div class="mrm-dark-card">
-          <h3>We A Building A New Kind Of Lesson Literature</h3>
-          <p>
-            This collection of pieces is unlike any low brass music that has come before it. We are pushing to innovate the learning process for our students and create a distinct musical experience unlike any others.
-          </p>
+      <div class="mrm-three-col mrm-scroll-deck" data-scroll-deck>
+        <div class="mrm-scroll-deck-track">
+          <div class="mrm-dark-card mrm-scroll-deck-card" data-scroll-deck-card>
+            <h3>Commissioned Specifically For Our Studio</h3>
+            <p>
+              You cannot find this kind of curriculum anywhere else. We are working to inspire students to develop artistry through a creative and one of a kind series of pieces designed specifically for their growth.
+            </p>
+          </div>
+          <div class="mrm-dark-card mrm-scroll-deck-card" data-scroll-deck-card>
+            <h3>Accessible And Beautiful</h3>
+            <p>
+              The aim is to create repertoire that encourages developing students to build their artistry over time. We push students to apply the fundamentals of playing their instruments in the engaging and fun environments our pieces create.
+            </p>
+          </div>
+          <div class="mrm-dark-card mrm-scroll-deck-card" data-scroll-deck-card>
+            <h3>We A Building A New Kind Of Lesson Literature</h3>
+            <p>
+              This collection of pieces is unlike any low brass music that has come before it. We are pushing to innovate the learning process for our students and create a distinct musical experience unlike any others.
+            </p>
+          </div>
         </div>
       </div>
       <div class="mrm-pocket-cta-wrap">
@@ -793,3 +842,86 @@
   </section>
 
 </div>
+<script>
+(function(){
+  if (!window.matchMedia("(max-width:820px)").matches) return;
+
+  const decks = document.querySelectorAll('.mrm-dark-band [data-scroll-deck]');
+  if (!decks.length) return;
+
+  function initDeck(deck){
+    const track = deck.querySelector('.mrm-scroll-deck-track');
+    const cards = Array.from(deck.querySelectorAll('[data-scroll-deck-card]'));
+    if (!track || !cards.length) return;
+
+    let index = 0;
+    let animating = false;
+    let touchStartY = 0;
+
+    function setHeight(){
+      track.style.height = cards[index].offsetHeight + 'px';
+    }
+
+    function paint(){
+      cards.forEach((card, i) => {
+        card.classList.remove('is-front','is-middle','is-back','is-leaving');
+        if (i === index) card.classList.add('is-front');
+        else if (i === index + 1) card.classList.add('is-middle');
+        else card.classList.add('is-back');
+      });
+      requestAnimationFrame(setHeight);
+    }
+
+    function inZone(){
+      const rect = deck.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const mid = vh * 0.5;
+      return rect.top <= mid && rect.bottom >= mid;
+    }
+
+    function nextCard(){
+      if (animating || index >= cards.length - 1) return false;
+      animating = true;
+      cards[index].classList.add('is-leaving');
+      setTimeout(() => {
+        index += 1;
+        animating = false;
+        paint();
+      }, 420);
+      return true;
+    }
+
+    window.addEventListener('wheel', function(event){
+      if (event.deltaY > 8 && inZone() && index < cards.length - 1) {
+        event.preventDefault();
+        nextCard();
+      }
+    }, { passive:false });
+
+    deck.addEventListener('touchstart', function(e){
+      touchStartY = e.changedTouches[0].clientY;
+    }, { passive:true });
+
+    deck.addEventListener('touchmove', function(e){
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      if (dy < -18 && inZone() && index < cards.length - 1) {
+        e.preventDefault();
+      }
+    }, { passive:false });
+
+    deck.addEventListener('touchend', function(e){
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      if (dy < -24 && inZone() && index < cards.length - 1) {
+        nextCard();
+      }
+    }, { passive:false });
+
+    window.addEventListener('resize', setHeight);
+    window.addEventListener('load', setHeight);
+
+    paint();
+  }
+
+  decks.forEach(initDeck);
+})();
+</script>
