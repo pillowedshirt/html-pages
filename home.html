@@ -156,25 +156,130 @@
   }
 
   @media (max-width:760px){
-    .mrm-home-shell{ width:min(1160px, calc(100% - 22px)); }
-    .mrm-home-section{ padding:52px 0; }
-    .mrm-home-section--faq{ padding-top:30px; }
-    .mrm-home-btn-row{ gap:10px; margin-top:22px; }
-    .mrm-home-btn{ min-height:46px; padding:0 16px; font-size:1.125rem; }
-    .mrm-home-jump{ margin-top:18px; gap:8px; }
-    .mrm-home-jump a{ padding:8px 12px; font-size:.8rem; }
-    .mrm-home-stage{ min-height:350px; border-radius:24px; padding:14px; }
-    .mrm-home-stage-media{ inset:14px 14px 92px; border-radius:20px; }
-    .mrm-home-stage-card{ left:14px; right:14px; bottom:14px; width:auto; padding:14px 16px; }
-    .mrm-home-signal-grid, .mrm-home-band-row, .mrm-home-path-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
-    .mrm-home-signal-card, .mrm-home-feature{ border-radius:18px; padding:16px; }
-    .mrm-home-faq-head{ padding:20px 18px 10px; }
-    .mrm-home-faq-item{ padding:16px 18px; }
+    .mrm-home-shell{ width:min(1160px, calc(100% - 18px)); }
+
+    .mrm-home-section{
+      padding:28px 0;
+    }
+
+    .mrm-home-section--faq{
+      padding-top:18px;
+    }
+
+    .mrm-home-hero-grid{
+      gap:16px;
+      padding:20px 0 30px;
+    }
+
+    .mrm-home-btn-row{
+      gap:10px;
+      margin-top:18px;
+    }
+
+    .mrm-home-btn{
+      min-height:48px;
+      padding:0 16px;
+      font-size:1.125rem;
+      border-radius:16px;
+      width:100%;
+      justify-content:center;
+    }
+
+    .mrm-home-jump{
+      margin-top:16px;
+      gap:8px;
+      display:grid;
+      grid-auto-flow:column;
+      grid-auto-columns:74%;
+      overflow-x:auto;
+      scroll-snap-type:x proximity;
+      -webkit-overflow-scrolling:touch;
+      padding-bottom:2px;
+    }
+
+    .mrm-home-jump a{
+      scroll-snap-align:start;
+      padding:10px 14px;
+      font-size:.84rem;
+      border-radius:14px;
+      text-align:center;
+    }
+
+    .mrm-home-stage{
+      min-height:360px;
+      border-radius:26px;
+      padding:14px;
+      box-shadow:0 18px 40px rgba(25,22,18,.12);
+    }
+
+    .mrm-home-stage-media{
+      inset:14px 14px 104px;
+      border-radius:20px;
+    }
+
+    .mrm-home-stage-card{
+      left:14px;
+      right:14px;
+      bottom:14px;
+      width:auto;
+      padding:16px;
+      border-radius:18px;
+      backdrop-filter:blur(12px);
+    }
+
+    .mrm-home-signal-grid,
+    .mrm-home-band-row,
+    .mrm-home-path-grid{
+      display:grid;
+      grid-auto-flow:column;
+      grid-auto-columns:84%;
+      gap:12px;
+      overflow-x:auto;
+      scroll-snap-type:x proximity;
+      -webkit-overflow-scrolling:touch;
+      padding-bottom:4px;
+    }
+
+    .mrm-home-signal-grid > *,
+    .mrm-home-band-row > *,
+    .mrm-home-path-grid > *{
+      scroll-snap-align:start;
+    }
+
+    .mrm-home-signal-card,
+    .mrm-home-feature{
+      border-radius:20px;
+      padding:18px;
+      box-shadow:0 10px 24px rgba(25,22,18,.07);
+    }
+
+    .mrm-home-faq-wrap{
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:0 16px 34px rgba(25,22,18,.09);
+    }
+
+    .mrm-home-faq-head{
+      padding:20px 18px 10px;
+    }
+
+    .mrm-home-faq-item{
+      padding:16px 18px;
+    }
   }
 
   @media (max-width:560px){
-    .mrm-home-redesign p{ font-size:1rem; line-height:1.5; margin-bottom:1.5rem; }
-    .mrm-home-signal-grid, .mrm-home-band-row, .mrm-home-path-grid{ grid-template-columns:1fr; }
+    .mrm-home-redesign p{
+      font-size:1rem;
+      line-height:1.58;
+      margin-bottom:1.2rem;
+    }
+
+    .mrm-home-signal-grid,
+    .mrm-home-band-row,
+    .mrm-home-path-grid{
+      grid-auto-columns:90%;
+    }
   }
 </style>
 

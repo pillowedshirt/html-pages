@@ -471,8 +471,82 @@
   }
 
   @media (max-width: 820px) {
+    .mrm-shell {
+      width: min(1140px, calc(100% - 18px));
+    }
+
     .mrm-section {
-      padding: 68px 0;
+      padding: 26px 0;
+    }
+
+    .mrm-center-intro {
+      margin: 0 auto 20px;
+    }
+
+    .mrm-pillars{
+      display:grid;
+      grid-auto-flow:column;
+      grid-auto-columns:86%;
+      gap:12px;
+      overflow-x:auto;
+      scroll-snap-type:x proximity;
+      -webkit-overflow-scrolling:touch;
+      border:none;
+      background:transparent;
+      box-shadow:none;
+      border-radius:0;
+      padding-bottom:4px;
+    }
+
+    .mrm-pillar{
+      scroll-snap-align:start;
+      border:1px solid var(--mrm-line);
+      border-radius:22px;
+      box-shadow:var(--mrm-shadow);
+      padding:20px 18px;
+    }
+
+    .mrm-pillar:nth-child(2){
+      border:1px solid var(--mrm-line);
+    }
+
+    .mrm-three-col,
+    .mrm-two-col{
+      display:grid;
+      grid-auto-flow:column;
+      grid-auto-columns:86%;
+      gap:12px;
+      overflow-x:auto;
+      scroll-snap-type:x proximity;
+      -webkit-overflow-scrolling:touch;
+      padding-bottom:4px;
+    }
+
+    .mrm-three-col > *,
+    .mrm-two-col > *{
+      scroll-snap-align:start;
+    }
+
+    .mrm-card,
+    .mrm-soft-card,
+    .mrm-dark-card,
+    .mrm-student-item{
+      border-radius:20px;
+      padding:20px;
+      box-shadow:0 10px 24px rgba(25,22,18,.07);
+    }
+
+    .mrm-split,
+    .mrm-student-feature{
+      gap:14px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .mrm-three-col,
+    .mrm-two-col,
+    .mrm-pillars{
+      grid-auto-columns:90%;
     }
   }
 </style>
