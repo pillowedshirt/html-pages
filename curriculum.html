@@ -633,22 +633,24 @@
     display:block;
     width:100%;
     overflow:visible;
+    margin:0;
+    padding:0;
   }
 
   .mrm-mobile-pin-sticky{
     position:sticky;
-    top:0;
-    height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:clip;
+    top:50vh;
+    transform:translateY(-50%);
+    height:auto;
+    display:block;
+    overflow:visible;
   }
 
   .mrm-mobile-pin-stage{
     position:relative;
     width:100%;
     min-height:var(--stack-min-height, 280px);
+    isolation:isolate;
   }
 
   .mrm-mobile-pin-card{
@@ -660,6 +662,7 @@
     will-change:transform, opacity;
     overflow:hidden;
     backface-visibility:hidden;
+    opacity:0;
   }
 
   .mrm-mobile-pin-card h3,
@@ -667,11 +670,6 @@
     word-break:normal;
     overflow-wrap:break-word;
     white-space:normal;
-  }
-
-  /* optional polish so hidden cards never remain legible */
-  .mrm-mobile-pin-card{
-    opacity:0;
   }
 }
 
@@ -896,9 +894,8 @@
 
 <script>
 (function(){
-  const HOLD_PORTION = 0.38;   // increase for a longer pause on each card
+  const HOLD_PORTION = 0.38;   // pause at full opacity before transition starts
   const SEGMENT_VH = 95;       // scroll distance per card transition
-  const BASE_VH = 120;         // entry/release space for the pinned section
 
   function clamp(value, min, max){
     return Math.max(min, Math.min(max, value));
@@ -918,13 +915,17 @@
   }
 
   function setSectionHeight(section, cardsLength){
-    const totalVh = BASE_VH + Math.max(1, cardsLength - 1) * SEGMENT_VH;
-    section.style.height = totalVh + 'vh';
+    const viewportH = window.innerHeight || document.documentElement.clientHeight;
+    const transitionPx = Math.max(1, cardsLength - 1) * (viewportH * (SEGMENT_VH / 100));
+
+    /* only enough height to pin the deck and run the transitions */
+    section.style.height = (viewportH + transitionPx) + 'px';
   }
 
   function setStageHeight(stage, cards){
     const maxHeight = Math.max.apply(null, cards.map(card => card.offsetHeight));
-    stage.style.minHeight = Math.max(maxHeight, parseFloat(getComputedStyle(stage).minHeight) || 0) + 'px';
+    const cssMin = parseFloat(getComputedStyle(stage).getPropertyValue('min-height')) || 0;
+    stage.style.minHeight = Math.max(maxHeight, cssMin) + 'px';
   }
 
   function paintSection(section){
@@ -945,7 +946,6 @@
     const activeIndex = Math.min(segments, Math.floor(local / segmentLength));
     const rawSegmentProgress = segments === 0 ? 0 : clamp((local - activeIndex * segmentLength) / segmentLength, 0, 1);
 
-    // hold each card at full opacity before transition begins
     const animProgress = rawSegmentProgress <= HOLD_PORTION
       ? 0
       : clamp((rawSegmentProgress - HOLD_PORTION) / (1 - HOLD_PORTION), 0, 1);
@@ -997,8 +997,8 @@
         return;
       }
 
-      setSectionHeight(section, cards.length);
       setStageHeight(stage, cards);
+      setSectionHeight(section, cards.length);
       paintSection(section);
     });
   }
