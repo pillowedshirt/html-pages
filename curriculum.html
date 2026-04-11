@@ -485,33 +485,58 @@
 
     .mrm-pillars{
       display:grid;
-      grid-auto-flow:column;
-      grid-auto-columns:86%;
-      gap:12px;
-      overflow-x:auto;
-      scroll-snap-type:x proximity;
-      -webkit-overflow-scrolling:touch;
-      border:none;
-      background:transparent;
-      box-shadow:none;
-      border-radius:0;
-      padding-bottom:4px;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:0;
+      overflow:visible;
+      scroll-snap-type:none;
+      -webkit-overflow-scrolling:auto;
+      border-radius:999px;
+      border:1px solid var(--mrm-line);
+      background:#fff;
+      box-shadow:var(--mrm-shadow);
+      padding-bottom:0;
     }
 
     .mrm-pillar{
-      scroll-snap-align:start;
-      border:1px solid var(--mrm-line);
-      border-radius:22px;
-      box-shadow:var(--mrm-shadow);
-      padding:20px 18px;
+      scroll-snap-align:none;
+      border:none;
+      border-radius:0;
+      box-shadow:none;
+      padding:14px 10px;
+    }
+
+    .mrm-pillar strong{
+      font-size:.78rem;
+      margin-bottom:2px;
+    }
+
+    .mrm-pillar span{
+      font-size:.66rem;
+      line-height:1.2;
     }
 
     .mrm-pillar:nth-child(2){
-      border:1px solid var(--mrm-line);
+      border-left:1px solid rgba(0,0,0,.06);
+      border-right:1px solid rgba(0,0,0,.06);
     }
 
     .mrm-three-col,
     .mrm-two-col{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+      overflow:visible;
+      scroll-snap-type:none;
+      -webkit-overflow-scrolling:auto;
+      padding-bottom:0;
+    }
+
+    .mrm-three-col > *,
+    .mrm-two-col > *{
+      scroll-snap-align:none;
+    }
+
+    .mrm-dark-band .mrm-three-col{
       display:grid;
       grid-auto-flow:column;
       grid-auto-columns:86%;
@@ -522,8 +547,7 @@
       padding-bottom:4px;
     }
 
-    .mrm-three-col > *,
-    .mrm-two-col > *{
+    .mrm-dark-band .mrm-three-col > *{
       scroll-snap-align:start;
     }
 
@@ -543,10 +567,24 @@
   }
 
   @media (max-width: 560px) {
-    .mrm-three-col,
-    .mrm-two-col,
-    .mrm-pillars{
+    .mrm-dark-band .mrm-three-col{
       grid-auto-columns:90%;
+    }
+
+    .mrm-pillars{
+      grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+
+    .mrm-pillar{
+      padding:12px 8px;
+    }
+
+    .mrm-pillar strong{
+      font-size:.72rem;
+    }
+
+    .mrm-pillar span{
+      font-size:.62rem;
     }
   }
 </style>
