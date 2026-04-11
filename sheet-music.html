@@ -296,16 +296,25 @@
     .mrm-sheet-feature-band{
       display:grid;
       grid-auto-flow:column;
-      grid-auto-columns:86%;
-      gap:12px;
+      grid-auto-columns:100%;
+      gap:0;
       overflow-x:auto;
-      scroll-snap-type:x proximity;
+      scroll-snap-type:x mandatory;
       -webkit-overflow-scrolling:touch;
-      padding-bottom:4px;
+      padding-bottom:8px;
     }
 
     .mrm-sheet-feature-band > * {
       scroll-snap-align:start;
+      width:100%;
+      max-width:100%;
+    }
+
+    .mrm-sheet-feature h3,
+    .mrm-sheet-feature p{
+      word-break:normal;
+      overflow-wrap:break-word;
+      white-space:normal;
     }
 
     .mrm-sheet-deliverables{
@@ -339,7 +348,7 @@
 
   @media (max-width: 560px) {
     .mrm-sheet-feature-band {
-      grid-auto-columns:90%;
+      grid-auto-columns:100%;
     }
   }
 </style>

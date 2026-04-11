@@ -339,10 +339,11 @@
       gap:10px;
       overflow:visible;
       padding:12px;
-      margin:4px 0 10px;
+      margin:100px 0 10px;
       border-radius:22px;
       scroll-snap-type:none;
       -webkit-overflow-scrolling:auto;
+      align-items:start;
     }
 
     .mrm-about-rail a{
@@ -387,10 +388,34 @@
       padding-bottom:0;
     }
 
+    #mrm-about-standards .mrm-about-grid-2{
+      display:grid;
+      grid-auto-flow:column;
+      grid-auto-columns:100%;
+      gap:0;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
+      padding-bottom:8px;
+    }
+
     .mrm-about-grid-2 > *,
     .mrm-about-grid-3 > *{
       scroll-snap-align:none;
       min-width:0;
+    }
+
+    #mrm-about-standards .mrm-about-grid-2 > *{
+      scroll-snap-align:start;
+      width:100%;
+      max-width:100%;
+    }
+
+    #mrm-about-standards .mrm-about-card h3,
+    #mrm-about-standards .mrm-about-card p{
+      word-break:normal;
+      overflow-wrap:break-word;
+      white-space:normal;
     }
 
     .mrm-about-hero-logo-block{ margin:12px 0 2px; }
