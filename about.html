@@ -387,30 +387,11 @@
       -webkit-overflow-scrolling:auto;
       padding-bottom:0;
     }
-
-    #mrm-about-standards .mrm-about-grid-2{
-      display:grid;
-      grid-auto-flow:column;
-      grid-auto-columns:100%;
-      gap:0;
-      overflow-x:auto;
-      scroll-snap-type:x mandatory;
-      -webkit-overflow-scrolling:touch;
-      padding-bottom:8px;
-    }
-
     .mrm-about-grid-2 > *,
     .mrm-about-grid-3 > *{
       scroll-snap-align:none;
       min-width:0;
     }
-
-    #mrm-about-standards .mrm-about-grid-2 > *{
-      scroll-snap-align:start;
-      width:100%;
-      max-width:100%;
-    }
-
     #mrm-about-standards .mrm-about-card h3,
     #mrm-about-standards .mrm-about-card p{
       word-break:normal;
@@ -456,6 +437,27 @@
   .mrm-home-identity-desktop,
   .mrm-about-standards-desktop{
     display:none !important;
+  }
+
+
+  #mrm-about-standards{
+    margin:0;
+    padding:0;
+  }
+
+  #mrm-about-standards .mrm-about-panel{
+    background:transparent;
+    border:none;
+    box-shadow:none;
+    margin:0;
+  }
+
+  #mrm-about-standards .mrm-about-panel-head{
+    padding:18px 18px 8px;
+  }
+
+  #mrm-about-standards .mrm-about-panel-body{
+    padding:0 18px 0;
   }
 }
 
@@ -629,17 +631,14 @@
         <h3>Educational Preparation</h3>
         <p>Instructors are selected for strong musical and educational backgrounds, including standards such as formal music training and, where applicable, music education degree preparation or completion.</p>
       </article>
-
       <article class="mrm-about-card mrm-mobile-pin-card">
         <h3>Student-Facing Professionalism</h3>
         <p>Instructors should be able to communicate clearly, teach responsibly, and represent the studio in a way that is organized, encouraging, and dependable for families.</p>
       </article>
-
       <article class="mrm-about-card mrm-mobile-pin-card">
         <h3>Safety and Trust</h3>
         <p>Student safety matters. We place an importance on requirements such as a valid fingerprint clearance cards when considering musicians for working directly with our young musicians and families.</p>
       </article>
-
       <article class="mrm-about-card mrm-mobile-pin-card">
         <h3>Instructional Fit</h3>
         <p>Our instructors are able to demonstrate the ability to teach developing musicians patiently, clearly, and with attention to long-term growth. We ensure that every instructor has a clear pedagogical approach.</p>

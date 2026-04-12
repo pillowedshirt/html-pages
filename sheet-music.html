@@ -292,24 +292,6 @@
       border-radius:16px;
       white-space:nowrap;
     }
-
-    .mrm-sheet-feature-band{
-      display:grid;
-      grid-auto-flow:column;
-      grid-auto-columns:100%;
-      gap:0;
-      overflow-x:auto;
-      scroll-snap-type:x mandatory;
-      -webkit-overflow-scrolling:touch;
-      padding-bottom:8px;
-    }
-
-    .mrm-sheet-feature-band > * {
-      scroll-snap-align:start;
-      width:100%;
-      max-width:100%;
-    }
-
     .mrm-sheet-feature h3,
     .mrm-sheet-feature p{
       word-break:normal;
@@ -345,12 +327,6 @@
       min-height:auto;
     }
   }
-
-  @media (max-width: 560px) {
-    .mrm-sheet-feature-band {
-      grid-auto-columns:100%;
-    }
-  }
 @media (min-width:761px){
   .mrm-home-identity-mobiledeck,
   .mrm-about-standards-mobiledeck{
@@ -376,6 +352,24 @@
   .mrm-pocket-desktop,
   .mrm-sheet-features-desktop{
     display:none !important;
+  }
+
+
+  .mrm-sheet-card{
+    padding:0;
+    background:transparent;
+    border:none;
+    box-shadow:none;
+  }
+
+  .mrm-sheet-card > *{
+    margin-left:0;
+    margin-right:0;
+  }
+
+  .mrm-sheet-features-mobiledeck{
+    margin:0;
+    padding:0;
   }
 
   .mrm-mobile-pin-section{
@@ -491,12 +485,10 @@
         <h3>Composer Led</h3>
         <p>Each piece comes from a clearly defined creative voice that remains consistent throughout the collection.</p>
       </article>
-
       <article class="mrm-sheet-feature mrm-mobile-pin-card">
         <h3>Development Oriented</h3>
         <p>The music is meant to support application of fundamentals, stronger practice habits, and meaningful musical growth.</p>
       </article>
-
       <article class="mrm-sheet-feature mrm-mobile-pin-card">
         <h3>Built For Everyday Application</h3>
         <p>Each piece is designed to work well in lessons, personal practice, and independent study settings.</p>
