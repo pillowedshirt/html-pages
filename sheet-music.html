@@ -292,12 +292,6 @@
       border-radius:16px;
       white-space:nowrap;
     }
-    .mrm-sheet-feature h3,
-    .mrm-sheet-feature p{
-      word-break:normal;
-      overflow-wrap:break-word;
-      white-space:normal;
-    }
 
     .mrm-sheet-deliverables{
       display:grid;
@@ -328,8 +322,8 @@
     }
   }
 @media (min-width:761px){
-  .mrm-home-identity-mobiledeck,
-  .mrm-about-standards-mobiledeck{
+  .mrm-home-identity-mobiledeck2,
+  .mrm-about-standards-mobiledeck2{
     display:none !important;
   }
 }
@@ -342,8 +336,8 @@
 }
 
 @media (min-width:821px){
-  .mrm-pocket-mobiledeck,
-  .mrm-sheet-features-mobiledeck{
+  .mrm-pocket-mobiledeck2,
+  .mrm-sheet-features-mobiledeck2{
     display:none !important;
   }
 }
@@ -354,68 +348,79 @@
     display:none !important;
   }
 
-
-  .mrm-sheet-card{
-    padding:0;
-    background:transparent;
-    border:none;
-    box-shadow:none;
-  }
-
-  .mrm-sheet-card > *{
-    margin-left:0;
-    margin-right:0;
-  }
-
-  .mrm-sheet-features-mobiledeck{
-    margin:0;
-    padding:0;
-  }
-
-  .mrm-mobile-pin-section{
+  .mrm-deckfx-section{
     position:relative;
     display:block;
     width:100%;
     margin:0;
     padding:0;
     overflow:visible;
-    --pin-top-offset:0px;
+    --deckfx-top:0px;
   }
 
-  .mrm-mobile-pin-sticky{
+  .mrm-deckfx-sticky{
     position:sticky;
-    top:var(--pin-top-offset);
+    top:var(--deckfx-top);
     display:block;
-    height:auto;
     margin:0;
     padding:0;
+    height:auto;
     overflow:visible;
   }
 
-  .mrm-mobile-pin-stage{
+  .mrm-deckfx-stage{
     position:relative;
     width:100%;
-    min-height:var(--stack-min-height, 280px);
+    min-height:var(--deckfx-min-height, 260px);
     isolation:isolate;
   }
 
-  .mrm-mobile-pin-card{
+  .mrm-deckfx-card{
     position:absolute;
     inset:0;
     width:100%;
     max-width:100%;
     margin:0;
-    will-change:transform, opacity;
-    overflow:hidden;
-    backface-visibility:hidden;
     opacity:0;
+    overflow:hidden;
+    will-change:transform, opacity;
+    backface-visibility:hidden;
   }
 
-  .mrm-mobile-pin-card h3,
-  .mrm-mobile-pin-card p{
+  .mrm-deckfx-card h3,
+  .mrm-deckfx-card p{
     word-break:normal;
     overflow-wrap:break-word;
     white-space:normal;
+  }
+
+  /* About page shell cleanup */
+  #mrm-about-standards .mrm-about-panel{
+    background:transparent;
+    border:none;
+    box-shadow:none;
+    margin:0;
+  }
+
+  #mrm-about-standards .mrm-about-panel-head{
+    padding:18px 18px 8px;
+  }
+
+  #mrm-about-standards .mrm-about-panel-body{
+    padding:0 18px 0;
+  }
+
+  /* Sheet music shell cleanup */
+  .mrm-sheet-card{
+    padding:20px;
+    background:#fff;
+    border:1px solid var(--mrm-line);
+    box-shadow:var(--mrm-shadow);
+  }
+
+  .mrm-sheet-features-mobiledeck2{
+    margin:0;
+    padding:0;
   }
 }
 
@@ -478,18 +483,18 @@
           </div>
         </div>
 
-        <div class="mrm-sheet-features-mobiledeck mrm-mobile-pin-section" data-pin-stack data-breakpoint="820">
-  <div class="mrm-mobile-pin-sticky">
-    <div class="mrm-mobile-pin-stage" style="--stack-min-height:240px;">
-      <article class="mrm-sheet-feature mrm-mobile-pin-card">
+        <div class="mrm-sheet-features-mobiledeck2 mrm-deckfx-section" data-deckfx data-deckfx-breakpoint="820">
+  <div class="mrm-deckfx-sticky">
+    <div class="mrm-deckfx-stage" style="--deckfx-min-height:240px;">
+      <article class="mrm-sheet-feature mrm-deckfx-card">
         <h3>Composer Led</h3>
         <p>Each piece comes from a clearly defined creative voice that remains consistent throughout the collection.</p>
       </article>
-      <article class="mrm-sheet-feature mrm-mobile-pin-card">
+      <article class="mrm-sheet-feature mrm-deckfx-card">
         <h3>Development Oriented</h3>
         <p>The music is meant to support application of fundamentals, stronger practice habits, and meaningful musical growth.</p>
       </article>
-      <article class="mrm-sheet-feature mrm-mobile-pin-card">
+      <article class="mrm-sheet-feature mrm-deckfx-card">
         <h3>Built For Everyday Application</h3>
         <p>Each piece is designed to work well in lessons, personal practice, and independent study settings.</p>
       </article>
@@ -548,8 +553,6 @@
   })();
 </script>
 
-
-
 <script>
 (function(){
   const HOLD_PORTION = 0.38;
@@ -563,53 +566,53 @@
     return a + (b - a) * t;
   }
 
-  function isActiveForViewport(section){
-    const bp = Number(section.dataset.breakpoint || 820);
+  function getDecks(){
+    return Array.from(document.querySelectorAll('[data-deckfx]'));
+  }
+
+  function isMobileDeck(deck){
+    const bp = Number(deck.dataset.deckfxBreakpoint || 820);
     return window.matchMedia(`(max-width:${bp}px)`).matches;
   }
 
-  function getSections(){
-    return Array.from(document.querySelectorAll('[data-pin-stack]'));
-  }
-
-  function getStageHeight(cards, stage){
-    const maxHeight = Math.max.apply(null, cards.map(card => card.offsetHeight));
+  function getStageHeight(stage, cards){
+    const tallest = Math.max.apply(null, cards.map(card => card.offsetHeight));
     const cssMin = parseFloat(getComputedStyle(stage).getPropertyValue('min-height')) || 0;
-    return Math.max(maxHeight, cssMin);
+    return Math.max(tallest, cssMin);
   }
 
-  function setSectionMetrics(section, stage, cards){
+  function setMetrics(deck, stage, cards){
     const viewportH = window.innerHeight || document.documentElement.clientHeight;
-    const stageHeight = getStageHeight(cards, stage);
+    const stageHeight = getStageHeight(stage, cards);
     const transitionPx = Math.max(1, cards.length - 1) * (viewportH * (SEGMENT_VH / 100));
 
-    section.style.height = (stageHeight + transitionPx) + 'px';
-    section.style.setProperty('--pin-top-offset', Math.max(0, (viewportH - stageHeight) / 2) + 'px');
+    deck.style.height = (stageHeight + transitionPx) + 'px';
+    deck.style.setProperty('--deckfx-top', Math.max(0, (viewportH - stageHeight) / 2) + 'px');
     stage.style.minHeight = stageHeight + 'px';
   }
 
-  function paintSection(section){
-    if (!isActiveForViewport(section)) return;
+  function paint(deck){
+    if (!isMobileDeck(deck)) return;
 
-    const stage = section.querySelector('.mrm-mobile-pin-stage');
-    const cards = Array.from(section.querySelectorAll('.mrm-mobile-pin-card'));
+    const stage = deck.querySelector('.mrm-deckfx-stage');
+    const cards = Array.from(deck.querySelectorAll('.mrm-deckfx-card'));
     if (!stage || cards.length < 2) return;
 
     const stageHeight = stage.offsetHeight;
-    const totalScrollable = Math.max(1, section.offsetHeight - stageHeight);
+    const totalScrollable = Math.max(1, deck.offsetHeight - stageHeight);
 
-    const rect = section.getBoundingClientRect();
-    const sectionTop = window.scrollY + rect.top;
-    const local = clamp(window.scrollY - sectionTop, 0, totalScrollable);
+    const rect = deck.getBoundingClientRect();
+    const deckTop = window.scrollY + rect.top;
+    const local = clamp(window.scrollY - deckTop, 0, totalScrollable);
 
     const segments = cards.length - 1;
     const segmentLength = totalScrollable / segments;
     const activeIndex = Math.min(segments, Math.floor(local / segmentLength));
-    const rawSegmentProgress = segments === 0 ? 0 : clamp((local - activeIndex * segmentLength) / segmentLength, 0, 1);
+    const rawProgress = segments === 0 ? 0 : clamp((local - activeIndex * segmentLength) / segmentLength, 0, 1);
 
-    const animProgress = rawSegmentProgress <= HOLD_PORTION
+    const animProgress = rawProgress <= HOLD_PORTION
       ? 0
-      : clamp((rawSegmentProgress - HOLD_PORTION) / (1 - HOLD_PORTION), 0, 1);
+      : clamp((rawProgress - HOLD_PORTION) / (1 - HOLD_PORTION), 0, 1);
 
     cards.forEach((card, i) => {
       if (i < activeIndex) {
@@ -641,15 +644,15 @@
     });
   }
 
-  function refreshPinnedDecks(){
-    getSections().forEach(section => {
-      const stage = section.querySelector('.mrm-mobile-pin-stage');
-      const cards = Array.from(section.querySelectorAll('.mrm-mobile-pin-card'));
+  function refreshDecks(){
+    getDecks().forEach(deck => {
+      const stage = deck.querySelector('.mrm-deckfx-stage');
+      const cards = Array.from(deck.querySelectorAll('.mrm-deckfx-card'));
       if (!stage || cards.length < 2) return;
 
-      if (!isActiveForViewport(section)) {
-        section.style.height = '';
-        section.style.removeProperty('--pin-top-offset');
+      if (!isMobileDeck(deck)) {
+        deck.style.height = '';
+        deck.style.removeProperty('--deckfx-top');
         stage.style.minHeight = '';
         cards.forEach(card => {
           card.style.transform = '';
@@ -659,19 +662,17 @@
         return;
       }
 
-      setSectionMetrics(section, stage, cards);
-      paintSection(section);
+      setMetrics(deck, stage, cards);
+      paint(deck);
     });
   }
 
-  window.addEventListener('load', refreshPinnedDecks);
-  window.addEventListener('resize', refreshPinnedDecks);
+  window.addEventListener('load', refreshDecks);
+  window.addEventListener('resize', refreshDecks);
   window.addEventListener('scroll', function(){
-    getSections().forEach(paintSection);
+    getDecks().forEach(paint);
   }, { passive:true });
 
-  refreshPinnedDecks();
+  refreshDecks();
 })();
 </script>
-
-
