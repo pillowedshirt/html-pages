@@ -427,8 +427,8 @@
     }
   }
 @media (min-width:761px){
-  .mrm-home-identity-mobiledeck,
-  .mrm-about-standards-mobiledeck{
+  .mrm-home-identity-mobiledeck2,
+  .mrm-about-standards-mobiledeck2{
     display:none !important;
   }
 }
@@ -438,13 +438,68 @@
   .mrm-about-standards-desktop{
     display:none !important;
   }
+}
 
+@media (min-width:821px){
+  .mrm-pocket-mobiledeck2,
+  .mrm-sheet-features-mobiledeck2{
+    display:none !important;
+  }
+}
 
-  #mrm-about-standards{
-    margin:0;
-    padding:0;
+@media (max-width:820px){
+  .mrm-pocket-desktop,
+  .mrm-sheet-features-desktop{
+    display:none !important;
   }
 
+  .mrm-deckfx-section{
+    position:relative;
+    display:block;
+    width:100%;
+    margin:0;
+    padding:0;
+    overflow:visible;
+    --deckfx-top:0px;
+  }
+
+  .mrm-deckfx-sticky{
+    position:sticky;
+    top:var(--deckfx-top);
+    display:block;
+    margin:0;
+    padding:0;
+    height:auto;
+    overflow:visible;
+  }
+
+  .mrm-deckfx-stage{
+    position:relative;
+    width:100%;
+    min-height:var(--deckfx-min-height, 260px);
+    isolation:isolate;
+  }
+
+  .mrm-deckfx-card{
+    position:absolute;
+    inset:0;
+    width:100%;
+    max-width:100%;
+    margin:0;
+    opacity:0;
+    overflow:hidden;
+    will-change:transform, opacity;
+    backface-visibility:hidden;
+  }
+
+  .mrm-deckfx-card h3,
+  .mrm-deckfx-card p{
+    word-break:normal;
+    overflow-wrap:break-word;
+    white-space:normal;
+  }
+
+  /* About page shell cleanup */
   #mrm-about-standards .mrm-about-panel{
     background:transparent;
     border:none;
@@ -459,65 +514,18 @@
   #mrm-about-standards .mrm-about-panel-body{
     padding:0 18px 0;
   }
-}
 
-@media (min-width:821px){
-  .mrm-pocket-mobiledeck,
-  .mrm-sheet-features-mobiledeck{
-    display:none !important;
-  }
-}
-
-@media (max-width:820px){
-  .mrm-pocket-desktop,
-  .mrm-sheet-features-desktop{
-    display:none !important;
+  /* Sheet music shell cleanup */
+  .mrm-sheet-card{
+    padding:20px;
+    background:#fff;
+    border:1px solid var(--mrm-line);
+    box-shadow:var(--mrm-shadow);
   }
 
-  .mrm-mobile-pin-section{
-    position:relative;
-    display:block;
-    width:100%;
+  .mrm-sheet-features-mobiledeck2{
     margin:0;
     padding:0;
-    overflow:visible;
-    --pin-top-offset:0px;
-  }
-
-  .mrm-mobile-pin-sticky{
-    position:sticky;
-    top:var(--pin-top-offset);
-    display:block;
-    height:auto;
-    margin:0;
-    padding:0;
-    overflow:visible;
-  }
-
-  .mrm-mobile-pin-stage{
-    position:relative;
-    width:100%;
-    min-height:var(--stack-min-height, 280px);
-    isolation:isolate;
-  }
-
-  .mrm-mobile-pin-card{
-    position:absolute;
-    inset:0;
-    width:100%;
-    max-width:100%;
-    margin:0;
-    will-change:transform, opacity;
-    overflow:hidden;
-    backface-visibility:hidden;
-    opacity:0;
-  }
-
-  .mrm-mobile-pin-card h3,
-  .mrm-mobile-pin-card p{
-    word-break:normal;
-    overflow-wrap:break-word;
-    white-space:normal;
   }
 }
 
@@ -624,22 +632,22 @@
               </div>
             </div>
 
-            <div class="mrm-about-standards-mobiledeck mrm-mobile-pin-section" data-pin-stack data-breakpoint="760">
-  <div class="mrm-mobile-pin-sticky">
-    <div class="mrm-mobile-pin-stage" style="--stack-min-height:320px;">
-      <article class="mrm-about-card mrm-mobile-pin-card">
+            <div class="mrm-about-standards-mobiledeck2 mrm-deckfx-section" data-deckfx data-deckfx-breakpoint="760">
+  <div class="mrm-deckfx-sticky">
+    <div class="mrm-deckfx-stage" style="--deckfx-min-height:320px;">
+      <article class="mrm-about-card mrm-deckfx-card">
         <h3>Educational Preparation</h3>
         <p>Instructors are selected for strong musical and educational backgrounds, including standards such as formal music training and, where applicable, music education degree preparation or completion.</p>
       </article>
-      <article class="mrm-about-card mrm-mobile-pin-card">
+      <article class="mrm-about-card mrm-deckfx-card">
         <h3>Student-Facing Professionalism</h3>
         <p>Instructors should be able to communicate clearly, teach responsibly, and represent the studio in a way that is organized, encouraging, and dependable for families.</p>
       </article>
-      <article class="mrm-about-card mrm-mobile-pin-card">
+      <article class="mrm-about-card mrm-deckfx-card">
         <h3>Safety and Trust</h3>
         <p>Student safety matters. We place an importance on requirements such as a valid fingerprint clearance cards when considering musicians for working directly with our young musicians and families.</p>
       </article>
-      <article class="mrm-about-card mrm-mobile-pin-card">
+      <article class="mrm-about-card mrm-deckfx-card">
         <h3>Instructional Fit</h3>
         <p>Our instructors are able to demonstrate the ability to teach developing musicians patiently, clearly, and with attention to long-term growth. We ensure that every instructor has a clear pedagogical approach.</p>
       </article>
@@ -707,7 +715,6 @@
   </section>
 </div>
 
-
 <script>
 (function(){
   const HOLD_PORTION = 0.38;
@@ -721,53 +728,53 @@
     return a + (b - a) * t;
   }
 
-  function isActiveForViewport(section){
-    const bp = Number(section.dataset.breakpoint || 820);
+  function getDecks(){
+    return Array.from(document.querySelectorAll('[data-deckfx]'));
+  }
+
+  function isMobileDeck(deck){
+    const bp = Number(deck.dataset.deckfxBreakpoint || 820);
     return window.matchMedia(`(max-width:${bp}px)`).matches;
   }
 
-  function getSections(){
-    return Array.from(document.querySelectorAll('[data-pin-stack]'));
-  }
-
-  function getStageHeight(cards, stage){
-    const maxHeight = Math.max.apply(null, cards.map(card => card.offsetHeight));
+  function getStageHeight(stage, cards){
+    const tallest = Math.max.apply(null, cards.map(card => card.offsetHeight));
     const cssMin = parseFloat(getComputedStyle(stage).getPropertyValue('min-height')) || 0;
-    return Math.max(maxHeight, cssMin);
+    return Math.max(tallest, cssMin);
   }
 
-  function setSectionMetrics(section, stage, cards){
+  function setMetrics(deck, stage, cards){
     const viewportH = window.innerHeight || document.documentElement.clientHeight;
-    const stageHeight = getStageHeight(cards, stage);
+    const stageHeight = getStageHeight(stage, cards);
     const transitionPx = Math.max(1, cards.length - 1) * (viewportH * (SEGMENT_VH / 100));
 
-    section.style.height = (stageHeight + transitionPx) + 'px';
-    section.style.setProperty('--pin-top-offset', Math.max(0, (viewportH - stageHeight) / 2) + 'px');
+    deck.style.height = (stageHeight + transitionPx) + 'px';
+    deck.style.setProperty('--deckfx-top', Math.max(0, (viewportH - stageHeight) / 2) + 'px');
     stage.style.minHeight = stageHeight + 'px';
   }
 
-  function paintSection(section){
-    if (!isActiveForViewport(section)) return;
+  function paint(deck){
+    if (!isMobileDeck(deck)) return;
 
-    const stage = section.querySelector('.mrm-mobile-pin-stage');
-    const cards = Array.from(section.querySelectorAll('.mrm-mobile-pin-card'));
+    const stage = deck.querySelector('.mrm-deckfx-stage');
+    const cards = Array.from(deck.querySelectorAll('.mrm-deckfx-card'));
     if (!stage || cards.length < 2) return;
 
     const stageHeight = stage.offsetHeight;
-    const totalScrollable = Math.max(1, section.offsetHeight - stageHeight);
+    const totalScrollable = Math.max(1, deck.offsetHeight - stageHeight);
 
-    const rect = section.getBoundingClientRect();
-    const sectionTop = window.scrollY + rect.top;
-    const local = clamp(window.scrollY - sectionTop, 0, totalScrollable);
+    const rect = deck.getBoundingClientRect();
+    const deckTop = window.scrollY + rect.top;
+    const local = clamp(window.scrollY - deckTop, 0, totalScrollable);
 
     const segments = cards.length - 1;
     const segmentLength = totalScrollable / segments;
     const activeIndex = Math.min(segments, Math.floor(local / segmentLength));
-    const rawSegmentProgress = segments === 0 ? 0 : clamp((local - activeIndex * segmentLength) / segmentLength, 0, 1);
+    const rawProgress = segments === 0 ? 0 : clamp((local - activeIndex * segmentLength) / segmentLength, 0, 1);
 
-    const animProgress = rawSegmentProgress <= HOLD_PORTION
+    const animProgress = rawProgress <= HOLD_PORTION
       ? 0
-      : clamp((rawSegmentProgress - HOLD_PORTION) / (1 - HOLD_PORTION), 0, 1);
+      : clamp((rawProgress - HOLD_PORTION) / (1 - HOLD_PORTION), 0, 1);
 
     cards.forEach((card, i) => {
       if (i < activeIndex) {
@@ -799,15 +806,15 @@
     });
   }
 
-  function refreshPinnedDecks(){
-    getSections().forEach(section => {
-      const stage = section.querySelector('.mrm-mobile-pin-stage');
-      const cards = Array.from(section.querySelectorAll('.mrm-mobile-pin-card'));
+  function refreshDecks(){
+    getDecks().forEach(deck => {
+      const stage = deck.querySelector('.mrm-deckfx-stage');
+      const cards = Array.from(deck.querySelectorAll('.mrm-deckfx-card'));
       if (!stage || cards.length < 2) return;
 
-      if (!isActiveForViewport(section)) {
-        section.style.height = '';
-        section.style.removeProperty('--pin-top-offset');
+      if (!isMobileDeck(deck)) {
+        deck.style.height = '';
+        deck.style.removeProperty('--deckfx-top');
         stage.style.minHeight = '';
         cards.forEach(card => {
           card.style.transform = '';
@@ -817,19 +824,17 @@
         return;
       }
 
-      setSectionMetrics(section, stage, cards);
-      paintSection(section);
+      setMetrics(deck, stage, cards);
+      paint(deck);
     });
   }
 
-  window.addEventListener('load', refreshPinnedDecks);
-  window.addEventListener('resize', refreshPinnedDecks);
+  window.addEventListener('load', refreshDecks);
+  window.addEventListener('resize', refreshDecks);
   window.addEventListener('scroll', function(){
-    getSections().forEach(paintSection);
+    getDecks().forEach(paint);
   }, { passive:true });
 
-  refreshPinnedDecks();
+  refreshDecks();
 })();
 </script>
-
-
