@@ -363,20 +363,18 @@
     display:block;
     width:100%;
     margin:0;
-    padding:var(--pin-section-gap, 14px) 0;
+    padding:0;
     overflow:visible;
     --pin-top-offset:0px;
-    --pin-stage-height:280px;
-    --pin-section-gap:14px;
   }
 
   .mrm-mobile-pin-sticky{
     position:sticky;
-    top:calc(var(--pin-top-offset) - var(--pin-section-gap));
+    top:var(--pin-top-offset);
     display:block;
-    height:calc(var(--pin-stage-height) + (var(--pin-section-gap) * 2));
+    height:auto;
     margin:0;
-    padding:var(--pin-section-gap) 0;
+    padding:0;
     overflow:visible;
   }
 
@@ -385,7 +383,6 @@
     width:100%;
     min-height:var(--stack-min-height, 280px);
     isolation:isolate;
-    margin:0 auto;
   }
 
   .mrm-mobile-pin-card{
@@ -397,9 +394,7 @@
     will-change:transform, opacity;
     overflow:hidden;
     backface-visibility:hidden;
-    transform-origin:center center;
     opacity:0;
-    pointer-events:none;
   }
 
   .mrm-mobile-pin-card h3,
@@ -474,29 +469,31 @@
       </div>
 
       <div class="mrm-home-identity-mobiledeck mrm-mobile-pin-section" data-pin-stack data-breakpoint="760">
-        <div class="mrm-mobile-pin-sticky">
-          <div class="mrm-mobile-pin-stage" style="--stack-min-height: 260px;">
-            <article class="mrm-home-signal-card mrm-mobile-pin-card">
-              <h3>Mission</h3>
-              <p>
-                To help young low brass musicians build strong fundamentals, musical confidence, and long-term enthusiasm for learning through thoughtful private instruction.
-              </p>
-            </article>
-            <article class="mrm-home-signal-card mrm-mobile-pin-card">
-              <h3>What Makes This Studio Unique?</h3>
-              <p>
-                We offer an exclusive and modern curriculum specifically designed to support low brass development.
-              </p>
-            </article>
-            <article class="mrm-home-signal-card mrm-mobile-pin-card">
-              <h3>Who This Is For?</h3>
-              <p>
-                Families and students looking to develop skill on low brass instruments and build a lasting love for music through performance.
-              </p>
-            </article>
-          </div>
-        </div>
-      </div>
+  <div class="mrm-mobile-pin-sticky">
+    <div class="mrm-mobile-pin-stage" style="--stack-min-height:260px;">
+      <article class="mrm-home-signal-card mrm-mobile-pin-card">
+        <h3>Mission</h3>
+        <p>
+          To help young low brass musicians build strong fundamentals, musical confidence, and long-term enthusiasm for learning through thoughtful private instruction.
+        </p>
+      </article>
+
+      <article class="mrm-home-signal-card mrm-mobile-pin-card">
+        <h3>What Makes This Studio Unique?</h3>
+        <p>
+          We offer an exclusive and modern curriculum specifically designed to support low brass development.
+        </p>
+      </article>
+
+      <article class="mrm-home-signal-card mrm-mobile-pin-card">
+        <h3>Who This Is For?</h3>
+        <p>
+          Families and students looking to develop skill on low brass instruments and build a lasting love for music through performance.
+        </p>
+      </article>
+    </div>
+  </div>
+</div>
     </div>
   </div>
 
@@ -590,8 +587,8 @@
 
 <script>
 (function(){
-  const HOLD_PORTION = 0.44;
-  const SEGMENT_VH = 92;
+  const HOLD_PORTION = 0.38;
+  const SEGMENT_VH = 90;
 
   function clamp(value, min, max){
     return Math.max(min, Math.min(max, value));
@@ -616,33 +613,12 @@
     return Math.max(maxHeight, cssMin);
   }
 
-  function getSectionGap(section){
-    const raw = getComputedStyle(section).getPropertyValue('--pin-section-gap');
-    const parsed = parseFloat(raw);
-    return Number.isFinite(parsed) ? parsed : 0;
-  }
-
-  function resetSection(section, stage, cards){
-    section.style.height = '';
-    section.style.removeProperty('--pin-top-offset');
-    section.style.removeProperty('--pin-stage-height');
-    stage.style.minHeight = '';
-    cards.forEach(card => {
-      card.style.transform = '';
-      card.style.opacity = '';
-      card.style.zIndex = '';
-      card.style.pointerEvents = '';
-    });
-  }
-
   function setSectionMetrics(section, stage, cards){
     const viewportH = window.innerHeight || document.documentElement.clientHeight;
     const stageHeight = getStageHeight(cards, stage);
-    const gap = getSectionGap(section);
     const transitionPx = Math.max(1, cards.length - 1) * (viewportH * (SEGMENT_VH / 100));
 
-    section.style.height = (stageHeight + transitionPx + (gap * 2)) + 'px';
-    section.style.setProperty('--pin-stage-height', stageHeight + 'px');
+    section.style.height = (stageHeight + transitionPx) + 'px';
     section.style.setProperty('--pin-top-offset', Math.max(0, (viewportH - stageHeight) / 2) + 'px');
     stage.style.minHeight = stageHeight + 'px';
   }
@@ -655,49 +631,45 @@
     if (!stage || cards.length < 2) return;
 
     const stageHeight = stage.offsetHeight;
-    const gap = getSectionGap(section);
-    const totalScrollable = Math.max(1, section.offsetHeight - stageHeight - (gap * 2));
+    const totalScrollable = Math.max(1, section.offsetHeight - stageHeight);
 
     const rect = section.getBoundingClientRect();
     const sectionTop = window.scrollY + rect.top;
-    const local = clamp(window.scrollY - sectionTop - gap, 0, totalScrollable);
+    const local = clamp(window.scrollY - sectionTop, 0, totalScrollable);
 
     const segments = cards.length - 1;
     const segmentLength = totalScrollable / segments;
     const activeIndex = Math.min(segments, Math.floor(local / segmentLength));
     const rawSegmentProgress = segments === 0 ? 0 : clamp((local - activeIndex * segmentLength) / segmentLength, 0, 1);
 
-    const canAnimateOut = activeIndex < segments;
-    const animProgress = !canAnimateOut || rawSegmentProgress <= HOLD_PORTION
+    const animProgress = rawSegmentProgress <= HOLD_PORTION
       ? 0
       : clamp((rawSegmentProgress - HOLD_PORTION) / (1 - HOLD_PORTION), 0, 1);
 
     cards.forEach((card, i) => {
-      card.style.pointerEvents = i === activeIndex ? 'auto' : 'none';
-
       if (i < activeIndex) {
-        card.style.transform = 'translate3d(-14%, 20px, 0) scale(0.96)';
-        card.style.opacity = '0.08';
+        card.style.transform = 'translate3d(0, 18px, 0) scale(0.965)';
+        card.style.opacity = '0';
         card.style.zIndex = '1';
       } else if (i === activeIndex) {
-        const x = lerp(0, -14, animProgress);
-        const y = lerp(0, 20, animProgress);
+        const x = lerp(0, -112, animProgress);
+        const y = lerp(0, 22, animProgress);
         const scale = lerp(1, 0.965, animProgress);
-        const opacity = lerp(1, 0.12, animProgress);
+        const opacity = lerp(1, 0, animProgress);
 
         card.style.transform = `translate3d(${x}%, ${y}px, 0) scale(${scale})`;
         card.style.opacity = opacity.toFixed(3);
         card.style.zIndex = String(cards.length + 2);
       } else if (i === activeIndex + 1) {
-        const y = lerp(26, 0, animProgress);
-        const scale = lerp(0.97, 1, animProgress);
-        const opacity = lerp(0.2, 1, animProgress);
+        const y = lerp(16, 0, animProgress);
+        const scale = lerp(0.985, 1, animProgress);
+        const opacity = lerp(0, 1, animProgress);
 
         card.style.transform = `translate3d(0, ${y}px, 0) scale(${scale})`;
         card.style.opacity = opacity.toFixed(3);
         card.style.zIndex = String(cards.length + 1);
       } else {
-        card.style.transform = 'translate3d(0, 28px, 0) scale(0.955)';
+        card.style.transform = 'translate3d(0, 20px, 0) scale(0.96)';
         card.style.opacity = '0';
         card.style.zIndex = '1';
       }
@@ -711,7 +683,14 @@
       if (!stage || cards.length < 2) return;
 
       if (!isActiveForViewport(section)) {
-        resetSection(section, stage, cards);
+        section.style.height = '';
+        section.style.removeProperty('--pin-top-offset');
+        stage.style.minHeight = '';
+        cards.forEach(card => {
+          card.style.transform = '';
+          card.style.opacity = '';
+          card.style.zIndex = '';
+        });
         return;
       }
 
@@ -720,20 +699,11 @@
     });
   }
 
-  let ticking = false;
-  function onScroll(){
-    if (ticking) return;
-    ticking = true;
-    window.requestAnimationFrame(function(){
-      getSections().forEach(paintSection);
-      ticking = false;
-    });
-  }
-
   window.addEventListener('load', refreshPinnedDecks);
   window.addEventListener('resize', refreshPinnedDecks);
-  window.addEventListener('orientationchange', refreshPinnedDecks);
-  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('scroll', function(){
+    getSections().forEach(paintSection);
+  }, { passive:true });
 
   refreshPinnedDecks();
 })();
