@@ -576,8 +576,8 @@
     }
   }
 @media (min-width:761px){
-  .mrm-home-identity-mobiledeck2,
-  .mrm-about-standards-mobiledeck2{
+  .mrm-home-identity-mobile-stack,
+  .mrm-about-standards-mobile-stack{
     display:none !important;
   }
 }
@@ -590,8 +590,8 @@
 }
 
 @media (min-width:821px){
-  .mrm-pocket-mobiledeck2,
-  .mrm-sheet-features-mobiledeck2{
+  .mrm-pocket-mobile-stack,
+  .mrm-sheet-features-mobile-stack{
     display:none !important;
   }
 }
@@ -602,80 +602,17 @@
     display:none !important;
   }
 
-  .mrm-deckfx-section{
-    position:relative;
-    display:block;
-    width:100%;
-    margin:0;
-    padding:0;
-    overflow:visible;
-    --deckfx-top:0px;
-  }
-
-  .mrm-deckfx-sticky{
-    position:sticky;
-    top:var(--deckfx-top);
-    display:block;
-    margin:0;
-    padding:0;
-    height:auto;
-    overflow:visible;
-  }
-
-  .mrm-deckfx-stage{
-    position:relative;
-    width:100%;
-    min-height:var(--deckfx-min-height, 260px);
-    isolation:isolate;
-  }
-
-  .mrm-deckfx-card{
-    position:absolute;
-    inset:0;
-    width:100%;
-    max-width:100%;
-    margin:0;
-    opacity:0;
-    overflow:hidden;
-    will-change:transform, opacity;
-    backface-visibility:hidden;
-  }
-
-  .mrm-deckfx-card h3,
-  .mrm-deckfx-card p{
-    word-break:normal;
-    overflow-wrap:break-word;
-    white-space:normal;
-  }
-
-  /* About page shell cleanup */
-  #mrm-about-standards .mrm-about-panel{
-    background:transparent;
-    border:none;
-    box-shadow:none;
-    margin:0;
-  }
-
-  #mrm-about-standards .mrm-about-panel-head{
-    padding:18px 18px 8px;
-  }
-
-  #mrm-about-standards .mrm-about-panel-body{
-    padding:0 18px 0;
-  }
-
-  /* Sheet music shell cleanup */
-  .mrm-sheet-card{
-    padding:20px;
-    background:#fff;
-    border:1px solid var(--mrm-line);
-    box-shadow:var(--mrm-shadow);
-  }
-
-  .mrm-sheet-features-mobiledeck2{
+  .mrm-home-identity-mobile-stack,
+  .mrm-about-standards-mobile-stack,
+  .mrm-pocket-mobile-stack,
+  .mrm-sheet-features-mobile-stack{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:12px;
     margin:0;
     padding:0;
   }
+
 }
 
 </style>
@@ -812,30 +749,26 @@
         </div>
       </div>
 
-      <div class="mrm-pocket-mobiledeck2 mrm-deckfx-section" data-deckfx data-deckfx-breakpoint="820">
-  <div class="mrm-deckfx-sticky">
-    <div class="mrm-deckfx-stage" style="--deckfx-min-height:280px;">
-      <article class="mrm-dark-card mrm-deckfx-card">
-        <h3>Commissioned Specifically For Our Studio</h3>
-        <p>
-          You cannot find this kind of curriculum anywhere else. We are working to inspire students to develop artistry through a creative and one of a kind series of pieces designed specifically for their growth.
-        </p>
-      </article>
-      <article class="mrm-dark-card mrm-deckfx-card">
-        <h3>Accessible And Beautiful</h3>
-        <p>
-          The aim is to create repertoire that encourages developing students to build their artistry over time. We push students to apply the fundamentals of playing their instruments in the engaging and fun environments our pieces create.
-        </p>
-      </article>
-      <article class="mrm-dark-card mrm-deckfx-card">
-        <h3>We A Building A New Kind Of Lesson Literature</h3>
-        <p>
-          This collection of pieces is unlike any low brass music that has come before it. We are pushing to innovate the learning process for our students and create a distinct musical experience unlike any others.
-        </p>
-      </article>
-    </div>
-  </div>
-</div>
+      <div class="mrm-pocket-mobile-stack">
+        <div class="mrm-dark-card">
+          <h3>Commissioned Specifically For Our Studio</h3>
+          <p>
+            You cannot find this kind of curriculum anywhere else. We are working to inspire students to develop artistry through a creative and one of a kind series of pieces designed specifically for their growth.
+          </p>
+        </div>
+        <div class="mrm-dark-card">
+          <h3>Accessible And Beautiful</h3>
+          <p>
+            The aim is to create repertoire that encourages developing students to build their artistry over time. We push students to apply the fundamentals of playing their instruments in the engaging and fun environments our pieces create.
+          </p>
+        </div>
+        <div class="mrm-dark-card">
+          <h3>We A Building A New Kind Of Lesson Literature</h3>
+          <p>
+            This collection of pieces is unlike any low brass music that has come before it. We are pushing to innovate the learning process for our students and create a distinct musical experience unlike any others.
+          </p>
+        </div>
+      </div>
       <div class="mrm-pocket-cta-wrap">
         <div class="mrm-pocket-cta">
           <h3>Step Into The Pocket Orchestra Catalog</h3>
@@ -896,126 +829,4 @@
 
 </div>
 
-<script>
-(function(){
-  const HOLD_PORTION = 0.38;
-  const SEGMENT_VH = 90;
 
-  function clamp(value, min, max){
-    return Math.max(min, Math.min(max, value));
-  }
-
-  function lerp(a, b, t){
-    return a + (b - a) * t;
-  }
-
-  function getDecks(){
-    return Array.from(document.querySelectorAll('[data-deckfx]'));
-  }
-
-  function isMobileDeck(deck){
-    const bp = Number(deck.dataset.deckfxBreakpoint || 820);
-    return window.matchMedia(`(max-width:${bp}px)`).matches;
-  }
-
-  function getStageHeight(stage, cards){
-    const tallest = Math.max.apply(null, cards.map(card => card.offsetHeight));
-    const cssMin = parseFloat(getComputedStyle(stage).getPropertyValue('min-height')) || 0;
-    return Math.max(tallest, cssMin);
-  }
-
-  function setMetrics(deck, stage, cards){
-    const viewportH = window.innerHeight || document.documentElement.clientHeight;
-    const stageHeight = getStageHeight(stage, cards);
-    const transitionPx = Math.max(1, cards.length - 1) * (viewportH * (SEGMENT_VH / 100));
-
-    deck.style.height = (stageHeight + transitionPx) + 'px';
-    deck.style.setProperty('--deckfx-top', Math.max(0, (viewportH - stageHeight) / 2) + 'px');
-    stage.style.minHeight = stageHeight + 'px';
-  }
-
-  function paint(deck){
-    if (!isMobileDeck(deck)) return;
-
-    const stage = deck.querySelector('.mrm-deckfx-stage');
-    const cards = Array.from(deck.querySelectorAll('.mrm-deckfx-card'));
-    if (!stage || cards.length < 2) return;
-
-    const stageHeight = stage.offsetHeight;
-    const totalScrollable = Math.max(1, deck.offsetHeight - stageHeight);
-
-    const rect = deck.getBoundingClientRect();
-    const deckTop = window.scrollY + rect.top;
-    const local = clamp(window.scrollY - deckTop, 0, totalScrollable);
-
-    const segments = cards.length - 1;
-    const segmentLength = totalScrollable / segments;
-    const activeIndex = Math.min(segments, Math.floor(local / segmentLength));
-    const rawProgress = segments === 0 ? 0 : clamp((local - activeIndex * segmentLength) / segmentLength, 0, 1);
-
-    const animProgress = rawProgress <= HOLD_PORTION
-      ? 0
-      : clamp((rawProgress - HOLD_PORTION) / (1 - HOLD_PORTION), 0, 1);
-
-    cards.forEach((card, i) => {
-      if (i < activeIndex) {
-        card.style.transform = 'translate3d(0, 18px, 0) scale(0.965)';
-        card.style.opacity = '0';
-        card.style.zIndex = '1';
-      } else if (i === activeIndex) {
-        const x = lerp(0, -112, animProgress);
-        const y = lerp(0, 22, animProgress);
-        const scale = lerp(1, 0.965, animProgress);
-        const opacity = lerp(1, 0, animProgress);
-
-        card.style.transform = `translate3d(${x}%, ${y}px, 0) scale(${scale})`;
-        card.style.opacity = opacity.toFixed(3);
-        card.style.zIndex = String(cards.length + 2);
-      } else if (i === activeIndex + 1) {
-        const y = lerp(16, 0, animProgress);
-        const scale = lerp(0.985, 1, animProgress);
-        const opacity = lerp(0, 1, animProgress);
-
-        card.style.transform = `translate3d(0, ${y}px, 0) scale(${scale})`;
-        card.style.opacity = opacity.toFixed(3);
-        card.style.zIndex = String(cards.length + 1);
-      } else {
-        card.style.transform = 'translate3d(0, 20px, 0) scale(0.96)';
-        card.style.opacity = '0';
-        card.style.zIndex = '1';
-      }
-    });
-  }
-
-  function refreshDecks(){
-    getDecks().forEach(deck => {
-      const stage = deck.querySelector('.mrm-deckfx-stage');
-      const cards = Array.from(deck.querySelectorAll('.mrm-deckfx-card'));
-      if (!stage || cards.length < 2) return;
-
-      if (!isMobileDeck(deck)) {
-        deck.style.height = '';
-        deck.style.removeProperty('--deckfx-top');
-        stage.style.minHeight = '';
-        cards.forEach(card => {
-          card.style.transform = '';
-          card.style.opacity = '';
-          card.style.zIndex = '';
-        });
-        return;
-      }
-
-      setMetrics(deck, stage, cards);
-      paint(deck);
-    });
-  }
-
-  window.addEventListener('load', refreshDecks);
-  window.addEventListener('resize', refreshDecks);
-  window.addEventListener('scroll', function(){
-    getDecks().forEach(paint);
-  }, { passive:true });
-
-  refreshDecks();
-})();
-</script>
