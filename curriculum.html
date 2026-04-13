@@ -587,6 +587,13 @@
   .mrm-about-standards-desktop{
     display:none !important;
   }
+
+  .mrm-home-identity-mobile-stack,
+  .mrm-about-standards-mobile-stack{
+    display:block;
+    margin:0;
+    padding:0;
+  }
 }
 
 @media (min-width:821px){
@@ -602,8 +609,6 @@
     display:none !important;
   }
 
-  .mrm-home-identity-mobile-stack,
-  .mrm-about-standards-mobile-stack,
   .mrm-pocket-mobile-stack,
   .mrm-sheet-features-mobile-stack{
     display:block;
@@ -622,20 +627,32 @@
 
   .mrm-deck .mrm-deck-sticky{
     position:relative;
+    margin:0;
+    padding:0;
   }
 
   .mrm-deck .mrm-deck-stage{
+    position:relative;
+    width:100%;
+    min-height:250px;
     display:grid;
     grid-template-columns:1fr;
     gap:12px;
+    isolation:isolate;
   }
 
   .mrm-deck .mrm-deck-card{
     position:relative;
     width:100%;
     margin:0;
+    min-height:250px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    overflow:hidden;
     transform:none;
     opacity:1;
+    will-change:transform, opacity;
     backface-visibility:hidden;
     transform-origin:center center;
   }
@@ -676,7 +693,6 @@
   #mrm-about-standards .mrm-about-panel-body{
     padding:0 18px 0;
   }
-
 }
 </style>
 
@@ -1062,9 +1078,14 @@
   window.addEventListener('scroll', requestRender, { passive: true });
   window.addEventListener('resize', rebuild);
   window.addEventListener('orientationchange', rebuild);
+  window.addEventListener('load', rebuild);
 
   if(window.visualViewport){
     window.visualViewport.addEventListener('resize', rebuild);
+  }
+
+  if(document.fonts && document.fonts.ready){
+    document.fonts.ready.then(rebuild);
   }
 
   if(motionQuery.addEventListener){
