@@ -377,6 +377,13 @@
       box-shadow:0 10px 24px rgba(25,22,18,.06);
     }
 
+    .mrm-deck .mrm-about-card{
+      min-height:250px !important;
+      display:flex !important;
+      flex-direction:column;
+      justify-content:center !important;
+    }
+
     .mrm-about-grid-2,
     .mrm-about-grid-3{
       display:grid;
@@ -409,8 +416,10 @@
     .mrm-about-main-section{ padding-top:4px; }
     .mrm-about-hero-transition{ min-height:190px; border-radius:22px; }
 
-    #mrm-about-standards{
-      overflow:visible;
+    #mrm-about-standards,
+    #mrm-about-standards .mrm-about-panel,
+    #mrm-about-standards .mrm-about-panel-body{
+      overflow:visible !important;
     }
   }
 
@@ -474,16 +483,19 @@
   .mrm-deck{
     position:relative;
     isolation:isolate;
+    overflow:visible !important;
   }
 
   .mrm-deck .mrm-deck-scroll{
     position:relative;
+    overflow:visible !important;
   }
 
   .mrm-deck .mrm-deck-sticky{
     position:relative;
     margin:0;
     padding:0;
+    overflow:visible !important;
   }
 
   .mrm-deck .mrm-deck-stage{
@@ -494,22 +506,30 @@
     grid-template-columns:1fr;
     gap:12px;
     isolation:isolate;
+    overflow:visible !important;
   }
 
   .mrm-deck .mrm-deck-card{
     position:relative;
     width:100%;
-    margin:0;
-    min-height:250px;
-    display:flex;
+    margin:0 !important;
+    min-height:250px !important;
+    height:auto !important;
+    max-width:none !important;
+    display:flex !important;
     flex-direction:column;
-    justify-content:center;
+    justify-content:center !important;
+    align-content:stretch !important;
     overflow:hidden;
     transform:none;
     opacity:1;
     will-change:transform, opacity;
     backface-visibility:hidden;
     transform-origin:center center;
+  }
+
+  .mrm-deck .mrm-deck-card > *:last-child{
+    margin-bottom:0;
   }
 
   .mrm-deck.is-deck-ready .mrm-deck-sticky{
@@ -534,11 +554,34 @@
     pointer-events:auto;
   }
 
+  .mrm-deck[data-deck-ready="true"] .mrm-deck-sticky{
+    outline:2px dashed rgba(180,120,40,.35);
+  }
+
+  /* Neutralize old page-specific mobile card flow behavior inside the deck only */
+  .mrm-deck .mrm-home-signal-card,
+  .mrm-deck .mrm-about-card,
+  .mrm-deck .mrm-dark-card,
+  .mrm-deck .mrm-sheet-feature{
+    min-height:250px !important;
+    height:auto !important;
+    margin:0 !important;
+    width:100% !important;
+    max-width:none !important;
+    align-content:stretch !important;
+    overflow:hidden !important;
+  }
+
+  #mrm-about-standards{
+    overflow:visible !important;
+  }
+
   #mrm-about-standards .mrm-about-panel{
     background:transparent;
     border:none;
     box-shadow:none;
     margin:0;
+    overflow:visible !important;
   }
 
   #mrm-about-standards .mrm-about-panel-head{
@@ -547,6 +590,11 @@
 
   #mrm-about-standards .mrm-about-panel-body{
     padding:0 18px 0;
+    overflow:visible !important;
+  }
+
+  .mrm-sheet-card{
+    overflow:visible !important;
   }
 }
 </style>
@@ -803,6 +851,7 @@
     stage.style.minHeight = maxHeight + 'px';
     scroll.style.height = totalHeight + 'px';
     deck.classList.add('is-deck-ready');
+    deck.setAttribute('data-deck-ready', 'true');
 
     return {
       deck: deck,
