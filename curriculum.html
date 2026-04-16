@@ -663,7 +663,7 @@
     flex-direction:column;
     justify-content:center !important;
     align-content:stretch !important;
-    overflow:hidden;
+    overflow:visible;
     transform:none;
     opacity:1;
     will-change:transform, opacity;
@@ -678,7 +678,9 @@
   .mrm-deck.is-deck-ready .mrm-deck-sticky{
     position:sticky;
     top:0;
-    height:100svh;
+    min-height:100vh;
+    min-height:100svh;
+    height:100dvh;
     display:grid;
     align-items:center;
   }
@@ -695,10 +697,6 @@
 
   .mrm-deck.is-deck-ready .mrm-deck-card.is-active{
     pointer-events:auto;
-  }
-
-  .mrm-deck[data-deck-ready="true"] .mrm-deck-sticky{
-    outline:2px dashed rgba(180,120,40,.35);
   }
 
   /* Neutralize old page-specific mobile card flow behavior inside the deck only */
@@ -983,6 +981,7 @@
     var cards = deck.querySelectorAll('.mrm-deck-card');
 
     deck.classList.remove('is-deck-ready');
+    deck.removeAttribute('data-deck-ready');
 
     if(scroll) scroll.style.height = '';
     if(stage) stage.style.minHeight = '';
