@@ -358,6 +358,112 @@
     overflow:visible !important;
   }
 }
+@media (min-width:761px){
+  .mrm-mobile-deck-block{
+    display:none !important;
+  }
+}
+
+@media (max-width:760px){
+  .mrm-home-hero-grid,
+  .mrm-home-signal{
+    display:none !important;
+  }
+
+  .mrm-mobile-deck-block{
+    display:block;
+    padding:20px 0 10px;
+  }
+
+  .mrm-mobile-deck-scroll{
+    position:relative;
+  }
+
+  .mrm-mobile-deck-sticky{
+    position:sticky;
+    top:4px;
+  }
+
+  .mrm-mobile-deck-stage{
+    position:relative;
+    width:100%;
+    min-height:420px;
+    overflow:visible;
+  }
+
+  .mrm-mobile-deck-card{
+    position:absolute;
+    inset:0;
+    width:100%;
+    min-height:420px;
+    border-radius:24px;
+    background:#fff;
+    border:1px solid var(--line);
+    box-shadow:0 18px 40px rgba(25,22,18,.14);
+    overflow:hidden;
+    will-change:transform, opacity;
+    backface-visibility:hidden;
+    transform-origin:center center;
+  }
+
+  .mrm-mobile-deck-card__inner{
+    height:100%;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    background:#fff;
+  }
+
+  .mrm-mobile-deck-card__inner--home{
+    justify-content:flex-start;
+  }
+
+  .mrm-mobile-deck-card__inner .mrm-home-btn-row{
+    display:grid;
+    gap:10px;
+    margin-top:18px;
+  }
+
+  .mrm-mobile-deck-card__inner .mrm-home-btn{
+    width:100%;
+    justify-content:center;
+  }
+
+  .mrm-mobile-deck-card__inner .mrm-home-jump{
+    margin-top:18px;
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:10px;
+  }
+
+  .mrm-mobile-deck-card__inner .mrm-home-jump a{
+    padding:10px 8px;
+    font-size:.76rem;
+    line-height:1.1;
+    border-radius:14px;
+    text-align:center;
+    white-space:normal;
+    min-height:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .mrm-mobile-deck-card__inner .mrm-home-kicker{
+    display:inline-block;
+    margin-bottom:10px;
+  }
+
+  .mrm-mobile-deck-card__inner h2,
+  .mrm-mobile-deck-card__inner h3{
+    margin:0 0 12px;
+  }
+
+  .mrm-mobile-deck-card__inner p:last-child{
+    margin-bottom:0;
+  }
+}
 </style>
 
 <div class="mrm-home-redesign">
@@ -398,6 +504,66 @@
     </div>
   </section>
 
+  <section class="mrm-mobile-deck-block" data-mrm-mobile-deck>
+    <div class="mrm-home-shell">
+      <div class="mrm-mobile-deck-scroll">
+        <div class="mrm-mobile-deck-sticky">
+          <div class="mrm-mobile-deck-stage">
+            <article class="mrm-mobile-deck-card">
+              <div class="mrm-mobile-deck-card__inner mrm-mobile-deck-card__inner--home">
+                <span class="mrm-home-kicker">Low Brass Lessons</span>
+                <h2>We Are Building Love For Music</h2>
+                <p class="mrm-home-lead">
+                  Low Brass Lessons is designed to provide personalized low brass instruction for students and families who want the highest quality educational experience. Through one-on-one lessons, thoughtful curriculum, flexible scheduling, and multiple instructor options our students have the opportunity to build a more meaningful connection to music.
+                </p>
+                <p class="mrm-home-lead">
+                  Private lessons provide personal guidance that meets the student where they're at. Our curriculum spans from early middle school through advanced high school and follows a learn at your own pace model. Whether your student is preparing ensemble music, building technique, developing confidence, or looking for a more structured approach to improvement, we're certain that Low Brass Lessons is the right place for you.
+                </p>
+
+                <div class="mrm-home-btn-row">
+                  <a class="mrm-home-btn mrm-home-btn-primary" href="/calendar/">Book Private Lessons</a>
+                  <a class="mrm-home-btn mrm-home-btn-secondary" href="/about/">Learn More</a>
+                </div>
+
+                <div class="mrm-home-jump">
+                  <a href="#mrm-home-identity">Core values</a>
+                  <a href="#mrm-home-pathways">Lesson pathways</a>
+                  <a href="#mrm-home-faq">Helpful answers</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="mrm-mobile-deck-card">
+              <div class="mrm-mobile-deck-card__inner">
+                <h3>Mission</h3>
+                <p>
+                  To help young low brass musicians build strong fundamentals, musical confidence, and long-term enthusiasm for learning through thoughtful private instruction.
+                </p>
+              </div>
+            </article>
+
+            <article class="mrm-mobile-deck-card">
+              <div class="mrm-mobile-deck-card__inner">
+                <h3>What Makes This Studio Unique?</h3>
+                <p>
+                  We offer an exclusive and modern curriculum specifically designed to support low brass development.
+                </p>
+              </div>
+            </article>
+
+            <article class="mrm-mobile-deck-card">
+              <div class="mrm-mobile-deck-card__inner">
+                <h3>Who This Is For?</h3>
+                <p>
+                  Families and students looking to develop skill on low brass instruments and build a lasting love for music through performance.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <div class="mrm-home-signal">
     <div class="mrm-home-shell">
       <div class="mrm-home-signal-grid mrm-home-identity-desktop" id="mrm-home-identity">
@@ -510,3 +676,169 @@
   </section>
 </div>
 
+<script>
+(function(){
+  var mobileQuery = window.matchMedia('(max-width:760px)');
+  var decks = Array.prototype.slice.call(document.querySelectorAll('[data-mrm-mobile-deck]'));
+  if(!decks.length) return;
+
+  function clamp(value, min, max){
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function lerp(a, b, t){
+    return a + (b - a) * t;
+  }
+
+  function easeInOutCubic(t){
+    return t < 0.5
+      ? 4 * t * t * t
+      : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function getStackTransform(position){
+    return {
+      x: 0,
+      y: position * 18,
+      scale: 1 - position * 0.04,
+      rotate: position * -1.5
+    };
+  }
+
+  function resetDeck(deck){
+    var scroll = deck.querySelector('.mrm-mobile-deck-scroll');
+    var stage = deck.querySelector('.mrm-mobile-deck-stage');
+    var cards = Array.prototype.slice.call(deck.querySelectorAll('.mrm-mobile-deck-card'));
+    if(scroll) scroll.style.height = '';
+    if(stage) stage.style.minHeight = '';
+    cards.forEach(function(card){
+      card.style.transform = '';
+      card.style.opacity = '';
+      card.style.zIndex = '';
+    });
+  }
+
+  function layoutDeck(deck){
+    if(!mobileQuery.matches){
+      resetDeck(deck);
+      return;
+    }
+
+    var scroll = deck.querySelector('.mrm-mobile-deck-scroll');
+    var stage = deck.querySelector('.mrm-mobile-deck-stage');
+    var cards = Array.prototype.slice.call(deck.querySelectorAll('.mrm-mobile-deck-card'));
+    if(!scroll || !stage || !cards.length) return;
+
+    var stageHeight = 0;
+
+    cards.forEach(function(card){
+      card.style.transform = 'none';
+      card.style.opacity = '1';
+      stageHeight = Math.max(stageHeight, card.offsetHeight || 0);
+    });
+
+    stage.style.minHeight = stageHeight + 'px';
+
+    var viewport = window.innerHeight || document.documentElement.clientHeight || 800;
+    var animatedCount = Math.max(0, cards.length - 1);
+    var holdDistance = viewport * 0.58;
+    var moveDistance = viewport * 0.86;
+    var finalRevealDistance = viewport * 0.35;
+
+    scroll.style.height = ((holdDistance + moveDistance) * animatedCount + finalRevealDistance) + 'px';
+
+    updateDeck(deck);
+  }
+
+  function updateDeck(deck){
+    if(!mobileQuery.matches) return;
+
+    var scroll = deck.querySelector('.mrm-mobile-deck-scroll');
+    var cards = Array.prototype.slice.call(deck.querySelectorAll('.mrm-mobile-deck-card'));
+    if(!scroll || !cards.length) return;
+
+    var viewport = window.innerHeight || document.documentElement.clientHeight || 800;
+    var animatedCount = Math.max(0, cards.length - 1);
+    var scrollRect = scroll.getBoundingClientRect();
+    var totalScrollable = Math.max(1, scroll.offsetHeight - viewport);
+    var progress = clamp((-scrollRect.top) / totalScrollable, 0, 1);
+
+    if(animatedCount === 0){
+      var only = getStackTransform(0);
+      cards[0].style.transform =
+        'translate3d(' + only.x + 'px,' + only.y + 'px,0) scale(' + only.scale + ') rotate(' + only.rotate + 'deg)';
+      cards[0].style.opacity = '1';
+      cards[0].style.zIndex = '10';
+      return;
+    }
+
+    var rawStep = progress * animatedCount;
+    var completed = Math.min(animatedCount, Math.floor(rawStep));
+    var phase = completed >= animatedCount ? 1 : clamp(rawStep - completed, 0, 1);
+
+    var order = [];
+    for(var i = 0; i < cards.length; i++){
+      order.push((completed + i) % cards.length);
+    }
+
+    cards.forEach(function(card, index){
+      var stackPos = order.indexOf(index);
+      var resting = getStackTransform(stackPos);
+
+      card.style.transform =
+        'translate3d(' + resting.x + 'px,' + resting.y + 'px,0) scale(' + resting.scale + ') rotate(' + resting.rotate + 'deg)';
+      card.style.opacity = '1';
+      card.style.zIndex = String(cards.length - stackPos);
+    });
+
+    if(completed >= animatedCount) return;
+    if(phase < 0.45) return;
+
+    var activeCardIndex = order[0];
+    var activeCard = cards[activeCardIndex];
+    var t = (phase - 0.45) / 0.55;
+    var exitEnd = 0.68;
+    var returnStart = 0.68;
+    var start = getStackTransform(0);
+    var end = getStackTransform(cards.length - 1);
+
+    if(t < exitEnd){
+      var et = t / exitEnd;
+      var ee = easeInOutCubic(et);
+
+      activeCard.style.transform =
+        'translate3d(' + lerp(start.x, -260, ee) + 'px,' + lerp(start.y, start.y + 118, ee) + 'px,0) scale(' + lerp(start.scale, 0.94, ee) + ') rotate(' + lerp(start.rotate, -12, ee) + 'deg)';
+      activeCard.style.opacity = '1';
+      activeCard.style.zIndex = String(cards.length + 2);
+    } else {
+      var rt = (t - returnStart) / (1 - returnStart);
+      var re = easeInOutCubic(rt);
+
+      activeCard.style.transform =
+        'translate3d(' + lerp(-260, end.x, re) + 'px,' + lerp(start.y + 118, end.y, re) + 'px,0) scale(' + lerp(0.94, end.scale, re) + ') rotate(' + lerp(-12, end.rotate, re) + 'deg)';
+      activeCard.style.opacity = '1';
+      activeCard.style.zIndex = '1';
+    }
+  }
+
+  function layoutAll(){
+    decks.forEach(layoutDeck);
+  }
+
+  var ticking = false;
+  function onScroll(){
+    if(!mobileQuery.matches) return;
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      decks.forEach(updateDeck);
+      ticking = false;
+    });
+  }
+
+  layoutAll();
+  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('resize', layoutAll);
+  window.addEventListener('load', layoutAll);
+})();
+</script>
