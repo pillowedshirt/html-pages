@@ -1036,12 +1036,11 @@
     deck.style.setProperty('--mrm-deck-top-offset', stickyTop + 'px');
 
     var animatedCount = Math.max(0, cards.length - 1);
-    var holdDistance = Math.max(240, Math.round(viewport * 0.42));
-    var moveDistance = Math.max(180, Math.round(viewport * 0.28));
-    var finalRevealDistance = Math.max(120, Math.round(viewport * 0.18));
+    var stepDistance = Math.max(520, Math.round(viewport * 0.82));
+    var releaseDistance = Math.max(32, (viewport - (stickyTop + stageHeight)) + 32);
 
     scroll.style.height =
-      (stickyTop + stageHeight + ((holdDistance + moveDistance) * animatedCount) + finalRevealDistance) + 'px';
+      (stickyTop + stageHeight + (stepDistance * animatedCount) + releaseDistance) + 'px';
 
     updateDeck(deck);
   }
@@ -1092,13 +1091,14 @@
     });
 
     if(completed >= animatedCount) return;
-    if(phase < 0.60) return;
+
+    var holdRatio = 0.74;
+    if(phase < holdRatio) return;
 
     var activeCardIndex = order[0];
     var activeCard = cards[activeCardIndex];
-    var t = (phase - 0.60) / 0.40;
-    var exitEnd = 0.55;
-    var returnStart = 0.55;
+    var t = (phase - holdRatio) / (1 - holdRatio);
+    var exitEnd = 0.5;
     var start = getStackTransform(0);
     var end = getStackTransform(cards.length - 1);
 
@@ -1107,15 +1107,15 @@
       var ee = easeInOutCubic(et);
 
       activeCard.style.transform =
-        'translate3d(' + lerp(start.x, -140, ee) + 'px,' + lerp(start.y, start.y + 30, ee) + 'px,0) scale(1) rotate(' + lerp(start.rotate, -4, ee) + 'deg)';
+        'translate3d(' + lerp(start.x, -120, ee) + 'px,' + lerp(start.y, start.y + 24, ee) + 'px,0) scale(1) rotate(' + lerp(start.rotate, -4, ee) + 'deg)';
       activeCard.style.opacity = '1';
       activeCard.style.zIndex = String(cards.length + 2);
     } else {
-      var rt = (t - returnStart) / (1 - returnStart);
+      var rt = (t - exitEnd) / (1 - exitEnd);
       var re = easeInOutCubic(rt);
 
       activeCard.style.transform =
-        'translate3d(' + lerp(-140, end.x, re) + 'px,' + lerp(start.y + 30, end.y, re) + 'px,0) scale(1) rotate(' + lerp(-4, end.rotate, re) + 'deg)';
+        'translate3d(' + lerp(-120, end.x, re) + 'px,' + lerp(start.y + 24, end.y, re) + 'px,0) scale(1) rotate(' + lerp(-4, end.rotate, re) + 'deg)';
       activeCard.style.opacity = '1';
       activeCard.style.zIndex = '1';
     }
