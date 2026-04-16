@@ -312,14 +312,14 @@
       white-space:nowrap;
     }
   }
-@media (min-width:761px){
+@media (min-width:821px){
   .mrm-home-identity-mobile-stack,
   .mrm-about-standards-mobile-stack{
     display:none !important;
   }
 }
 
-@media (max-width:760px){
+@media (max-width:820px){
   .mrm-home-identity-desktop,
   .mrm-about-standards-desktop{
     display:none !important;
@@ -393,7 +393,7 @@
     flex-direction:column;
     justify-content:center !important;
     align-content:stretch !important;
-    overflow:hidden;
+    overflow:visible;
     transform:none;
     opacity:1;
     will-change:transform, opacity;
@@ -408,7 +408,9 @@
   .mrm-deck.is-deck-ready .mrm-deck-sticky{
     position:sticky;
     top:0;
-    height:100svh;
+    min-height:100vh;
+    min-height:100svh;
+    height:100dvh;
     display:grid;
     align-items:center;
   }
@@ -425,10 +427,6 @@
 
   .mrm-deck.is-deck-ready .mrm-deck-card.is-active{
     pointer-events:auto;
-  }
-
-  .mrm-deck[data-deck-ready="true"] .mrm-deck-sticky{
-    outline:2px dashed rgba(180,120,40,.35);
   }
 
   /* Neutralize old page-specific mobile card flow behavior inside the deck only */
@@ -533,7 +531,7 @@
         </div>
       </div>
 
-      <div class="mrm-home-identity-mobile-stack mrm-deck" data-deck data-deck-breakpoint="760" data-deck-hold="0.42" aria-label="Core values card deck">
+      <div class="mrm-home-identity-mobile-stack mrm-deck" data-deck data-deck-breakpoint="820" data-deck-hold="0.42" aria-label="Core values card deck">
         <div class="mrm-deck-scroll">
           <div class="mrm-deck-sticky">
             <div class="mrm-deck-stage">
@@ -671,6 +669,7 @@
     var cards = deck.querySelectorAll('.mrm-deck-card');
 
     deck.classList.remove('is-deck-ready');
+    deck.removeAttribute('data-deck-ready');
 
     if(scroll) scroll.style.height = '';
     if(stage) stage.style.minHeight = '';
@@ -832,4 +831,3 @@
   rebuild();
 })();
 </script>
-
