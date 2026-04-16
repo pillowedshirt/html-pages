@@ -479,13 +479,13 @@
 
   .mrm-mobile-deck-sticky{
     position:sticky;
-    top:4px;
+    top:0;
   }
 
   .mrm-mobile-deck-stage{
     position:relative;
     width:100%;
-    min-height:420px;
+    min-height:0;
     overflow:visible;
   }
 
@@ -493,7 +493,7 @@
     position:absolute;
     inset:0;
     width:100%;
-    min-height:420px;
+    min-height:0;
     border-radius:28px;
     background:linear-gradient(180deg, #26211c, #171512);
     border:1px solid rgba(255,255,255,.08);
@@ -507,16 +507,16 @@
 
   .mrm-mobile-deck-card__inner{
     height:100%;
-    padding:22px 20px;
+    padding:8px 14px 10px;
     display:flex;
     flex-direction:column;
-    justify-content:flex-end;
+    justify-content:flex-start;
   }
 
   .mrm-mobile-deck-card__inner h2,
   .mrm-mobile-deck-card__inner h3{
     color:#fff;
-    margin:0 0 12px;
+    margin:0 0 10px;
   }
 
   .mrm-mobile-deck-card__inner p{
@@ -529,7 +529,7 @@
 
   .mrm-mobile-deck-card__inner .mrm-about-kicker{
     color:#d7c792 !important;
-    margin-bottom:10px;
+    margin-bottom:8px;
     display:inline-block;
   }
 }
@@ -797,20 +797,26 @@
     var stageHeight = 0;
 
     cards.forEach(function(card){
+      var inner = card.querySelector('.mrm-mobile-deck-card__inner');
       card.style.transform = 'none';
       card.style.opacity = '1';
-      stageHeight = Math.max(stageHeight, card.offsetHeight || 0);
+      card.style.zIndex = '';
+
+      stageHeight = Math.max(
+        stageHeight,
+        inner ? Math.ceil(inner.scrollHeight) : Math.ceil(card.scrollHeight || card.offsetHeight || 0)
+      );
     });
 
+    stageHeight += 12;
     stage.style.minHeight = stageHeight + 'px';
 
-    var viewport = window.innerHeight || document.documentElement.clientHeight || 800;
     var animatedCount = Math.max(0, cards.length - 1);
-    var holdDistance = viewport * 0.58;
-    var moveDistance = viewport * 0.86;
-    var finalRevealDistance = viewport * 0.35;
+    var holdDistance = 6;
+    var moveDistance = 12;
+    var finalRevealDistance = 2;
 
-    scroll.style.height = ((holdDistance + moveDistance) * animatedCount + finalRevealDistance) + 'px';
+    scroll.style.height = (stageHeight + ((holdDistance + moveDistance) * animatedCount) + finalRevealDistance) + 'px';
 
     updateDeck(deck);
   }
@@ -825,7 +831,8 @@
     var viewport = window.innerHeight || document.documentElement.clientHeight || 800;
     var animatedCount = Math.max(0, cards.length - 1);
     var scrollRect = scroll.getBoundingClientRect();
-    var totalScrollable = Math.max(1, scroll.offsetHeight - viewport);
+    var stage = deck.querySelector('.mrm-mobile-deck-stage');
+    var totalScrollable = Math.max(1, scroll.offsetHeight - (stage ? stage.offsetHeight : 0));
     var progress = clamp((-scrollRect.top) / totalScrollable, 0, 1);
 
     if(animatedCount === 0){
