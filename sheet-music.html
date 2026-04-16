@@ -390,9 +390,9 @@
 
   .mrm-mobile-deck-block{
     display:block;
-    margin-top:0;
-    margin-bottom:0;
+    margin:0;
     padding:0;
+    --mrm-deck-top-offset:16px;
   }
 
   .mrm-mobile-deck-scroll{
@@ -401,7 +401,7 @@
 
   .mrm-mobile-deck-sticky{
     position:sticky;
-    top:0;
+    top:var(--mrm-deck-top-offset);
   }
 
   .mrm-mobile-deck-stage{
@@ -416,6 +416,7 @@
     inset:0;
     width:100%;
     min-height:0;
+    box-sizing:border-box;
     border-radius:20px;
     background:#fff;
     border:1px solid var(--mrm-line);
@@ -427,8 +428,10 @@
   }
 
   .mrm-mobile-deck-card__inner{
-    height:100%;
-    padding:8px 14px 10px;
+    box-sizing:border-box;
+    height:auto;
+    min-height:0;
+    padding:18px 16px 20px;
     display:flex;
     flex-direction:column;
     justify-content:flex-start;
@@ -627,9 +630,9 @@
   function getStackTransform(position){
     return {
       x: 0,
-      y: position * 18,
-      scale: 1 - position * 0.04,
-      rotate: position * -1.5
+      y: position * 14,
+      scale: 1,
+      rotate: position * -0.6
     };
   }
 
@@ -637,8 +640,18 @@
     var scroll = deck.querySelector('.mrm-mobile-deck-scroll');
     var stage = deck.querySelector('.mrm-mobile-deck-stage');
     var cards = Array.prototype.slice.call(deck.querySelectorAll('.mrm-mobile-deck-card'));
-    if(scroll) scroll.style.height = '';
-    if(stage) stage.style.minHeight = '';
+
+    if(scroll){
+      scroll.style.height = '';
+    }
+
+    if(stage){
+      stage.style.height = '';
+      stage.style.minHeight = '';
+    }
+
+    deck.style.removeProperty('--mrm-deck-top-offset');
+
     cards.forEach(function(card){
       card.style.transform = '';
       card.style.opacity = '';
@@ -655,31 +668,46 @@
     var scroll = deck.querySelector('.mrm-mobile-deck-scroll');
     var stage = deck.querySelector('.mrm-mobile-deck-stage');
     var cards = Array.prototype.slice.call(deck.querySelectorAll('.mrm-mobile-deck-card'));
+
     if(!scroll || !stage || !cards.length) return;
 
-    var stageHeight = 0;
+    stage.style.height = '';
+    stage.style.minHeight = '';
+
+    var contentHeight = 0;
 
     cards.forEach(function(card){
       var inner = card.querySelector('.mrm-mobile-deck-card__inner');
+
       card.style.transform = 'none';
       card.style.opacity = '1';
       card.style.zIndex = '';
 
-      stageHeight = Math.max(
-        stageHeight,
-        inner ? Math.ceil(inner.scrollHeight) : Math.ceil(card.scrollHeight || card.offsetHeight || 0)
-      );
+      var measuredHeight = inner
+        ? Math.ceil(inner.scrollHeight)
+        : Math.ceil(card.scrollHeight || card.offsetHeight || 0);
+
+      contentHeight = Math.max(contentHeight, measuredHeight);
     });
 
-    stageHeight += 12;
+    var stackSpread = Math.max(0, cards.length - 1) * 14;
+    var stageHeight = contentHeight + stackSpread + 24;
+
+    stage.style.height = stageHeight + 'px';
     stage.style.minHeight = stageHeight + 'px';
 
-    var animatedCount = Math.max(0, cards.length - 1);
-    var holdDistance = 6;
-    var moveDistance = 12;
-    var finalRevealDistance = 2;
+    var viewport = window.innerHeight || document.documentElement.clientHeight || 800;
+    var stickyTop = Math.max(16, Math.round((viewport - stageHeight) / 2));
 
-    scroll.style.height = (stageHeight + ((holdDistance + moveDistance) * animatedCount) + finalRevealDistance) + 'px';
+    deck.style.setProperty('--mrm-deck-top-offset', stickyTop + 'px');
+
+    var animatedCount = Math.max(0, cards.length - 1);
+    var holdDistance = Math.max(240, Math.round(viewport * 0.42));
+    var moveDistance = Math.max(180, Math.round(viewport * 0.28));
+    var finalRevealDistance = Math.max(120, Math.round(viewport * 0.18));
+
+    scroll.style.height =
+      (stickyTop + stageHeight + ((holdDistance + moveDistance) * animatedCount) + finalRevealDistance) + 'px';
 
     updateDeck(deck);
   }
@@ -688,20 +716,23 @@
     if(!mobileQuery.matches) return;
 
     var scroll = deck.querySelector('.mrm-mobile-deck-scroll');
+    var stage = deck.querySelector('.mrm-mobile-deck-stage');
     var cards = Array.prototype.slice.call(deck.querySelectorAll('.mrm-mobile-deck-card'));
-    if(!scroll || !cards.length) return;
 
-    var viewport = window.innerHeight || document.documentElement.clientHeight || 800;
+    if(!scroll || !stage || !cards.length) return;
+
+    var stickyTopValue = parseFloat(getComputedStyle(deck).getPropertyValue('--mrm-deck-top-offset'));
+    var stickyTop = isNaN(stickyTopValue) ? 16 : stickyTopValue;
+
     var animatedCount = Math.max(0, cards.length - 1);
     var scrollRect = scroll.getBoundingClientRect();
-    var stage = deck.querySelector('.mrm-mobile-deck-stage');
-    var totalScrollable = Math.max(1, scroll.offsetHeight - (stage ? stage.offsetHeight : 0));
-    var progress = clamp((-scrollRect.top) / totalScrollable, 0, 1);
+    var totalScrollable = Math.max(1, scroll.offsetHeight - stage.offsetHeight);
+    var progress = clamp((stickyTop - scrollRect.top) / totalScrollable, 0, 1);
 
     if(animatedCount === 0){
       var only = getStackTransform(0);
       cards[0].style.transform =
-        'translate3d(' + only.x + 'px,' + only.y + 'px,0) scale(' + only.scale + ') rotate(' + only.rotate + 'deg)';
+        'translate3d(' + only.x + 'px,' + only.y + 'px,0) scale(1) rotate(' + only.rotate + 'deg)';
       cards[0].style.opacity = '1';
       cards[0].style.zIndex = '10';
       return;
@@ -721,19 +752,19 @@
       var resting = getStackTransform(stackPos);
 
       card.style.transform =
-        'translate3d(' + resting.x + 'px,' + resting.y + 'px,0) scale(' + resting.scale + ') rotate(' + resting.rotate + 'deg)';
+        'translate3d(' + resting.x + 'px,' + resting.y + 'px,0) scale(1) rotate(' + resting.rotate + 'deg)';
       card.style.opacity = '1';
       card.style.zIndex = String(cards.length - stackPos);
     });
 
     if(completed >= animatedCount) return;
-    if(phase < 0.45) return;
+    if(phase < 0.60) return;
 
     var activeCardIndex = order[0];
     var activeCard = cards[activeCardIndex];
-    var t = (phase - 0.45) / 0.55;
-    var exitEnd = 0.68;
-    var returnStart = 0.68;
+    var t = (phase - 0.60) / 0.40;
+    var exitEnd = 0.55;
+    var returnStart = 0.55;
     var start = getStackTransform(0);
     var end = getStackTransform(cards.length - 1);
 
@@ -742,7 +773,7 @@
       var ee = easeInOutCubic(et);
 
       activeCard.style.transform =
-        'translate3d(' + lerp(start.x, -260, ee) + 'px,' + lerp(start.y, start.y + 118, ee) + 'px,0) scale(' + lerp(start.scale, 0.94, ee) + ') rotate(' + lerp(start.rotate, -12, ee) + 'deg)';
+        'translate3d(' + lerp(start.x, -140, ee) + 'px,' + lerp(start.y, start.y + 30, ee) + 'px,0) scale(1) rotate(' + lerp(start.rotate, -4, ee) + 'deg)';
       activeCard.style.opacity = '1';
       activeCard.style.zIndex = String(cards.length + 2);
     } else {
@@ -750,7 +781,7 @@
       var re = easeInOutCubic(rt);
 
       activeCard.style.transform =
-        'translate3d(' + lerp(-260, end.x, re) + 'px,' + lerp(start.y + 118, end.y, re) + 'px,0) scale(' + lerp(0.94, end.scale, re) + ') rotate(' + lerp(-12, end.rotate, re) + 'deg)';
+        'translate3d(' + lerp(-140, end.x, re) + 'px,' + lerp(start.y + 30, end.y, re) + 'px,0) scale(1) rotate(' + lerp(-4, end.rotate, re) + 'deg)';
       activeCard.style.opacity = '1';
       activeCard.style.zIndex = '1';
     }
@@ -764,6 +795,7 @@
   function onScroll(){
     if(!mobileQuery.matches) return;
     if(ticking) return;
+
     ticking = true;
     requestAnimationFrame(function(){
       decks.forEach(updateDeck);
@@ -771,9 +803,22 @@
     });
   }
 
+  var resizeTimer = null;
+  function onResize(){
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(layoutAll, 60);
+  }
+
   layoutAll();
   window.addEventListener('scroll', onScroll, { passive:true });
-  window.addEventListener('resize', layoutAll);
+  window.addEventListener('resize', onResize);
+  window.addEventListener('orientationchange', layoutAll);
   window.addEventListener('load', layoutAll);
+
+  if(mobileQuery.addEventListener){
+    mobileQuery.addEventListener('change', layoutAll);
+  } else if(mobileQuery.addListener){
+    mobileQuery.addListener(layoutAll);
+  }
 })();
 </script>
