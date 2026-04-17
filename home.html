@@ -392,23 +392,25 @@
     display:block;
     margin:0;
     padding:0;
-    --mrm-deck-top-offset:16px;
   }
 
   .mrm-mobile-deck-scroll{
     position:relative;
+    height:auto !important;
   }
 
   .mrm-mobile-deck-sticky{
-    position:sticky;
-    top:var(--mrm-deck-top-offset);
+    position:relative;
+    top:auto;
   }
 
   .mrm-mobile-deck-stage{
     position:relative;
     width:100%;
     min-height:0;
-    overflow:visible;
+    overflow:hidden;
+    perspective:1400px;
+    touch-action:pan-y;
   }
 
   .mrm-mobile-deck-card{
@@ -422,9 +424,22 @@
     border:1px solid var(--line);
     box-shadow:0 18px 40px rgba(25,22,18,.14);
     overflow:hidden;
-    will-change:transform, opacity;
     backface-visibility:hidden;
     transform-origin:center center;
+    opacity:0;
+    pointer-events:none;
+    will-change:transform, opacity;
+  }
+
+  .mrm-mobile-deck-card.is-active{
+    opacity:1;
+    pointer-events:auto;
+    z-index:3;
+  }
+
+  .mrm-mobile-deck-card.is-before,
+  .mrm-mobile-deck-card.is-after{
+    z-index:1;
   }
 
   .mrm-mobile-deck-card__inner{
@@ -555,7 +570,7 @@
     </div>
   </section>
 
-  <section class="mrm-mobile-deck-block" data-mrm-mobile-deck>
+  <section class="mrm-mobile-deck-block mrm-home-swipe-deck" data-mrm-mobile-deck>
     <div class="mrm-home-shell">
       <div class="mrm-mobile-deck-scroll">
         <div class="mrm-mobile-deck-sticky">
@@ -706,215 +721,226 @@
 <script>
 (function(){
   var mobileQuery = window.matchMedia('(max-width:760px)');
-  var decks = Array.prototype.slice.call(document.querySelectorAll('[data-mrm-mobile-deck]'));
+  var decks = Array.prototype.slice.call(document.querySelectorAll('.mrm-home-swipe-deck[data-mrm-mobile-deck]'));
   if(!decks.length) return;
 
   function clamp(value, min, max){
     return Math.min(max, Math.max(min, value));
   }
 
-  function lerp(a, b, t){
-    return a + (b - a) * t;
+  function getCards(deck){
+    return Array.prototype.slice.call(deck.querySelectorAll('.mrm-mobile-deck-card'));
   }
 
-  function easeInOutCubic(t){
-    return t < 0.5
-      ? 4 * t * t * t
-      : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  function clearCardState(card){
+    card.classList.remove('is-active', 'is-before', 'is-after');
+    card.style.transition = '';
   }
 
-  function getStackTransform(position){
-    return {
-      x: 0,
-      y: position * 14,
-      scale: 1,
-      rotate: position * -0.6
-    };
+  function setCardInstant(card, transform, opacity, zIndex){
+    card.style.transform = transform;
+    card.style.opacity = opacity;
+    card.style.zIndex = zIndex;
   }
 
-  function resetDeck(deck){
-    var scroll = deck.querySelector('.mrm-mobile-deck-scroll');
+  function measureDeck(deck){
     var stage = deck.querySelector('.mrm-mobile-deck-stage');
-    var cards = Array.prototype.slice.call(deck.querySelectorAll('.mrm-mobile-deck-card'));
+    var cards = getCards(deck);
+    if(!stage || !cards.length) return;
 
-    if(scroll){
-      scroll.style.height = '';
-    }
-
-    if(stage){
-      stage.style.height = '';
-      stage.style.minHeight = '';
-    }
-
-    deck.style.removeProperty('--mrm-deck-top-offset');
+    var maxHeight = 0;
 
     cards.forEach(function(card){
-      card.style.transform = '';
-      card.style.opacity = '';
-      card.style.zIndex = '';
-    });
-  }
-
-  function layoutDeck(deck){
-    if(!mobileQuery.matches){
-      resetDeck(deck);
-      return;
-    }
-
-    var scroll = deck.querySelector('.mrm-mobile-deck-scroll');
-    var stage = deck.querySelector('.mrm-mobile-deck-stage');
-    var cards = Array.prototype.slice.call(deck.querySelectorAll('.mrm-mobile-deck-card'));
-
-    if(!scroll || !stage || !cards.length) return;
-
-    stage.style.height = '';
-    stage.style.minHeight = '';
-
-    var contentHeight = 0;
-
-    cards.forEach(function(card){
-      var inner = card.querySelector('.mrm-mobile-deck-card__inner');
-
-      card.style.transform = 'none';
+      clearCardState(card);
+      card.style.visibility = 'hidden';
+      card.style.position = 'absolute';
+      card.style.inset = '0';
       card.style.opacity = '1';
-      card.style.zIndex = '';
-
-      var measuredHeight = inner
-        ? Math.ceil(inner.scrollHeight)
-        : Math.ceil(card.scrollHeight || card.offsetHeight || 0);
-
-      contentHeight = Math.max(contentHeight, measuredHeight);
+      card.style.transform = 'rotateY(0deg) translate3d(0,0,0)';
+      maxHeight = Math.max(maxHeight, Math.ceil(card.scrollHeight || card.offsetHeight || 0));
     });
 
-    var stackSpread = Math.max(0, cards.length - 1) * 14;
-    var stageHeight = contentHeight + stackSpread + 24;
+    stage.style.height = maxHeight + 'px';
 
-    stage.style.height = stageHeight + 'px';
-    stage.style.minHeight = stageHeight + 'px';
-
-    var viewport = window.innerHeight || document.documentElement.clientHeight || 800;
-    var stickyTop = Math.max(16, Math.round((viewport - stageHeight) / 2));
-
-    deck.style.setProperty('--mrm-deck-top-offset', stickyTop + 'px');
-
-    var animatedCount = Math.max(0, cards.length - 1);
-    var stepDistance = Math.max(520, Math.round(viewport * 0.82));
-    var releaseDistance = Math.max(32, (viewport - (stickyTop + stageHeight)) + 32);
-
-    scroll.style.height =
-      (stickyTop + stageHeight + (stepDistance * animatedCount) + releaseDistance) + 'px';
-
-    updateDeck(deck);
+    cards.forEach(function(card){
+      card.style.visibility = '';
+    });
   }
 
-  function updateDeck(deck){
-    if(!mobileQuery.matches) return;
-
-    var scroll = deck.querySelector('.mrm-mobile-deck-scroll');
-    var stage = deck.querySelector('.mrm-mobile-deck-stage');
-    var cards = Array.prototype.slice.call(deck.querySelectorAll('.mrm-mobile-deck-card'));
-
-    if(!scroll || !stage || !cards.length) return;
-
-    var stickyTopValue = parseFloat(getComputedStyle(deck).getPropertyValue('--mrm-deck-top-offset'));
-    var stickyTop = isNaN(stickyTopValue) ? 16 : stickyTopValue;
-
-    var animatedCount = Math.max(0, cards.length - 1);
-    var scrollRect = scroll.getBoundingClientRect();
-    var totalScrollable = Math.max(1, scroll.offsetHeight - stage.offsetHeight);
-    var progress = clamp((stickyTop - scrollRect.top) / totalScrollable, 0, 1);
-
-    if(animatedCount === 0){
-      var only = getStackTransform(0);
-      cards[0].style.transform =
-        'translate3d(' + only.x + 'px,' + only.y + 'px,0) scale(1) rotate(' + only.rotate + 'deg)';
-      cards[0].style.opacity = '1';
-      cards[0].style.zIndex = '10';
-      return;
-    }
-
-    var rawStep = progress * animatedCount;
-    var completed = Math.min(animatedCount, Math.floor(rawStep));
-    var phase = completed >= animatedCount ? 1 : clamp(rawStep - completed, 0, 1);
-
-    var order = [];
-    for(var i = 0; i < cards.length; i++){
-      order.push((completed + i) % cards.length);
-    }
+  function applyRestingState(deck){
+    var cards = getCards(deck);
+    var activeIndex = Number(deck.dataset.activeIndex || 0);
 
     cards.forEach(function(card, index){
-      var stackPos = order.indexOf(index);
-      var resting = getStackTransform(stackPos);
+      clearCardState(card);
 
-      card.style.transform =
-        'translate3d(' + resting.x + 'px,' + resting.y + 'px,0) scale(1) rotate(' + resting.rotate + 'deg)';
-      card.style.opacity = '1';
-      card.style.zIndex = String(cards.length - stackPos);
+      if(index === activeIndex){
+        card.classList.add('is-active');
+        setCardInstant(card, 'rotateY(0deg) translate3d(0,0,0)', '1', '3');
+      } else if(index < activeIndex){
+        card.classList.add('is-before');
+        setCardInstant(card, 'rotateY(-90deg) translate3d(-18px,0,0)', '0', '1');
+      } else {
+        card.classList.add('is-after');
+        setCardInstant(card, 'rotateY(90deg) translate3d(18px,0,0)', '0', '1');
+      }
+    });
+  }
+
+  function animateTo(deck, newIndex, direction){
+    var cards = getCards(deck);
+    var currentIndex = Number(deck.dataset.activeIndex || 0);
+
+    if(deck.dataset.animating === 'true') return;
+    if(newIndex === currentIndex) return;
+    if(newIndex < 0 || newIndex >= cards.length) return;
+
+    var currentCard = cards[currentIndex];
+    var nextCard = cards[newIndex];
+    if(!currentCard || !nextCard) return;
+
+    deck.dataset.animating = 'true';
+
+    cards.forEach(function(card){
+      clearCardState(card);
     });
 
-    if(completed >= animatedCount) return;
+    currentCard.style.transition = 'transform 420ms ease, opacity 420ms ease';
+    nextCard.style.transition = 'transform 420ms ease, opacity 420ms ease';
 
-    var holdRatio = 0.74;
-    if(phase < holdRatio) return;
+    if(direction === 'forward'){
+      currentCard.classList.add('is-active');
+      nextCard.classList.add('is-active');
 
-    var activeCardIndex = order[0];
-    var activeCard = cards[activeCardIndex];
-    var t = (phase - holdRatio) / (1 - holdRatio);
-    var exitEnd = 0.5;
-    var start = getStackTransform(0);
-    var end = getStackTransform(cards.length - 1);
+      setCardInstant(currentCard, 'rotateY(0deg) translate3d(0,0,0)', '1', '3');
+      setCardInstant(nextCard, 'rotateY(90deg) translate3d(18px,0,0)', '0', '2');
 
-    if(t < exitEnd){
-      var et = t / exitEnd;
-      var ee = easeInOutCubic(et);
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){
+          currentCard.style.transform = 'rotateY(-90deg) translate3d(-18px,0,0)';
+          currentCard.style.opacity = '0';
 
-      activeCard.style.transform =
-        'translate3d(' + lerp(start.x, -120, ee) + 'px,' + lerp(start.y, start.y + 24, ee) + 'px,0) scale(1) rotate(' + lerp(start.rotate, -4, ee) + 'deg)';
-      activeCard.style.opacity = '1';
-      activeCard.style.zIndex = String(cards.length + 2);
+          nextCard.style.transform = 'rotateY(0deg) translate3d(0,0,0)';
+          nextCard.style.opacity = '1';
+        });
+      });
     } else {
-      var rt = (t - exitEnd) / (1 - exitEnd);
-      var re = easeInOutCubic(rt);
+      currentCard.classList.add('is-active');
+      nextCard.classList.add('is-active');
 
-      activeCard.style.transform =
-        'translate3d(' + lerp(-120, end.x, re) + 'px,' + lerp(start.y + 24, end.y, re) + 'px,0) scale(1) rotate(' + lerp(-4, end.rotate, re) + 'deg)';
-      activeCard.style.opacity = '1';
-      activeCard.style.zIndex = '1';
+      setCardInstant(currentCard, 'rotateY(0deg) translate3d(0,0,0)', '1', '3');
+      setCardInstant(nextCard, 'rotateY(-90deg) translate3d(-18px,0,0)', '0', '2');
+
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){
+          currentCard.style.transform = 'rotateY(90deg) translate3d(18px,0,0)';
+          currentCard.style.opacity = '0';
+
+          nextCard.style.transform = 'rotateY(0deg) translate3d(0,0,0)';
+          nextCard.style.opacity = '1';
+        });
+      });
     }
+
+    window.setTimeout(function(){
+      deck.dataset.activeIndex = String(newIndex);
+      deck.dataset.animating = 'false';
+      applyRestingState(deck);
+    }, 430);
   }
 
-  function layoutAll(){
-    decks.forEach(layoutDeck);
+  function bindSwipe(deck){
+    var stage = deck.querySelector('.mrm-mobile-deck-stage');
+    var cards = getCards(deck);
+    if(!stage || !cards.length) return;
+
+    var startX = 0;
+    var startY = 0;
+    var tracking = false;
+
+    stage.addEventListener('touchstart', function(event){
+      if(!mobileQuery.matches) return;
+      if(!event.touches || !event.touches.length) return;
+
+      var touch = event.touches[0];
+      startX = touch.clientX;
+      startY = touch.clientY;
+      tracking = true;
+    }, { passive:true });
+
+    stage.addEventListener('touchend', function(event){
+      if(!mobileQuery.matches) return;
+      if(!tracking) return;
+      if(!event.changedTouches || !event.changedTouches.length) return;
+
+      tracking = false;
+
+      var touch = event.changedTouches[0];
+      var dx = touch.clientX - startX;
+      var dy = touch.clientY - startY;
+
+      var absX = Math.abs(dx);
+      var absY = Math.abs(dy);
+
+      if(absX < 40) return;
+      if(absX <= absY) return;
+
+      var currentIndex = Number(deck.dataset.activeIndex || 0);
+
+      if(dx < 0){
+        animateTo(deck, clamp(currentIndex + 1, 0, cards.length - 1), 'forward');
+      } else {
+        animateTo(deck, clamp(currentIndex - 1, 0, cards.length - 1), 'backward');
+      }
+    }, { passive:true });
   }
 
-  var ticking = false;
-  function onScroll(){
-    if(!mobileQuery.matches) return;
-    if(ticking) return;
+  function initDeck(deck){
+    if(!mobileQuery.matches){
+      var cards = getCards(deck);
+      var stage = deck.querySelector('.mrm-mobile-deck-stage');
 
-    ticking = true;
-    requestAnimationFrame(function(){
-      decks.forEach(updateDeck);
-      ticking = false;
-    });
+      if(stage){
+        stage.style.height = '';
+      }
+
+      cards.forEach(function(card){
+        card.classList.remove('is-active', 'is-before', 'is-after');
+        card.style.transform = '';
+        card.style.opacity = '';
+        card.style.zIndex = '';
+        card.style.transition = '';
+        card.style.visibility = '';
+      });
+
+      return;
+    }
+
+    if(!deck.dataset.bound){
+      deck.dataset.bound = 'true';
+      deck.dataset.activeIndex = '0';
+      deck.dataset.animating = 'false';
+      bindSwipe(deck);
+    }
+
+    measureDeck(deck);
+    applyRestingState(deck);
   }
 
-  var resizeTimer = null;
-  function onResize(){
-    window.clearTimeout(resizeTimer);
-    resizeTimer = window.setTimeout(layoutAll, 60);
+  function initAll(){
+    decks.forEach(initDeck);
   }
 
-  layoutAll();
-  window.addEventListener('scroll', onScroll, { passive:true });
-  window.addEventListener('resize', onResize);
-  window.addEventListener('orientationchange', layoutAll);
-  window.addEventListener('load', layoutAll);
+  window.addEventListener('resize', initAll);
+  window.addEventListener('orientationchange', initAll);
+  window.addEventListener('load', initAll);
 
   if(mobileQuery.addEventListener){
-    mobileQuery.addEventListener('change', layoutAll);
+    mobileQuery.addEventListener('change', initAll);
   } else if(mobileQuery.addListener){
-    mobileQuery.addListener(layoutAll);
+    mobileQuery.addListener(initAll);
   }
+
+  initAll();
 })();
 </script>
