@@ -411,19 +411,19 @@
     overflow:hidden;
     perspective:1400px;
     touch-action:pan-y;
-    padding-bottom:34px;
+    padding-bottom:46px;
   }
 
   .mrm-home-swipe-cue{
     position:absolute;
     left:50%;
-    bottom:10px;
+    bottom:12px;
     transform:translateX(-50%);
     z-index:5;
     display:flex;
     align-items:center;
-    gap:10px;
-    padding:8px 12px;
+    justify-content:center;
+    padding:8px 14px;
     border-radius:999px;
     background:rgba(255,255,255,.88);
     border:1px solid rgba(190,166,120,.28);
@@ -443,24 +443,7 @@
   .mrm-home-swipe-cue__track{
     display:flex;
     align-items:center;
-    gap:6px;
-  }
-
-  .mrm-home-swipe-cue__dot{
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:linear-gradient(180deg,#d9c39a 0%, #b8945f 100%);
-    box-shadow:0 0 0 1px rgba(255,255,255,.35) inset, 0 0 12px rgba(184,148,95,.35);
-    animation:mrmHomeSwipeCueDots 1.4s ease-in-out infinite;
-  }
-
-  .mrm-home-swipe-cue__dot:nth-child(2){
-    animation-delay:.12s;
-  }
-
-  .mrm-home-swipe-cue__dot:nth-child(3){
-    animation-delay:.24s;
+    gap:8px;
   }
 
   .mrm-home-swipe-cue__arrow{
@@ -468,7 +451,6 @@
     display:block;
     width:18px;
     height:10px;
-    animation:mrmHomeSwipeCueArrow 1.4s ease-in-out infinite;
   }
 
   .mrm-home-swipe-cue__arrow::before,
@@ -493,21 +475,22 @@
     transform:rotate(35deg);
   }
 
-  @keyframes mrmHomeSwipeCueDots{
-    0%, 100%{
-      transform:translateX(0);
-      opacity:.45;
-    }
-    50%{
-      transform:translateX(-6px);
-      opacity:1;
-    }
+  .mrm-home-swipe-cue__arrow--trail{
+    animation:mrmHomeSwipeCueArrowTrail 1.4s ease-in-out infinite;
   }
 
-  @keyframes mrmHomeSwipeCueArrow{
+  .mrm-home-swipe-cue__arrow--trail:nth-child(2){
+    animation-delay:.12s;
+  }
+
+  .mrm-home-swipe-cue__arrow--trail:nth-child(3){
+    animation-delay:.24s;
+  }
+
+  @keyframes mrmHomeSwipeCueArrowTrail{
     0%, 100%{
       transform:translateX(0);
-      opacity:.55;
+      opacity:.38;
     }
     50%{
       transform:translateX(-8px);
@@ -679,11 +662,10 @@
           <div class="mrm-mobile-deck-stage">
             <div class="mrm-home-swipe-cue" aria-hidden="true">
               <span class="mrm-home-swipe-cue__track">
-                <span class="mrm-home-swipe-cue__dot"></span>
-                <span class="mrm-home-swipe-cue__dot"></span>
-                <span class="mrm-home-swipe-cue__dot"></span>
+                <span class="mrm-home-swipe-cue__arrow mrm-home-swipe-cue__arrow--trail"></span>
+                <span class="mrm-home-swipe-cue__arrow mrm-home-swipe-cue__arrow--trail"></span>
+                <span class="mrm-home-swipe-cue__arrow mrm-home-swipe-cue__arrow--trail"></span>
               </span>
-              <span class="mrm-home-swipe-cue__arrow"></span>
             </div>
 
             <article class="mrm-mobile-deck-card">
