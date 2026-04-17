@@ -411,6 +411,108 @@
     overflow:hidden;
     perspective:1400px;
     touch-action:pan-y;
+    padding-bottom:34px;
+  }
+
+  .mrm-home-swipe-cue{
+    position:absolute;
+    left:50%;
+    bottom:10px;
+    transform:translateX(-50%);
+    z-index:5;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:8px 12px;
+    border-radius:999px;
+    background:rgba(255,255,255,.88);
+    border:1px solid rgba(190,166,120,.28);
+    box-shadow:0 10px 24px rgba(25,22,18,.12);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    pointer-events:none;
+    opacity:1;
+    transition:opacity 220ms ease, transform 220ms ease;
+  }
+
+  .mrm-home-swipe-cue.is-hidden{
+    opacity:0;
+    transform:translateX(-50%) translateY(6px);
+  }
+
+  .mrm-home-swipe-cue__track{
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+
+  .mrm-home-swipe-cue__dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:linear-gradient(180deg,#d9c39a 0%, #b8945f 100%);
+    box-shadow:0 0 0 1px rgba(255,255,255,.35) inset, 0 0 12px rgba(184,148,95,.35);
+    animation:mrmHomeSwipeCueDots 1.4s ease-in-out infinite;
+  }
+
+  .mrm-home-swipe-cue__dot:nth-child(2){
+    animation-delay:.12s;
+  }
+
+  .mrm-home-swipe-cue__dot:nth-child(3){
+    animation-delay:.24s;
+  }
+
+  .mrm-home-swipe-cue__arrow{
+    position:relative;
+    display:block;
+    width:18px;
+    height:10px;
+    animation:mrmHomeSwipeCueArrow 1.4s ease-in-out infinite;
+  }
+
+  .mrm-home-swipe-cue__arrow::before,
+  .mrm-home-swipe-cue__arrow::after{
+    content:"";
+    position:absolute;
+    left:0;
+    width:10px;
+    height:2px;
+    border-radius:999px;
+    background:linear-gradient(90deg,#c7ab7d 0%, #9d7747 100%);
+    transform-origin:left center;
+  }
+
+  .mrm-home-swipe-cue__arrow::before{
+    top:1px;
+    transform:rotate(-35deg);
+  }
+
+  .mrm-home-swipe-cue__arrow::after{
+    bottom:1px;
+    transform:rotate(35deg);
+  }
+
+  @keyframes mrmHomeSwipeCueDots{
+    0%, 100%{
+      transform:translateX(0);
+      opacity:.45;
+    }
+    50%{
+      transform:translateX(-6px);
+      opacity:1;
+    }
+  }
+
+  @keyframes mrmHomeSwipeCueArrow{
+    0%, 100%{
+      transform:translateX(0);
+      opacity:.55;
+    }
+    50%{
+      transform:translateX(-8px);
+      opacity:1;
+    }
   }
 
   .mrm-mobile-deck-card{
@@ -575,6 +677,15 @@
       <div class="mrm-mobile-deck-scroll">
         <div class="mrm-mobile-deck-sticky">
           <div class="mrm-mobile-deck-stage">
+            <div class="mrm-home-swipe-cue" aria-hidden="true">
+              <span class="mrm-home-swipe-cue__track">
+                <span class="mrm-home-swipe-cue__dot"></span>
+                <span class="mrm-home-swipe-cue__dot"></span>
+                <span class="mrm-home-swipe-cue__dot"></span>
+              </span>
+              <span class="mrm-home-swipe-cue__arrow"></span>
+            </div>
+
             <article class="mrm-mobile-deck-card">
               <div class="mrm-mobile-deck-card__inner">
                 <h3>Mission</h3>
@@ -732,6 +843,19 @@
     return Array.prototype.slice.call(deck.querySelectorAll('.mrm-mobile-deck-card'));
   }
 
+  function updateSwipeCue(deck){
+    var cue = deck.querySelector('.mrm-home-swipe-cue');
+    var cards = getCards(deck);
+    var activeIndex = Number(deck.dataset.activeIndex || 0);
+    if(!cue || !cards.length) return;
+
+    if(activeIndex >= cards.length - 1){
+      cue.classList.add('is-hidden');
+    } else {
+      cue.classList.remove('is-hidden');
+    }
+  }
+
   function clearCardState(card){
     card.classList.remove('is-active', 'is-before', 'is-after');
     card.style.transition = '';
@@ -785,6 +909,8 @@
         setCardInstant(card, 'rotateY(90deg) translate3d(18px,0,0)', '0', '1');
       }
     });
+
+    updateSwipeCue(deck);
   }
 
   function animateTo(deck, newIndex, direction){
@@ -899,9 +1025,14 @@
     if(!mobileQuery.matches){
       var cards = getCards(deck);
       var stage = deck.querySelector('.mrm-mobile-deck-stage');
+      var cue = deck.querySelector('.mrm-home-swipe-cue');
 
       if(stage){
         stage.style.height = '';
+      }
+
+      if(cue){
+        cue.classList.remove('is-hidden');
       }
 
       cards.forEach(function(card){
