@@ -286,8 +286,7 @@
     .mrm-about-section{ padding:68px 0; }
     .mrm-about-hero-grid{ padding:44px 0 52px; }
     .mrm-about-hero-intro{ grid-template-columns:1.05fr .95fr; gap:22px; }
-  
-  .mrm-about-rail-layout{ grid-template-columns:220px minmax(0,1fr); gap:20px; }
+    .mrm-about-rail-layout{ grid-template-columns:220px minmax(0,1fr); gap:20px; }
     .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
     .mrm-about-hero-transition{ border-radius:24px; min-height:240px; margin-top:12px; }
     .mrm-about-main-section{ padding-top:9px; }
@@ -296,32 +295,184 @@
   }
 
   @media (max-width:760px){
-    .mrm-about-shell{ width:min(1160px, calc(100% - 22px)); }
-    .mrm-about-section{ padding:52px 0; }
-    .mrm-about-hero-grid{ gap:16px; padding:30px 0 42px; }
-    .mrm-about-hero-intro{ grid-template-columns:minmax(0,1fr); gap:16px; }
-  
-  .mrm-about-rail-layout{ grid-template-columns:minmax(0,1fr); }
-    .mrm-about-rail{ position:static; top:auto; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px 14px; padding:16px; border-radius:18px; }
-    .mrm-about-rail a{ padding:8px 0; font-size:.84rem; }
-    .mrm-about-stack{ gap:16px; }
-    .mrm-about-panel-head{ padding:20px 20px 0; }
-    .mrm-about-panel-body{ padding:8px 20px 20px; }
-    .mrm-about-card{ border-radius:16px; padding:16px; }
-    .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
-    .mrm-about-hero-logo-block{ margin:14px 0 3px; }
+    .mrm-about-shell{ width:min(1160px, calc(100% - 18px)); }
+
+    .mrm-about-section{
+      padding:26px 0;
+    }
+
+    .mrm-about-hero-grid{
+      gap:14px;
+      padding:20px 0 28px;
+    }
+
+    .mrm-about-editorial,
+    .mrm-about-panel{
+      border-radius:24px;
+      box-shadow:0 16px 36px rgba(25,22,18,.10);
+    }
+
+    .mrm-about-hero-intro{
+      grid-template-columns:minmax(0,1fr);
+      gap:14px;
+    }
+
+    .mrm-about-hero-copy,
+    .mrm-about-benefits{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:18px;
+      box-shadow:0 10px 24px rgba(25,22,18,.06);
+    }
+
+    .mrm-about-rail-layout{
+      grid-template-columns:minmax(0,1fr);
+      gap:14px;
+    }
+
+    .mrm-about-rail{
+      position:static;
+      top:auto;
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      overflow:visible;
+      padding:12px;
+      margin:100px 0 10px;
+      border-radius:22px;
+      scroll-snap-type:none;
+      -webkit-overflow-scrolling:auto;
+      align-items:start;
+    }
+
+    .mrm-about-rail a{
+      scroll-snap-align:none;
+      background:#faf7f1;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:10px 12px;
+      font-size:.74rem;
+      line-height:1.1;
+      min-height:42px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      white-space:nowrap;
+    }
+
+    .mrm-about-stack{ gap:14px; }
+
+    .mrm-about-panel-head{ padding:18px 18px 0; }
+    .mrm-about-panel-body{ padding:8px 18px 18px; }
+
+    .mrm-about-card,
+    .mrm-about-split-card{
+      border-radius:18px;
+    }
+
+    .mrm-about-card{
+      padding:18px;
+      box-shadow:0 10px 24px rgba(25,22,18,.06);
+    }
+
+    .mrm-about-grid-2,
+    .mrm-about-grid-3{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+      overflow:visible;
+      scroll-snap-type:none;
+      -webkit-overflow-scrolling:auto;
+      padding-bottom:0;
+    }
+    .mrm-about-grid-2 > *,
+    .mrm-about-grid-3 > *{
+      scroll-snap-align:none;
+      min-width:0;
+    }
+    #mrm-about-standards .mrm-about-card h3,
+    #mrm-about-standards .mrm-about-card p{
+      word-break:normal;
+      overflow-wrap:break-word;
+      white-space:normal;
+    }
+
+    .mrm-about-hero-logo-block{ margin:12px 0 2px; }
+
     .mrm-about-brand-divider{
-      height:clamp(220px, 56vw, 300px);
+      height:clamp(220px, 58vw, 310px);
       border-radius:22px;
     }
-    .mrm-about-main-section{ padding-top:7px; }
-    .mrm-about-hero-transition{ min-height:210px; }
+
+    .mrm-about-main-section{ padding-top:4px; }
+    .mrm-about-hero-transition{ min-height:190px; border-radius:22px; }
+
+    #mrm-about-standards,
+    #mrm-about-standards .mrm-about-panel,
+    #mrm-about-standards .mrm-about-panel-body{
+      overflow:visible !important;
+    }
   }
 
   @media (max-width:560px){
-    .mrm-about-redesign p{ font-size:1rem; line-height:1.5; margin-bottom:1.5rem; }
-    .mrm-about-grid-2,.mrm-about-grid-3{ grid-template-columns:1fr; }
+    .mrm-about-redesign p{
+      font-size:1rem;
+      line-height:1.58;
+      margin-bottom:1.2rem;
+    }
+
+    .mrm-about-rail{
+      grid-template-columns:1fr 1fr;
+    }
+
+    .mrm-about-rail a{
+      font-size:.7rem;
+      padding:10px 8px;
+    }
   }
+
+@media (min-width:821px){
+  .mrm-pocket-mobile-stack,
+  .mrm-sheet-features-mobile-stack{
+    display:none !important;
+  }
+}
+
+@media (max-width:820px){
+  .mrm-pocket-desktop,
+  .mrm-sheet-features-desktop{
+    display:none !important;
+  }
+
+  .mrm-pocket-mobile-stack,
+  .mrm-sheet-features-mobile-stack{
+    display:block;
+    margin:0;
+    padding:0;
+  }
+
+  .mrm-sheet-card{
+    overflow:visible !important;
+  }
+}
+@media (min-width:761px){
+  .mrm-mobile-deck-block{
+    display:none !important;
+  }
+}
+
+@media (max-width:760px){
+  #mrm-about-standards{
+    display:block !important;
+  }
+
+  .mrm-mobile-deck-block{
+    display:none !important;
+  }
+
+}
 </style>
 
 
@@ -406,7 +557,7 @@
             <p>Low Brass Lessons is built around the idea that families should feel confident not only in the lesson format, but also in the qualifications and professionalism of the instructors they encounter.</p>
           </div>
           <div class="mrm-about-panel-body">
-            <div class="mrm-about-grid-2">
+            <div class="mrm-about-grid-2 mrm-about-standards-desktop">
               <div class="mrm-about-card">
                 <h3>Educational Preparation</h3>
                 <p>Instructors are selected for strong musical and educational backgrounds, including standards such as formal music training and, where applicable, music education degree preparation or completion.</p>
@@ -424,8 +575,11 @@
                 <p>Our instructors are able to demonstrate the ability to teach developing musicians patiently, clearly, and with attention to long-term growth. We ensure that every instructor has a clear pedagogical approach.</p>
               </div>
             </div>
+
           </div>
         </div>
+
+
 
         <div class="mrm-about-panel" id="mrm-about-formats">
           <div class="mrm-about-panel-head">

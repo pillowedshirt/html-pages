@@ -256,14 +256,147 @@
   }
 
   @media (max-width: 820px) {
+    .mrm-sheet-shell {
+      width: min(1140px, calc(100% - 18px));
+    }
+
     .mrm-sheet-section {
-      padding: 34px 0;
+      padding: 24px 0;
+    }
+
+    .mrm-sheet-grid {
+      gap: 14px;
+    }
+
+    .mrm-sheet-card,
+    .mrm-sheet-offer,
+    .mrm-sheet-visual {
+      border-radius: 24px;
+      box-shadow: 0 16px 36px rgba(25,22,18,.10);
+    }
+
+    .mrm-sheet-offer,
+    .mrm-sheet-visual {
+      overflow: hidden;
+    }
+
+    .mrm-sheet-card{
+      overflow: visible;
     }
 
     .mrm-sheet-card {
-      padding: 24px;
+      padding: 20px;
+    }
+
+    .mrm-sheet-btn-row {
+      display:grid;
+      gap:10px;
+    }
+
+    .mrm-sheet-btn {
+      width:100%;
+      justify-content:center;
+      min-height:48px;
+      border-radius:16px;
+      white-space:nowrap;
+    }
+
+    .mrm-sheet-deliverables{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+      overflow:visible;
+      scroll-snap-type:none;
+      -webkit-overflow-scrolling:auto;
+      padding-bottom:0;
+    }
+
+    .mrm-sheet-deliverables > * {
+      scroll-snap-align:none;
+    }
+
+    .mrm-sheet-feature,
+    .mrm-sheet-deliverable {
+      border-radius:20px;
+      box-shadow:0 10px 24px rgba(25,22,18,.06);
+    }
+
+    .mrm-sheet-feature{
+      min-height:100%;
+    }
+
+    .mrm-sheet-deliverable{
+      min-height:auto;
     }
   }
+@media (min-width:761px){
+  .mrm-home-identity-mobile-stack,
+  .mrm-about-standards-mobile-stack{
+    display:none !important;
+  }
+}
+
+@media (max-width:760px){
+  .mrm-home-identity-desktop,
+  .mrm-about-standards-desktop{
+    display:none !important;
+  }
+
+  .mrm-home-identity-mobile-stack,
+  .mrm-about-standards-mobile-stack{
+    display:block;
+    margin:0;
+    padding:0;
+  }
+}
+
+@media (max-width:820px){
+  #mrm-about-standards{
+    overflow:visible !important;
+  }
+
+  #mrm-about-standards .mrm-about-panel{
+    background:transparent;
+    border:none;
+    box-shadow:none;
+    margin:0;
+    overflow:visible !important;
+  }
+
+  #mrm-about-standards .mrm-about-panel-head{
+    padding:18px 18px 8px;
+  }
+
+  #mrm-about-standards .mrm-about-panel-body{
+    padding:0 18px 0;
+    overflow:visible !important;
+  }
+
+  .mrm-sheet-card{
+    overflow:visible !important;
+  }
+}
+@media (min-width:761px){
+  .mrm-mobile-deck-block{
+    display:none !important;
+  }
+}
+
+@media (max-width:760px){
+  .mrm-sheet-features-desktop{
+    display:block !important;
+  }
+
+  .mrm-sheet-feature-intro{
+    display:block;
+    margin-bottom:20px;
+  }
+
+  .mrm-mobile-deck-block{
+    display:none !important;
+  }
+
+}
 </style>
 
 <div class="mrm-sheet-intro">
@@ -299,16 +432,20 @@
   <section class="mrm-sheet-section" style="padding-top:0;">
     <div class="mrm-sheet-shell">
       <div class="mrm-sheet-card">
-        <span class="mrm-sheet-kicker">What makes this series different?</span>
-        <h2>We Leverage Technology To Make Our Pieces Accessible And Enjoyable</h2>
-        <p>
-          The Pocket Orchestra Series is not just a library of PDFs. It is a growing catalog of educational products created to make independent practice, lesson work, and musical development feel more engaging and complete.
-        </p>
-        <p>
-          Each composition is built to give players an environment that the can apply fundamental skills and develop musicality. We write around unique dynamic themes that always carry a story and challenge the student to think about what they are communicating through the melodies they play on their instrument.
-        </p>
+        <div class="mrm-sheet-feature-intro">
+          <span class="mrm-sheet-kicker">What makes this series different?</span>
+          <h2>We Leverage Technology To Make Our Pieces Accessible And Enjoyable</h2>
+          <p>
+            The Pocket Orchestra Series is not just a library of PDFs. It is a growing catalog of educational products created to make independent practice, lesson work, and musical development feel more engaging and complete.
+          </p>
+          <p>
+            Each composition is built to give players an environment that the can apply fundamental skills and develop musicality. We write around unique dynamic themes that always carry a story and challenge the student to think about what they are communicating through the melodies they play on their instrument.
+          </p>
+        </div>
 
-        <div class="mrm-sheet-feature-band">
+
+
+        <div class="mrm-sheet-feature-band mrm-sheet-features-desktop">
           <div class="mrm-sheet-feature">
             <h3>Composer Led</h3>
             <p>Each piece comes from a clearly defined creative voice that remains consistent throughout the collection.</p>
@@ -322,6 +459,7 @@
             <p>Each piece is designed to work well in lessons, personal practice, and independent study settings.</p>
           </div>
         </div>
+
 
         <div class="mrm-sheet-deliverables" style="margin-top:28px;">
           <div class="mrm-sheet-deliverable">
