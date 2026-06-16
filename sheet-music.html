@@ -1,7 +1,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Academico:wght@500;600;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" rel="stylesheet">
 <style>
+  :root {
+    --mrm-font-heading:'Academico', Georgia, 'Times New Roman', serif;
+    --mrm-font-body:'Source Sans 3', Arial, Helvetica, sans-serif;
+  }
+
   .mrm-sheet-intro,
   .mrm-sheet-intro * {
     box-sizing: border-box;
@@ -22,7 +27,7 @@
     width: 100%;
     background: var(--mrm-bg-soft);
     color: var(--mrm-text);
-    font-family: 'Source Sans 3', 'Open Sans', Arial, sans-serif;
+    font-family: 'Source Sans 3', Arial, Helvetica, sans-serif;
     line-height: 1.6;
   }
 
@@ -57,7 +62,7 @@
     text-transform: uppercase;
     color: var(--mrm-gold);
     font-weight: 700;
-    font-family: 'Source Sans 3', 'Open Sans', Arial, sans-serif;
+    font-family: 'Source Sans 3', Arial, Helvetica, sans-serif;
   }
 
   .mrm-sheet-intro h1,
@@ -67,7 +72,7 @@
     line-height: 1.08;
     font-weight: 600;
     color: var(--mrm-text);
-    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    font-family: 'Academico', Georgia, 'Times New Roman', serif;
   }
 
   .mrm-sheet-intro h1 {
@@ -121,7 +126,7 @@
     min-height: 50px;
     padding: 0 22px;
     border-radius: 999px;
-    font: 700 1.125rem/1 'Source Sans 3', 'Open Sans', Arial, sans-serif;
+    font: 700 1.125rem/1 'Source Sans 3', Arial, Helvetica, sans-serif;
     letter-spacing: .02em;
     border: 1px solid transparent;
     transition: .2s ease;
@@ -214,7 +219,7 @@
     border-radius: 999px;
     background: var(--mrm-gold-soft);
     color: var(--mrm-gold-dark);
-    font-family: 'Source Sans 3', 'Open Sans', Arial, sans-serif;
+    font-family: 'Source Sans 3', Arial, Helvetica, sans-serif;
     font-size: .76rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -397,6 +402,40 @@
   }
 
 }
+/* =========================================================
+   MRM Unified Typography Patch
+   Heading: Academico
+   Body/UI: Source Sans 3
+   ========================================================= */
+
+.mrm-sheet-intro,
+.mrm-sheet-intro *,
+.mrm-sheet-intro button,
+.mrm-sheet-intro input,
+.mrm-sheet-intro select,
+.mrm-sheet-intro textarea,
+.mrm-sheetmusic-redesign,
+.mrm-sheetmusic-redesign *,
+.mrm-sheetmusic-redesign button,
+.mrm-sheetmusic-redesign input,
+.mrm-sheetmusic-redesign select,
+.mrm-sheetmusic-redesign textarea {
+  font-family: var(--mrm-font-body) !important;
+}
+
+.mrm-sheet-intro h1,
+.mrm-sheet-intro h2,
+.mrm-sheet-intro h3,
+.mrm-sheet-intro .headline,
+.mrm-sheet-intro .section-title,
+.mrm-sheetmusic-redesign h1,
+.mrm-sheetmusic-redesign h2,
+.mrm-sheetmusic-redesign h3,
+.mrm-sheetmusic-redesign .headline,
+.mrm-sheetmusic-redesign .section-title {
+  font-family: var(--mrm-font-heading) !important;
+}
+
 </style>
 
 <div class="mrm-sheet-intro">
