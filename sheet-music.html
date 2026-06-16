@@ -436,6 +436,45 @@
   font-family: var(--mrm-font-heading) !important;
 }
 
+/* =========================================================
+   MRM Sheet Music Background Cohesion Patch
+   Matches the page background to the home/about/curriculum pages.
+   ========================================================= */
+
+body:has(.mrm-sheet-intro),
+body:has(.mrm-sheet-intro) #page,
+body:has(.mrm-sheet-intro) .site,
+body:has(.mrm-sheet-intro) #content,
+body:has(.mrm-sheet-intro) .site-content,
+body:has(.mrm-sheet-intro) .ast-container,
+body:has(.mrm-sheet-intro) .entry-content,
+body:has(.mrm-sheet-intro) .wp-site-blocks {
+  background: #fbf8f2 !important;
+}
+
+.mrm-sheet-intro {
+  background: #fbf8f2 !important;
+  box-shadow: 0 0 0 100vmax #fbf8f2;
+  clip-path: inset(0 -100vmax);
+}
+
+.mrm-sheet-card,
+.mrm-sheet-visual,
+.mrm-sheet-deliverable {
+  background: #ffffff !important;
+  border-color: #d9cfbe !important;
+}
+
+.mrm-sheet-feature {
+  background: rgba(246, 241, 231, 0.72) !important;
+  border-color: #d9cfbe !important;
+}
+
+.mrm-sheet-offer {
+  background: linear-gradient(140deg, rgba(237,229,209,.78), #ffffff 52%, rgba(246,241,231,.92)) !important;
+  border-color: #d9cfbe !important;
+}
+
 </style>
 
 <div class="mrm-sheet-intro">
