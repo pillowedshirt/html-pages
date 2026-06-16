@@ -1,7 +1,7 @@
 <!-- Low Brass Lessons - Home Page HTML Block (Redesigned) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" rel="stylesheet">
 <style>
   .mrm-home-redesign, .mrm-home-redesign * { box-sizing:border-box; }
   .mrm-home-redesign{
@@ -671,7 +671,7 @@
     </div>
   </section>
 
-  <section class="mrm-mobile-deck-block mrm-home-swipe-deck" data-mrm-mobile-deck>
+  <section class="mrm-mobile-deck-block mrm-home-swipe-deck" data-mrm-mobile-deck="">
     <div class="mrm-home-shell">
       <div class="mrm-mobile-deck-scroll">
         <div class="mrm-mobile-deck-sticky">
@@ -828,8 +828,8 @@
   </section>
 </div>
 
-<script>
-(function(){
+<script data-cfasync="false" data-no-optimize="1" data-no-defer="1" data-no-minify="1">
+function () {
   var mobileQuery = window.matchMedia('(max-width:760px)');
   var decks = Array.prototype.slice.call(document.querySelectorAll('.mrm-home-swipe-deck[data-mrm-mobile-deck]'));
   if(!decks.length) return;
