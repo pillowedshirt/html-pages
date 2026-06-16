@@ -438,26 +438,39 @@
 
 /* =========================================================
    MRM Sheet Music Background Cohesion Patch
-   Matches the page background to the home/about/curriculum pages.
+   Matches the content area to the home/about/curriculum pages
+   without overriding the WordPress/Astra header menu image.
    ========================================================= */
 
-body:has(.mrm-sheet-intro),
-body:has(.mrm-sheet-intro) #page,
-body:has(.mrm-sheet-intro) .site,
-body:has(.mrm-sheet-intro) #content,
-body:has(.mrm-sheet-intro) .site-content,
-body:has(.mrm-sheet-intro) .ast-container,
+/* Keep the content area off-white, but do not style #page, .site,
+   .wp-site-blocks, .site-header, or the Astra header wrappers. */
 body:has(.mrm-sheet-intro) .entry-content,
-body:has(.mrm-sheet-intro) .wp-site-blocks {
+body:has(.mrm-sheet-intro) .site-content .ast-container,
+body:has(.mrm-sheet-intro) main,
+body:has(.mrm-sheet-intro) .site-main,
+body:has(.mrm-sheet-intro) article,
+body:has(.mrm-sheet-intro) .ast-article-single {
   background: #fbf8f2 !important;
 }
 
+/* Make sure the actual custom page block fills the content width
+   with the same off-white color. */
 .mrm-sheet-intro {
   background: #fbf8f2 !important;
   box-shadow: 0 0 0 100vmax #fbf8f2;
   clip-path: inset(0 -100vmax);
 }
 
+/* Do not override header/menu background images on this page. */
+body:has(.mrm-sheet-intro) .site-header,
+body:has(.mrm-sheet-intro) .main-header-bar,
+body:has(.mrm-sheet-intro) .ast-primary-header-bar,
+body:has(.mrm-sheet-intro) .ast-mobile-header-wrap,
+body:has(.mrm-sheet-intro) .ast-desktop-header-content {
+  background-image: inherit;
+}
+
+/* Keep the sheet music cards aligned with the home/about palette. */
 .mrm-sheet-card,
 .mrm-sheet-visual,
 .mrm-sheet-deliverable {
