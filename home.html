@@ -1,36 +1,41 @@
 <!-- Low Brass Lessons - Home Page HTML Block (Redesigned) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Academico:wght@500;600;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" rel="stylesheet">
 <style>
+  :root {
+    --mrm-font-heading:'Academico', Georgia, 'Times New Roman', serif;
+    --mrm-font-body:'Source Sans 3', Arial, Helvetica, sans-serif;
+  }
+
   .mrm-home-redesign, .mrm-home-redesign * { box-sizing:border-box; }
   .mrm-home-redesign{
     --bg:#fbf8f2; --bg2:#f6f1e7; --surface:#fff; --text:#171512; --muted:#5f5851;
     --line:#d9cfbe; --gold:#8e8155; --gold-dark:#6e643f; --gold-soft:#ede5d1;
     --shadow:0 18px 40px rgba(25,22,18,.07);
-    width:100%; color:var(--text); background:var(--bg); font-family:'Source Sans 3', 'Open Sans', Arial, sans-serif; line-height:1.65;
+    width:100%; color:var(--text); background:var(--bg); font-family:'Source Sans 3', Arial, Helvetica, sans-serif; line-height:1.65;
     -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
   }
   .mrm-home-redesign a, .mrm-home-redesign a:hover, .mrm-home-redesign a:focus, .mrm-home-redesign a:visited { text-decoration:none !important; }
   .mrm-home-shell{ width:min(1160px, calc(100% - 32px)); margin:0 auto; }
   .mrm-home-section{ padding:82px 0; }
   .mrm-home-section--faq{ padding-top:42px; }
-  .mrm-home-redesign h1,.mrm-home-redesign h2,.mrm-home-redesign h3{ margin:0 0 12px; color:var(--text); line-height:1.06; font-weight:600; font-family:'Cormorant Garamond', Georgia, 'Times New Roman', serif; }
+  .mrm-home-redesign h1,.mrm-home-redesign h2,.mrm-home-redesign h3{ margin:0 0 12px; color:var(--text); line-height:1.06; font-weight:600; font-family:'Academico', Georgia, 'Times New Roman', serif; }
   .mrm-home-redesign h1{ font-size:clamp(2rem, 4vw, 2.625rem); letter-spacing:-.02em; }
   .mrm-home-redesign h2{ font-size:clamp(1.75rem, 3.5vw, 2rem); letter-spacing:-.018em; }
   .mrm-home-redesign h3{ font-size:clamp(1.375rem, 2.8vw, 1.625rem); }
   .mrm-home-redesign p{ margin:0 0 1.5rem; font-size:1rem; line-height:1.5; color:var(--muted); }
   .mrm-home-kicker{
-    font-family:'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    font-family:'Academico', Georgia, 'Times New Roman', serif;
     display:inline-flex; align-items:center; gap:10px; padding:8px 14px; border-radius:999px;
     background:rgba(255,255,255,.78); border:1px solid var(--line); box-shadow:var(--shadow);
-    font:700 .78rem/1 'Source Sans 3', 'Open Sans', Arial, sans-serif; letter-spacing:.16em; text-transform:uppercase; color:var(--gold);
+    font:700 .78rem/1 'Source Sans 3', Arial, Helvetica, sans-serif; letter-spacing:.16em; text-transform:uppercase; color:var(--gold);
   }
   .mrm-home-kicker:before{ content:""; width:8px; height:8px; border-radius:50%; background:var(--gold); opacity:.7; }
   .mrm-home-btn-row{ display:flex; flex-wrap:wrap; gap:12px; margin-top:22px; }
   .mrm-home-btn{
     min-height:52px; display:inline-flex; align-items:center; justify-content:center; padding:0 22px; border-radius:999px;
-    border:1px solid transparent; font:700 1.125rem/1 'Source Sans 3', 'Open Sans', Arial, sans-serif; letter-spacing:.02em; transition:.2s ease;
+    border:1px solid transparent; font:700 1.125rem/1 'Source Sans 3', Arial, Helvetica, sans-serif; letter-spacing:.02em; transition:.2s ease;
   }
   .mrm-home-btn-primary{ background:var(--gold); color:#fff !important; }
   .mrm-home-btn-primary:hover{ background:var(--gold-dark); transform:translateY(-1px); }
@@ -52,16 +57,16 @@
   }
   .mrm-home-hero-copy{ position:relative; z-index:1; max-width:720px; }
   .mrm-home-hero-copy .mrm-home-kicker{
-    font-family:'Cormorant Garamond', Georgia, 'Times New Roman', serif; margin-bottom:22px; }
+    font-family:'Academico', Georgia, 'Times New Roman', serif; margin-bottom:22px; }
   .mrm-home-faq-head .mrm-home-kicker{
-    font-family:'Cormorant Garamond', Georgia, 'Times New Roman', serif; margin-bottom:18px; }
+    font-family:'Academico', Georgia, 'Times New Roman', serif; margin-bottom:18px; }
   .mrm-home-lead{ font-size:1.16rem !important; max-width:62ch; }
   .mrm-home-jump{
     margin-top:26px; display:flex; flex-wrap:wrap; gap:10px;
   }
   .mrm-home-jump a{
     padding:10px 14px; border-radius:999px; border:1px solid var(--line); background:#fff; color:var(--text) !important;
-    font:600 .88rem 'Source Sans 3', 'Open Sans', Arial, sans-serif; box-shadow:var(--shadow);
+    font:600 .88rem 'Source Sans 3', Arial, Helvetica, sans-serif; box-shadow:var(--shadow);
   }
   .mrm-home-jump a:hover{ border-color:var(--gold); color:var(--gold-dark) !important; }
 
@@ -103,7 +108,7 @@
   .mrm-home-band p{ margin-bottom:0; }
   .mrm-home-band-note{
     background:#fff; border:1px solid var(--line); border-radius:18px; padding:16px 18px; box-shadow:var(--shadow);
-    font:600 .92rem/1.4 'Source Sans 3', 'Open Sans', Arial, sans-serif; color:var(--text);
+    font:600 .92rem/1.4 'Source Sans 3', Arial, Helvetica, sans-serif; color:var(--text);
   }
 
   .mrm-home-path-grid{
@@ -117,9 +122,9 @@
     background:linear-gradient(180deg, rgba(246,241,231,.72), #fff 42%);
   }
   .mrm-home-tag{
-    font-family:'Source Sans 3', 'Open Sans', Arial, sans-serif;
+    font-family:'Source Sans 3', Arial, Helvetica, sans-serif;
     display:inline-block; margin-bottom:14px; padding:8px 12px; border-radius:999px; background:var(--gold-soft);
-    color:var(--gold-dark); font:700 .76rem 'Source Sans 3', 'Open Sans', Arial, sans-serif; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--gold-dark); font:700 .76rem 'Source Sans 3', Arial, Helvetica, sans-serif; letter-spacing:.08em; text-transform:uppercase;
   }
   .mrm-home-checks{ display:grid; gap:14px; margin-top:18px; }
   .mrm-home-check{
@@ -127,7 +132,7 @@
   }
   .mrm-home-check span{
     width:34px; height:34px; border-radius:50%; background:var(--gold-soft); color:var(--gold-dark);
-    display:grid; place-items:center; font:700 1rem 'Source Sans 3', 'Open Sans', Arial, sans-serif;
+    display:grid; place-items:center; font:700 1rem 'Source Sans 3', Arial, Helvetica, sans-serif;
   }
 
   .mrm-home-faq-wrap{
@@ -142,7 +147,7 @@
   }
   .mrm-home-faq-item h3:before{
     content:"Q"; width:28px; height:28px; border-radius:50%; background:var(--gold-soft); color:var(--gold-dark);
-    display:grid; place-items:center; font:700 .84rem 'Source Sans 3', 'Open Sans', Arial, sans-serif;
+    display:grid; place-items:center; font:700 .84rem 'Source Sans 3', Arial, Helvetica, sans-serif;
   }
 
   @media (max-width:1024px){
@@ -603,6 +608,29 @@
     margin-bottom:0;
   }
 }
+/* =========================================================
+   MRM Unified Typography Patch
+   Heading: Academico
+   Body/UI: Source Sans 3
+   ========================================================= */
+
+.mrm-home-redesign,
+.mrm-home-redesign *,
+.mrm-home-redesign button,
+.mrm-home-redesign input,
+.mrm-home-redesign select,
+.mrm-home-redesign textarea {
+  font-family: var(--mrm-font-body) !important;
+}
+
+.mrm-home-redesign h1,
+.mrm-home-redesign h2,
+.mrm-home-redesign h3,
+.mrm-home-redesign .headline,
+.mrm-home-redesign .section-title {
+  font-family: var(--mrm-font-heading) !important;
+}
+
 </style>
 
 <div class="mrm-home-redesign">
@@ -610,12 +638,13 @@
     <div class="mrm-home-shell mrm-home-hero-grid">
       <div class="mrm-home-hero-copy">
         <span class="mrm-home-kicker">Low Brass Lessons</span>
-        <h1>We Are Building Love For Music</h1>
+        <h1>We are Building Love for Music</h1>
         <p class="mrm-home-lead">
-          Low Brass Lessons is designed to provide personalized low brass instruction for students and families who want the highest quality educational experience. Through one-on-one lessons, thoughtful curriculum, flexible scheduling, and multiple instructor options our students have the opportunity to build a more meaningful connection to music.
+          Low Brass Lessons is designed to provide personalized instruction for students and families who seek the highest quality musical education. Through our one-on-one lessons with a variety of instructors, thoughtfully-constructed curriculum, and flexible scheduling system, our students have the best opportunity to develop a stronger and long-lasting connection to music.
         </p>
         <p class="mrm-home-lead">
-          Private lessons provide personal guidance that meets the student where they're at. Our curriculum spans from early middle school through advanced high school and follows a learn at your own pace model. Whether your student is preparing ensemble music, building technique, developing confidence, or looking for a more structured approach to improvement, we're certain that Low Brass Lessons is the right place for you.
+          Enrolling in our private lessons helps provide personal guidance that meets the students where they are, at any point of their development. Our curriculum is designed to begin from early middle school, and prepares students up through late high school, giving them all of the skills they need to pursue a high level of achievement in music. Whether a student is preparing ensemble music, building technique, developing confidence, Low Brass Lessons will provide the structured approach
+that you need.
         </p>
 
         <div class="mrm-home-btn-row">
@@ -687,27 +716,27 @@
 
             <article class="mrm-mobile-deck-card">
               <div class="mrm-mobile-deck-card__inner">
-                <h3>Mission</h3>
+                <h3>Our Mission</h3>
                 <p>
-                  To help young low brass musicians build strong fundamentals, musical confidence, and long-term enthusiasm for learning through thoughtful private instruction.
+                  To provide thoughtful instruction that helps young low brass musicians develop a strong technical foundation, sense of musical confidence, and a long-lasting enthusiasm for learning.
                 </p>
               </div>
             </article>
 
             <article class="mrm-mobile-deck-card">
               <div class="mrm-mobile-deck-card__inner">
-                <h3>What Makes This Studio Unique?</h3>
+                <h3>What makes this studio unique?</h3>
                 <p>
-                  We offer an exclusive and modern curriculum specifically designed to support low brass development.
+                  Low Brass Lessons has developed an exclusive modern curriculum for our students, specifically targeting the needs of low brass musicians.
                 </p>
               </div>
             </article>
 
             <article class="mrm-mobile-deck-card">
               <div class="mrm-mobile-deck-card__inner">
-                <h3>Who This Is For?</h3>
+                <h3>Who is this for?</h3>
                 <p>
-                  Families and students looking to develop skill on low brass instruments and build a lasting love for music through performance.
+                  Families and students looking to develop a strong skill set and build a lasting connection to music through performance.
                 </p>
               </div>
             </article>
@@ -720,21 +749,22 @@
     <div class="mrm-home-shell">
       <div class="mrm-home-signal-grid mrm-home-identity-desktop" id="mrm-home-identity">
         <div class="mrm-home-signal-card">
-          <h3>Mission</h3>
+          <h3>Our Mission</h3>
           <p>
-            To help young low brass musicians build strong fundamentals, musical confidence, and long-term enthusiasm for learning through thoughtful private instruction.
+            To provide thoughtful instruction that helps young low brass musicians develop a strong technical foundation, sense of musical confidence, and a long-lasting enthusiasm for learning.
           </p>
         </div>
         <div class="mrm-home-signal-card">
-          <h3>What Makes This Studio Unique?</h3>
+          <h3>What makes this studio unique?</h3>
           <p>
-            We offer an exclusive and modern curriculum specifically designed to support low brass development.
+            Low Brass Lessons has developed an exclusive modern curriculum for our students,
+specifically targeting the needs of low brass musicians.
           </p>
         </div>
         <div class="mrm-home-signal-card">
-          <h3>Who This Is For?</h3>
+          <h3>Who is this for?</h3>
           <p>
-            Families and students looking to develop skill on low brass instruments and build a lasting love for music through performance.
+            Families and students looking to develop a strong skill set and build a lasting connection to music through performance.
           </p>
         </div>
       </div>
@@ -749,20 +779,20 @@
           <span class="mrm-home-tag">Primary Offer</span>
           <h2>Private Lessons</h2>
           <p>
-            One-on-one low brass instruction designed to help students improve with guided practice through their learning materials.
+            Book a free consultation and schedule your first lesson with one of our many instructors, ready to guide your student through their musical development.
           </p>
           <div class="mrm-home-checks">
             <div class="mrm-home-check">
               <span>1</span>
-              <p>Receive Guidance Tailored to your Performance Goals.</p>
+              <p>Enjoy a free consultation with an instructor of your choice to find the best fit.</p>
             </div>
             <div class="mrm-home-check">
               <span>2</span>
-              <p>Build Confidence and Certainty in Difficult Sections of Music</p>
+              <p>Set up recurring lessons at a time that works best for you.</p>
             </div>
             <div class="mrm-home-check">
               <span>3</span>
-              <p>Develop Foundational Skills to Navigate Low Brass Playing</p>
+              <p>Provide your student with the opportunity they need for musical success.</p>
             </div>
           </div>
           <div class="mrm-home-btn-row">
@@ -775,10 +805,10 @@
           <span class="mrm-home-tag">Supporting Offer</span>
           <h2>Sheet Music &amp; Developmental Resources</h2>
           <p>
-            Original songs and exercises created to build musical expertise and expression through performance. Curated to bring the ensemble experience into the home.
+            Original pieces and supplementary exercises curated specifically for low brass performers to develop expertise in performance and musical expression.
           </p>
           <p>
-            These resources aim to make musical growth feel natural and engaging. Every piece is written to make the students artistry feel more meaningful over time.
+            Each individual piece is geared towards establishing a specific set of skills, creating a library ready for any developmental needs your student might have.
           </p>
           <div class="mrm-home-btn-row">
             <a class="mrm-home-btn mrm-home-btn-secondary" href="/sheet-music/">Browse Sheet Music</a>
